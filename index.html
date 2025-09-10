@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-pt" class="">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,10 +17,10 @@
         // Colocado no <head> para ser executado antes da renderização do body
         // e evitar o "flash" do tema incorreto.
         // if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        if (localStorage.theme === 'dark'){
-          document.documentElement.classList.add('dark');
+        if (localStorage.theme === 'dark') {
+            document.documentElement.classList.add('dark');
         } else {
-          document.documentElement.classList.remove('dark');
+            document.documentElement.classList.remove('dark');
         }
     </script>
     <script>
@@ -45,11 +46,12 @@
             /* Fundo aplicado aqui para garantir que toda a janela tenha cor */
             @apply bg-gray-50 dark:bg-slate-950;
         }
+
         body {
             font-family: 'Inter', sans-serif;
             @apply bg-gray-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-300;
         }
-        
+
         /* Estilos dos botões de filtro */
         .filter-btn {
             padding: 0.375rem 1rem;
@@ -62,53 +64,112 @@
             background-color: transparent;
             cursor: pointer;
         }
+
         .filter-btn:hover {
             background-color: #f3f4f6;
         }
+
         .filter-btn.filter-active {
             background-color: #f39200;
             border-color: #f39200;
             color: white;
         }
+
         .dark .filter-btn {
             border-color: #475569;
             color: white;
         }
+
         .dark .filter-btn:hover {
             background-color: #475569;
         }
+
         /* Animação do Spinner */
         .spinner {
-            border: 2px solid rgba(255,255,255,.2);
+            border: 2px solid rgba(255, 255, 255, .2);
             border-left-color: #fff;
             border-radius: 50%;
             width: 1.25rem;
             height: 1.25rem;
             animation: spin 1s linear infinite;
         }
-        @keyframes spin { to { transform: rotate(360deg); } }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
 
         /* Animações de entrada para o carrinho e modais */
-        .cart-enter { transform: translateX(100%); }
-        .cart-enter-active { transform: translateX(0); }
-        .cart-leave-active { transform: translateX(100%); }
-        .modal-backdrop-enter { opacity: 0; }
-        .modal-backdrop-enter-active { opacity: 1; }
-        .modal-backdrop-leave-active { opacity: 0; }
-        .modal-content-enter { opacity: 0; transform: scale(0.95); }
-        .modal-content-enter-active { opacity: 1; transform: scale(1); }
-        .modal-content-leave-active { opacity: 0; transform: scale(0.95); }
+        .cart-enter {
+            transform: translateX(100%);
+        }
+
+        .cart-enter-active {
+            transform: translateX(0);
+        }
+
+        .cart-leave-active {
+            transform: translateX(100%);
+        }
+
+        .modal-backdrop-enter {
+            opacity: 0;
+        }
+
+        .modal-backdrop-enter-active {
+            opacity: 1;
+        }
+
+        .modal-backdrop-leave-active {
+            opacity: 0;
+        }
+
+        .modal-content-enter {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+
+        .modal-content-enter-active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .modal-content-leave-active {
+            opacity: 0;
+            transform: scale(0.95);
+        }
 
         /* Estilo para a barra de scroll */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #aaa; }
-        
-        .dark ::-webkit-scrollbar-track { background: #1e293b; }
-        .dark ::-webkit-scrollbar-thumb { background: #475569; }
-        .dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
-        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #aaa;
+        }
+
+        .dark ::-webkit-scrollbar-track {
+            background: #1e293b;
+        }
+
+        .dark ::-webkit-scrollbar-thumb {
+            background: #475569;
+        }
+
+        .dark ::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+
         /* Truncamento de texto */
         .line-clamp-2 {
             display: -webkit-box;
@@ -116,771 +177,1299 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
-        
+
         /* Ajustes específicos para dispositivos dobráveis como Galaxy Z Fold */
         @media (min-width: 344px) and (max-width: 500px) {
-            #menu-items > div {
+            #menu-items>div {
                 transform: scale(0.9);
                 transform-origin: center;
             }
+
             .btn-primary-small {
                 padding: 0.125rem 0.25rem !important;
                 font-size: 0.5rem !important;
                 border-radius: 0.25rem !important;
             }
+
             #menu-items {
                 gap: 0.125rem !important;
             }
+
             .menu-item-template h3 {
                 font-size: 0.75rem !important;
             }
+
             .menu-item-template p {
                 font-size: 0.625rem !important;
             }
+
             .menu-item-template .text-lg {
                 font-size: 0.875rem !important;
             }
         }
     </style>
 </head>
+
 <body>
 
     <!-- CABEÇALHO -->
-    <header class="bg-white/90 dark:bg-slate-900/95 backdrop-blur-md sticky top-0 z-40 shadow-sm dark:shadow-slate-800/20">
+    <header
+        class="bg-white/90 dark:bg-slate-900/95 backdrop-blur-md sticky top-0 z-40 shadow-sm dark:shadow-slate-800/20">
         <div class="container mx-auto px-1 sm:px-2 lg:px-3">
             <div class="relative flex items-center justify-between h-24 sm:h-20 md:h-24 lg:h-28">
                 <!-- Logo -->
-                <div class="flex items-center justify-start flex-shrink-0 ml-0 sm:-ml-10 md:-ml-20 mt-0 sm:-mt-2 md:-mt-5">
-                    <img src="MARCA BONDEGUSTO SEM FUNDON HORIZ 2.png" alt="Logo Bondegusto" class="h-32 sm:h-40 md:h-56 lg:h-72 w-auto object-contain max-w-full">
+                <div
+                    class="flex items-center justify-start flex-shrink-0 -ml-3 sm:-ml-10 md:-ml-20 mt-0 sm:-mt-2 md:-mt-5">
+                    <img src="MARCA BONDEGUSTO SEM FUNDON HORIZ 2.png" alt="Logo Bondegusto"
+                        class="h-56 sm:h-40 md:h-80 lg:h-92 w-auto object-contain max-w-full">
                 </div>
                 <!-- Navegação Principal -->
-                <nav class="hidden md:flex items-center justify-center gap-6 absolute left-1/2 transform -translate-x-1/2">
-                    <button data-page="cardapio" class="nav-btn page-active">
+                <nav
+                    class="hidden md:flex items-center justify-center gap-4 absolute left-1/2 transform -translate-x-1/2">
+                    <button data-page="entrada" class="nav-btn page-active">
+                        <i class="ph ph-door-open text-lg"></i>
+                        <span>Início</span>
+                    </button>
+
+                    <button data-page="cardapio" class="nav-btn">
                         <i class="ph ph-bowl-food text-lg"></i>
                         <span>Cardápio</span>
                     </button>
-                    <button data-page="pedidos" class="nav-btn">
-                        <i class="ph ph-receipt text-lg"></i>
-                        <span>Meus Pedidos</span>
+                    <button data-page="servicos" class="nav-btn">
+                        <i class="ph ph-handshake text-lg"></i>
+                        <span>Serviços</span>
                     </button>
-                    <button data-page="perfil" class="nav-btn">
-                        <i class="ph ph-user text-lg"></i>
-                        <span>Perfil</span>
+                    <button data-page="galeria" class="nav-btn">
+                        <i class="ph ph-images text-lg"></i>
+                        <span>Galeria</span>
+                    </button>
+
+                    <button data-page="contato" class="nav-btn">
+                        <i class="ph ph-phone text-lg"></i>
+                        <span>Contato</span>
+                    </button>
+                    <button data-page="sobre" class="nav-btn">
+                        <i class="ph ph-info text-lg"></i>
+                        <span>Sobre</span>
                     </button>
                 </nav>
                 <!-- Ações -->
                 <div class="flex items-center justify-end gap-3 flex-shrink-0">
-                    <button id="theme-toggle-btn" class="p-2.5 rounded-full hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">
+                    <button id="theme-toggle-btn"
+                        class="p-2.5 rounded-full hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">
                         <i class="ph ph-sun text-xl block dark:hidden"></i>
                         <i class="ph ph-moon text-xl hidden dark:block"></i>
                     </button>
-                    <button id="cart-toggle-btn" class="relative p-2.5 rounded-full hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">
-                        <i class="ph ph-shopping-cart text-xl"></i>
-                        <span id="cart-count" class="absolute -top-1 -right-1 bg-primary text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center border-2 border-gray-50 dark:border-slate-900">0</span>
+                    <button id="login-toggle-btn"
+                        class="relative p-2.5 rounded-full hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">
+                        <i class="ph ph-user text-xl"></i>
                     </button>
                 </div>
             </div>
         </div>
     </header>
-    
+
+    <!-- Modal de Login -->
+    <div id="login-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-md transform transition-all">
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-2xl font-bold text-slate-800 dark:text-white">Login</h2>
+                        <button id="close-login-modal" class="p-2 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-full transition-colors">
+                            <i class="ph ph-x text-xl text-slate-600 dark:text-slate-400"></i>
+                        </button>
+                    </div>
+                    
+                    <form id="login-form" class="space-y-4">
+                        <!-- Seleção de Localização -->
+                        <div>
+                            <label for="location-select" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                                Selecione sua localização
+                            </label>
+                            <select id="location-select" required class="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-slate-700 text-slate-900 dark:text-white">
+                                <option value="">Escolha sua cidade</option>
+                                <option value="sao-paulo">São Paulo - SP</option>
+                                <option value="rio-de-janeiro">Rio de Janeiro - RJ</option>
+                                <option value="belo-horizonte">Belo Horizonte - MG</option>
+                                <option value="brasilia">Brasília - DF</option>
+                                <option value="salvador">Salvador - BA</option>
+                                <option value="fortaleza">Fortaleza - CE</option>
+                                <option value="recife">Recife - PE</option>
+                                <option value="porto-alegre">Porto Alegre - RS</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Email -->
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                                Email
+                            </label>
+                            <input type="email" id="email" required class="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-slate-700 text-slate-900 dark:text-white" placeholder="seu@email.com">
+                        </div>
+                        
+                        <!-- Senha -->
+                        <div>
+                            <label for="password" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                                Senha
+                            </label>
+                            <div class="relative">
+                                <input type="password" id="password" required class="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-slate-700 text-slate-900 dark:text-white pr-12" placeholder="••••••••">
+                                <button type="button" id="toggle-password" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200">
+                                    <i class="ph ph-eye text-xl"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Mensagem de erro -->
+                        <div id="login-error" class="hidden bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 px-4 py-3 rounded-lg">
+                            <div class="flex items-center">
+                                <i class="ph ph-warning-circle text-lg mr-2"></i>
+                                <span id="login-error-message">Erro no login</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Botão de Login -->
+                        <button type="submit" id="login-submit" class="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-3 px-4 rounded-lg transition-colors flex items-center justify-center">
+                            <span id="login-text">Entrar</span>
+                            <i id="login-loading" class="ph ph-spinner-gap text-lg ml-2 animate-spin hidden"></i>
+                        </button>
+                        
+                        <!-- Links adicionais -->
+                        <div class="text-center space-y-2">
+                            <a href="#" class="text-sm text-primary hover:text-primary/80 transition-colors">Esqueci minha senha</a>
+                            <div class="text-sm text-slate-600 dark:text-slate-400">
+                                Não tem conta? <a href="#" class="text-primary hover:text-primary/80 transition-colors">Cadastre-se</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Navegação Mobile (Fundo) -->
-    <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/90 dark:bg-slate-900/95 backdrop-blur-md shadow-[0_-2px_5px_rgba(0,0,0,0.05)] dark:shadow-[0_-2px_5px_rgba(0,0,0,0.3)] z-40">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-3">
-             <button data-page="cardapio" class="nav-btn-mobile page-active">
-                <i class="ph ph-bowl-food text-2xl"></i><span class="text-xs font-medium">Cardápio</span>
-             </button>
-             <button data-page="pedidos" class="nav-btn-mobile">
-                <i class="ph ph-receipt text-2xl"></i><span class="text-xs font-medium">Pedidos</span>
-             </button>
-             <button data-page="perfil" class="nav-btn-mobile">
-                <i class="ph ph-user text-2xl"></i><span class="text-xs font-medium">Perfil</span>
-             </button>
+    <nav
+        class="md:hidden fixed bottom-0 left-0 right-0 bg-white/90 dark:bg-slate-900/95 backdrop-blur-md shadow-[0_-2px_5px_rgba(0,0,0,0.05)] dark:shadow-[0_-2px_5px_rgba(0,0,0,0.3)] z-40">
+        <div id="mobile-nav-container" class="container mx-auto px-2 grid grid-cols-5 gap-1">
+            <button data-page="entrada" class="nav-btn-mobile page-active">
+                <i class="ph ph-door-open text-xl"></i><span class="text-xs font-medium">Início</span>
+            </button>
+            <button data-page="cardapio" class="nav-btn-mobile">
+                <i class="ph ph-bowl-food text-xl"></i><span class="text-xs font-medium">Cardápio</span>
+            </button>
+            <button data-page="servicos" class="nav-btn-mobile">
+                <i class="ph ph-handshake text-xl"></i><span class="text-xs font-medium">Serviços</span>
+            </button>
+            <button data-page="galeria" class="nav-btn-mobile">
+                <i class="ph ph-images text-xl"></i><span class="text-xs font-medium">Galeria</span>
+            </button>
+
+            <button data-page="contato" class="nav-btn-mobile">
+                <i class="ph ph-phone text-xl"></i><span class="text-xs font-medium">Contato</span>
+            </button>
+            <button data-page="sobre" class="nav-btn-mobile">
+                <i class="ph ph-info text-xl"></i><span class="text-xs font-medium">Sobre</span>
+            </button>
         </div>
     </nav>
 
     <!-- CONTEÚDO PRINCIPAL -->
     <main class="w-full min-h-screen py-8 pb-24 md:pb-8 bg-gray-50 dark:bg-slate-950">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- Página: Cardápio -->
-        <div id="page-cardapio" class="page-content">
-            <section class="mb-12">
-                <div class="bg-gradient-to-r from-primary/80 to-primary h-64 rounded-2xl shadow-lg flex flex-col justify-center items-center text-white p-4 text-center">
-                    <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight">O sabor que o conecta ao momento.</h2>
-                    <p class="mt-4 text-lg md:text-xl font-medium max-w-2xl">Explore o nosso cardápio e descubra pratos feitos com paixão e os melhores ingredientes.</p>
-                </div>
-            </section>
-            <section class="bg-gray-50 dark:bg-slate-950">
-                 <h3 class="text-3xl font-bold text-center mb-8 text-slate-900 dark:text-white">O Nosso Cardápio</h3>
-                 <div id="category-filters" class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8"></div>
-                 <div id="menu-items" class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 md:gap-6"></div>
-            </section>
-        </div>
-        
-        <!-- Página: Meus Pedidos -->
-        <div id="page-pedidos" class="page-content hidden bg-gray-50 dark:bg-slate-950">
-            <!-- Header da Página -->
-            <div class="bg-gradient-to-r from-primary/90 to-primary h-48 rounded-2xl shadow-lg flex flex-col justify-center items-center text-white p-6 text-center mb-8">
-                <div class="bg-white/20 backdrop-blur-sm rounded-full p-4 mb-4">
-                    <i class="ph ph-receipt text-4xl"></i>
-                </div>
-                <h2 class="text-3xl md:text-4xl font-bold mb-2">Meus Pedidos</h2>
-                <p class="text-lg opacity-90">Histórico completo dos seus pedidos</p>
-            </div>
-            
-            <div id="order-history" class="space-y-6">
-                <div class="flex flex-col items-center justify-center py-16 text-center">
-                    <div class="bg-gray-100 dark:bg-slate-700 rounded-full p-8 mb-6">
-                        <i class="ph ph-receipt text-4xl text-gray-400 dark:text-slate-500"></i>
+            <!-- Página: Porta de Entrada -->
+            <div id="page-entrada" class="page-content">
+                <section class="mb-12">
+                    <div
+                        class="bg-gradient-to-r from-primary/80 to-primary h-96 rounded-2xl shadow-lg flex flex-col justify-center items-center text-white p-4 text-center relative overflow-hidden">
+                        <div class="absolute inset-0 opacity-20">
+                            <img src="PORTA ENTRADA BONDEGUSTO.png" alt="Porta de Entrada Bondegusto"
+                                class="w-full h-full object-cover">
+                        </div>
+                        <div class="relative z-10">
+                            <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight mb-4">Bem-vindos ao Bondegusto
+                            </h1>
+                            <p class="text-xl md:text-2xl font-medium max-w-3xl">Refeitório de qualidade, sabor e
+                                tradição</p>
+                            <p class="mt-4 text-lg md:text-xl max-w-2xl">Onde cada refeição é uma experiência única de
+                                sabor e nutrição</p>
+                        </div>
                     </div>
-                    <p class="text-gray-500 dark:text-slate-400 font-medium text-lg mb-2">Ainda não fez nenhum pedido</p>
-                    <p class="text-sm text-gray-400 dark:text-slate-500">Explore o cardápio e faça o seu primeiro pedido</p>
-                </div>
-            </div>
-        </div>
+                </section>
 
-        <!-- Página: Perfil -->
-        <div id="page-perfil" class="page-content hidden bg-gray-50 dark:bg-slate-950">
-            <!-- Header da Página -->
-            <div class="bg-gradient-to-r from-primary/90 to-primary h-48 rounded-2xl shadow-lg flex flex-col justify-center items-center text-white p-6 text-center mb-8">
-                <div class="bg-white/20 backdrop-blur-sm rounded-full p-4 mb-4">
-                    <i class="ph ph-user text-4xl"></i>
-                </div>
-                <h2 class="text-3xl md:text-4xl font-bold mb-2">O seu Perfil</h2>
-                <p class="text-lg opacity-90">Gerencie suas informações e preferências</p>
-            </div>
-            
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- Card de Informações Pessoais -->
-                <div class="lg:col-span-1">
-                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-6 border border-gray-100 dark:border-slate-700">
-                        <div class="flex items-center gap-3 mb-6">
-                            <div class="bg-primary/10 dark:bg-primary/20 rounded-full p-3">
-                                <i class="ph ph-identification-card text-xl text-primary"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-bold text-slate-900 dark:text-white">Informações Pessoais</h3>
-                                <p class="text-sm text-slate-500 dark:text-slate-400">Dados para entrega e contato</p>
-                            </div>
-                        </div>
-                        
-                        <form id="profile-form" class="space-y-5">
-                            <div class="space-y-2">
-                                <label for="name" class="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-300">
-                                    <i class="ph ph-user text-primary"></i>
-                                    Nome Completo
-                                </label>
-                                <input type="text" id="name" required class="form-input-modern" placeholder="Digite seu nome completo">
-                            </div>
-                            
-                            <div class="space-y-2">
-                                <label for="address" class="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-300">
-                                    <i class="ph ph-map-pin text-primary"></i>
-                                    Morada de Entrega
-                                </label>
-                                <input type="text" id="address" required class="form-input-modern" placeholder="Rua, número, bairro">
-                            </div>
-                            
-                            <div class="space-y-2">
-                                <label for="phone" class="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-300">
-                                    <i class="ph ph-phone text-primary"></i>
-                                    Telefone
-                                </label>
-                                <input type="tel" id="phone" required class="form-input-modern" placeholder="(00) 00000-0000">
-                            </div>
-                            
-                            <button type="submit" class="w-full btn-primary-modern group">
-                                <i class="ph ph-check-circle text-lg group-hover:scale-110 transition-transform"></i>
-                                <span>Guardar Informações</span>
-                            </button>
-                        </form>
+                <section class="text-center py-16">
+                    <div class="max-w-4xl mx-auto">
+                        <img src="PORTA ENTRADA BONDEGUSTO.png" alt="Porta de Entrada Bondegusto"
+                            class="w-full max-w-2xl mx-auto rounded-2xl shadow-2xl mb-8">
+                        <h2 class="text-4xl font-bold text-slate-900 dark:text-white mb-6">Sua Porta de Entrada para o
+                            Sabor</h2>
+                        <p class="text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
+                            No Bondegusto, cada refeição é preparada com carinho e dedicação. Nossa porta está sempre
+                            aberta para recebê-lo com o melhor da culinária, em um ambiente acolhedor e familiar.
+                        </p>
                     </div>
-                </div>
-                
-                <!-- Card de Favoritos -->
-                <div class="lg:col-span-2">
-                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-6 border border-gray-100 dark:border-slate-700">
-                        <div class="flex items-center gap-3 mb-6">
-                            <div class="bg-red-50 dark:bg-red-900/20 rounded-full p-3">
-                                <i class="ph ph-heart text-xl text-red-500"></i>
+                </section>
+            </div>
+
+            <!-- Página: Sobre Nós -->
+            <div id="page-sobre" class="page-content hidden">
+                <!-- Quem Somos -->
+                <section class="mb-16">
+                    <div
+                        class="bg-gradient-to-r from-green-600/90 to-green-700 h-48 rounded-2xl shadow-lg flex flex-col justify-center items-center text-white p-6 text-center mb-8">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-2">Quem Somos?</h2>
+                    </div>
+                    <div
+                        class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-8 border border-gray-100 dark:border-slate-700">
+                        <p class="text-lg text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
+                            Somos uma empresa comprometida em fornecer alimentos de alta qualidade e segurança, seja por
+                            meio de transporte ou preparo no local, atendendo a ambientes corporativos e industriais.
+                            Nossa missão é garantir refeições saborosas e nutritivas, preservando o autêntico sabor
+                            caseiro sem comprometer os mais elevados padrões de excelência e higiene.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Nossa História -->
+                <section class="mb-16">
+                    <div
+                        class="bg-gradient-to-r from-primary/90 to-primary h-48 rounded-2xl shadow-lg flex flex-col justify-center items-center text-white p-6 text-center mb-8">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-2">Nossa História</h2>
+                    </div>
+                    <div
+                        class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-8 border border-gray-100 dark:border-slate-700">
+                        <p class="text-lg text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
+                            Com 12 anos de experiência no mercado de refeições coletivas, dedicamo-nos a oferecer
+                            serviços de alta qualidade, sempre priorizando a satisfação e o bem-estar de nossos
+                            clientes. A partir de 2024, sob nova administração, buscamos como nosso compromisso além da
+                            alimentação: Buscamos proporcionar uma experiência resgatando o sabor caseiro em cada
+                            refeição. Além disso, zelamos rigorosamente pela segurança alimentar, garantindo não apenas
+                            refeições saborosas, mas também seguras e nutritivas. Cada detalhe é pensado com carinho,
+                            pois acreditamos que a comida tem o poder de conectar, confortar e transformar momentos em
+                            lembranças especiais.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Missão, Visão e Valores -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Missão -->
+                    <div
+                        class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-8 border border-gray-100 dark:border-slate-700">
+                        <div class="text-center mb-6">
+                            <div
+                                class="bg-primary/10 dark:bg-primary/20 rounded-full p-4 w-20 h-20 mx-auto mb-4 flex items-center justify-center">
+                                <i class="ph ph-target text-3xl text-primary"></i>
                             </div>
-                            <div>
-                                <h3 class="text-xl font-bold text-slate-900 dark:text-white">Os Seus Favoritos</h3>
-                                <p class="text-sm text-slate-500 dark:text-slate-400">Pratos que você mais gosta</p>
-                            </div>
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white">Missão</h3>
                         </div>
-                        
-                        <div id="favorite-items" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="col-span-full flex flex-col items-center justify-center py-12 text-center">
-                                <div class="bg-gray-100 dark:bg-slate-700 rounded-full p-6 mb-4">
-                                    <i class="ph ph-heart text-3xl text-gray-400 dark:text-slate-500"></i>
+                        <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+                            Fornecer refeições de qualidade sem perder a característica de comida caseira, sendo
+                            transportada ou in loco, promovendo o bem-estar e a satisfação dos nossos clientes,
+                            contribuindo para um ambiente de trabalho mais saudável e produtivo.
+                        </p>
+                    </div>
+
+                    <!-- Visão -->
+                    <div
+                        class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-8 border border-gray-100 dark:border-slate-700">
+                        <div class="text-center mb-6">
+                            <div
+                                class="bg-primary/10 dark:bg-primary/20 rounded-full p-4 w-20 h-20 mx-auto mb-4 flex items-center justify-center">
+                                <i class="ph ph-lightbulb text-3xl text-primary"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white">Visão</h3>
+                        </div>
+                        <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+                            Ser reconhecida como a empresa padrão em soluções alimentares para o ambiente corporativo,
+                            de forma segura, destacando-se pela excelência no serviço, inovação.
+                        </p>
+                    </div>
+
+                    <!-- Valores -->
+                    <div
+                        class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-8 border border-gray-100 dark:border-slate-700">
+                        <div class="text-center mb-6">
+                            <div
+                                class="bg-primary/10 dark:bg-primary/20 rounded-full p-4 w-20 h-20 mx-auto mb-4 flex items-center justify-center">
+                                <i class="ph ph-heart text-3xl text-primary"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white">Valores</h3>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-3">
+                                <i class="ph ph-check-circle text-xl text-primary mt-1"></i>
+                                <div>
+                                    <h4 class="font-semibold text-slate-900 dark:text-white">Qualidade</h4>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400">Garantir a alta qualidade dos
+                                        alimentos e serviços oferecidos, com acompanhamento de profissionais
+                                        capacitados, superando as expectativas dos nossos clientes.</p>
                                 </div>
-                                <p class="text-gray-500 dark:text-slate-400 font-medium">Ainda não marcou nenhum item como favorito</p>
-                                <p class="text-sm text-gray-400 dark:text-slate-500 mt-1">Explore o cardápio e marque seus pratos preferidos</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <i class="ph ph-leaf text-xl text-primary mt-1"></i>
+                                <div>
+                                    <h4 class="font-semibold text-slate-900 dark:text-white">Sustentabilidade</h4>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400">Adotar práticas sustentáveis
+                                        em toda a cadeia de produção, desde a escolha dos fornecedores até a gestão de
+                                        resíduos.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <i class="ph ph-clock text-xl text-primary mt-1"></i>
+                                <div>
+                                    <h4 class="font-semibold text-slate-900 dark:text-white">Agilidade e compromisso
+                                    </h4>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400">Garantir prazos de entrega e
+                                        agilidade nas ações.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <i class="ph ph-heart-straight text-xl text-primary mt-1"></i>
+                                <div>
+                                    <h4 class="font-semibold text-slate-900 dark:text-white">Saúde e Bem-estar</h4>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400">Promover a saúde e o bem-estar
+                                        dos colaboradores, oferecendo refeições equilibradas, nutritivas e com alta
+                                        segurança.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        </div>
-    </main>
 
-    <!-- CARRINHO (Sidebar) -->
-    <div id="cart-sidebar-backdrop" class="fixed inset-0 bg-black/50 z-40 hidden transition-opacity duration-300"></div>
-    <aside id="cart-sidebar" class="fixed top-0 right-0 h-full w-full max-w-md bg-gray-50 dark:bg-slate-950 z-50 shadow-2xl flex flex-col transition-transform duration-300 transform translate-x-full">
-        <div class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-slate-700">
-            <h2 class="text-2xl font-bold">O seu Pedido</h2>
-            <button id="close-cart-btn" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-slate-800">
-                <i class="ph ph-x text-2xl"></i>
-            </button>
-        </div>
-        <div id="cart-items" class="flex-grow p-4 overflow-y-auto"></div>
-        <div class="p-4 border-t border-gray-200 dark:border-slate-700 space-y-4">
-
-            <div class="flex justify-between items-center text-xl font-bold">
-                <span>Total:</span>
-                <span id="cart-total">R$ 0,00</span>
-            </div>
-            <button id="checkout-btn" class="btn-primary">Finalizar Pedido</button>
-        </div>
-    </aside>
-    
-    <!-- MODAL GENÉRICO -->
-    <div id="modal-backdrop" class="fixed inset-0 bg-black/60 z-50 hidden items-center justify-center p-4 transition-opacity duration-300">
-        <div id="modal-content" class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl w-full max-w-md p-6 transition-all duration-300">
-            <!-- Conteúdo do Modal será injetado aqui -->
-        </div>
-    </div>
-    
-    <!-- TOAST DE NOTIFICAÇÃO -->
-    <div id="toast" class="fixed bottom-20 md:bottom-5 right-5 bg-slate-800 dark:bg-slate-200 text-white dark:text-black px-5 py-3 rounded-lg shadow-lg opacity-0 translate-y-10 transition-all duration-300 flex items-center gap-3">
-        <i id="toast-icon" class="ph-fill ph-check-circle text-xl text-green-400"></i>
-        <span id="toast-message"></span>
-    </div>
-
-    <!-- TEMPLATES (para clonar com JS) -->
-    <template id="menu-item-template">
-        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-md dark:shadow-slate-900/50 overflow-hidden transform hover:-translate-y-1 transition-transform duration-300 flex flex-col">
-            <div class="relative">
-                <img src="" alt="" class="w-full h-32 sm:h-40 md:h-48 object-cover">
-                <button class="favorite-btn absolute top-2 right-2 sm:top-3 sm:right-3 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm p-1.5 sm:p-2 rounded-full transition-colors">
-                    <i class="ph ph-heart text-lg sm:text-xl text-slate-700 dark:text-white"></i>
-                </button>
-            </div>
-            <div class="p-3 sm:p-4 flex flex-col flex-grow">
-                <h3 class="text-base sm:text-lg font-bold mb-1 text-slate-900 dark:text-white"></h3>
-                <p class="text-xs sm:text-sm text-slate-500 dark:text-white mb-3 sm:mb-4 flex-grow line-clamp-2"></p>
-                <div class="flex justify-between items-center mt-auto">
-                    <span class="text-lg sm:text-xl font-bold text-primary"></span>
-                    <button class="add-to-cart-btn btn-primary-small text-xs sm:text-sm px-2 sm:px-4 py-1 sm:py-2">Adicionar</button>
-                </div>
-            </div>
-        </div>
-    </template>
-    
-    <template id="favorite-item-template">
-        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-gray-100 dark:border-slate-700 overflow-hidden transform hover:-translate-y-2 hover:shadow-xl transition-all duration-300 group h-80 sm:h-96 flex flex-col">
-            <div class="relative overflow-hidden">
-                <img src="" alt="" class="w-full h-32 sm:h-40 object-cover group-hover:scale-105 transition-transform duration-300">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <button class="favorite-btn absolute top-2 right-2 sm:top-3 sm:right-3 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm p-2 sm:p-2.5 rounded-full transition-all duration-300 hover:scale-110 shadow-lg">
-                    <i class="ph-fill ph-heart text-base sm:text-lg text-red-500"></i>
-                </button>
-                <div class="absolute top-2 left-2 sm:top-3 sm:left-3 bg-primary/90 backdrop-blur-sm px-2 sm:px-3 py-0.5 sm:py-1 rounded-full">
-                    <span class="text-white text-xs font-bold">FAVORITO</span>
-                </div>
-            </div>
-            <div class="p-3 sm:p-5 flex flex-col flex-grow">
-                <h3 class="text-base sm:text-lg font-bold mb-1 sm:mb-2 text-slate-900 dark:text-white group-hover:text-primary transition-colors duration-300"></h3>
-                <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-3 sm:mb-4 line-clamp-2 flex-grow"></p>
-                <div class="flex justify-between items-center mt-auto">
-                    <span class="text-lg sm:text-xl font-bold text-primary"></span>
-                    <button class="add-to-cart-btn bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary text-white px-2 sm:px-4 py-1 sm:py-2 rounded-xl font-semibold text-xs sm:text-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 flex items-center gap-1 sm:gap-2">
-                        <i class="ph ph-shopping-cart text-xs sm:text-sm"></i>
-                        <span>Adicionar</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </template>
-    
-    <script>
-    // Este script foi completamente reestruturado para ser mais modular e escalável.
-    // Utiliza um objeto `app` para gerir o estado e as funcionalidades.
-    
-    const app = {
-        // --- ESTADO DA APLICAÇÃO ---
-        state: {
-            menu: [
-                { id: 1, name: 'Feijoada Completa', category: 'principais', price: 45.50, description: 'Acompanha arroz, couve, farofa e laranja.', image: 'https://placehold.co/400x300/c81e1e/FFFFFF?text=Feijoada' },
-                { id: 2, name: 'Parmegiana de Filé Mignon', category: 'principais', price: 55.00, description: 'Suculento filé mignon com molho de tomate e queijo derretido.', image: 'https://placehold.co/400x300/c81e1e/FFFFFF?text=Parmegiana' },
-                { id: 3, name: 'Salmão Grelhado', category: 'principais', price: 62.90, description: 'Com legumes na manteiga de ervas.', image: 'https://placehold.co/400x300/c81e1e/FFFFFF?text=Salmão' },
-                { id: 4, name: 'Bruschetta Tradicional', category: 'entradas', price: 25.00, description: 'Fatias de pão italiano com tomate fresco, alho e manjericão.', image: 'https://placehold.co/400x300/2a9d8f/FFFFFF?text=Bruschetta' },
-                { id: 5, name: 'Dadinhos de Tapioca', category: 'entradas', price: 30.00, description: 'Com geleia de pimenta agridoce.', image: 'https://placehold.co/400x300/2a9d8f/FFFFFF?text=Dadinhos' },
-                { id: 6, name: 'Vinho Tinto Seco', category: 'bebidas', price: 75.00, description: 'Garrafa de Cabernet Sauvignon.', image: 'https://placehold.co/400x300/f4a261/FFFFFF?text=Vinho' },
-                { id: 7, name: 'Suco Natural de Laranja', category: 'bebidas', price: 10.00, description: 'Feito com laranjas frescas.', image: 'https://placehold.co/400x300/f4a261/FFFFFF?text=Suco' },
-                { id: 8, name: 'Petit Gâteau', category: 'sobremesas', price: 28.00, description: 'Bolo de chocolate com interior cremoso e gelado de baunilha.', image: 'https://placehold.co/400x300/e76f51/FFFFFF?text=Sobremesa' }
-            ],
-            cart: [],
-            favorites: [],
-            orders: [],
-            profile: { name: '', address: '', phone: '' },
-            currentPage: 'cardapio',
-            currentFilter: 'todos',
-            isCartOpen: false,
-        },
-
-        // --- INICIALIZAÇÃO ---
-        init() {
-            this.loadStateFromStorage();
-            this.setupEventListeners();
-            this.render();
-            // A definição do tema agora é feita no <head> para evitar flash.
-            // A função `updateTheme` ainda é usada pelo botão de toggle.
-        },
-
-        // --- GESTÃO DE ESTADO E STORAGE ---
-        saveStateToStorage() {
-            const stateToSave = {
-                cart: this.state.cart,
-                favorites: this.state.favorites,
-                orders: this.state.orders,
-                profile: this.state.profile,
-            };
-            localStorage.setItem('appState', JSON.stringify(stateToSave));
-        },
-
-        loadStateFromStorage() {
-            const savedState = localStorage.getItem('appState');
-            if (savedState) {
-                try {
-                    const parsedState = JSON.parse(savedState);
-                    this.state = { ...this.state, ...parsedState };
-                } catch (e) {
-                    console.error("Failed to parse state from localStorage", e);
-                    localStorage.removeItem('appState');
-                }
-            }
-        },
-        
-        // --- MÉTODOS DE RENDERIZAÇÃO ---
-        render() {
-            this.renderPage();
-            this.renderMenu();
-            this.renderCart();
-            this.renderOrders();
-            this.renderProfile();
-            this.renderFavorites();
-        },
-        
-        renderPage() {
-            document.querySelectorAll('.page-content').forEach(p => p.classList.add('hidden'));
-            document.getElementById(`page-${this.state.currentPage}`).classList.remove('hidden');
-            
-            document.querySelectorAll('.nav-btn').forEach(b => {
-                const isActive = b.dataset.page === this.state.currentPage;
-                b.classList.toggle('page-active', isActive);
-                const icon = b.querySelector('i');
-                if (icon) {
-                    icon.classList.toggle('ph-fill', isActive);
-                    icon.classList.toggle('ph', !isActive);
-                }
-            });
-            document.querySelectorAll('.nav-btn-mobile').forEach(b => {
-                b.classList.toggle('page-active', b.dataset.page === this.state.currentPage);
-            });
-        },
-        
-        renderMenu() {
-            const container = document.getElementById('menu-items');
-            const filtersContainer = document.getElementById('category-filters');
-            container.innerHTML = '';
-
-            // Renderiza filtros
-            const categories = ['todos', ...new Set(this.state.menu.map(item => item.category))];
-            filtersContainer.innerHTML = categories.map(cat => `
-                <button data-filter="${cat}" class="filter-btn ${this.state.currentFilter === cat ? 'filter-active' : ''}">${cat.charAt(0).toUpperCase() + cat.slice(1)}</button>
-            `).join('');
-
-            // Renderiza itens
-            const filteredMenu = this.state.currentFilter === 'todos' 
-                ? this.state.menu 
-                : this.state.menu.filter(item => item.category === this.state.currentFilter);
-
-            const template = document.getElementById('menu-item-template');
-            filteredMenu.forEach(item => {
-                const clone = template.content.cloneNode(true);
-                clone.querySelector('div').dataset.id = item.id;
-                clone.querySelector('h3').textContent = item.name;
-                clone.querySelector('p').textContent = item.description;
-                clone.querySelector('span').textContent = this.formatCurrency(item.price);
-                clone.querySelector('img').src = item.image;
-                clone.querySelector('img').alt = item.name;
-
-                const favBtn = clone.querySelector('.favorite-btn');
-                const isFavorite = this.state.favorites.includes(item.id);
-                favBtn.querySelector('i').classList.toggle('ph-fill', isFavorite);
-                favBtn.querySelector('i').classList.toggle('text-red-500', isFavorite);
-
-                container.appendChild(clone);
-            });
-        },
-        
-        renderCart() {
-            const container = document.getElementById('cart-items');
-            container.innerHTML = '';
-
-            if (this.state.cart.length === 0) {
-                container.innerHTML = `<p class="text-center text-gray-500 dark:text-white mt-8">O seu carrinho está vazio.</p>`;
-            } else {
-                this.state.cart.forEach(cartItem => {
-                    container.innerHTML += `
-                        <div class="flex items-center gap-2 sm:gap-4 mb-3 sm:mb-4 p-2 sm:p-3 bg-white dark:bg-slate-800 rounded-lg">
-                            <img src="${cartItem.image}" class="w-12 h-12 sm:w-16 sm:h-16 rounded-md object-cover">
-                            <div class="flex-grow min-w-0">
-                                <p class="font-semibold text-sm sm:text-base truncate">${cartItem.name}</p>
-                                <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400">${this.formatCurrency(cartItem.price)}</p>
-                            </div>
-                            <div class="flex items-center gap-1 sm:gap-2">
-                                <button data-id="${cartItem.id}" data-change="-1" class="quantity-change-btn w-6 h-6 sm:w-7 sm:h-7 text-sm">-</button>
-                                <span class="font-bold w-4 sm:w-6 text-center text-sm">${cartItem.quantity}</span>
-                                <button data-id="${cartItem.id}" data-change="1" class="quantity-change-btn w-6 h-6 sm:w-7 sm:h-7 text-sm">+</button>
-                            </div>
-                            <button data-id="${cartItem.id}" class="remove-from-cart-btn p-1"><i class="ph ph-trash text-red-500 text-sm sm:text-base"></i></button>
-                        </div>
-                    `;
-                });
-            }
-            this.updateCartSummary();
-        },
-
-        updateCartSummary() {
-            const totalItems = this.state.cart.reduce((sum, item) => sum + item.quantity, 0);
-            const totalPrice = this.state.cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-
-            document.getElementById('cart-count').textContent = totalItems;
-            document.getElementById('cart-total').textContent = this.formatCurrency(totalPrice);
-            document.getElementById('checkout-btn').disabled = totalItems === 0;
-
-        },
-
-        renderOrders() {
-            const container = document.getElementById('order-history');
-            if(this.state.orders.length === 0) {
-                 container.innerHTML = `
-                    <div class="flex flex-col items-center justify-center py-16 text-center">
-                        <div class="bg-gray-100 dark:bg-slate-700 rounded-full p-8 mb-6">
-                            <i class="ph ph-receipt text-4xl text-gray-400 dark:text-slate-500"></i>
-                        </div>
-                        <p class="text-gray-500 dark:text-slate-400 font-medium text-lg mb-2">Ainda não fez nenhum pedido</p>
-                        <p class="text-sm text-gray-400 dark:text-slate-500">Explore o cardápio e faça o seu primeiro pedido</p>
+            <!-- Página: Cardápio -->
+            <div id="page-cardapio" class="page-content hidden">
+                <section class="mb-12">
+                    <div
+                        class="bg-gradient-to-r from-primary/80 to-primary h-64 rounded-2xl shadow-lg flex flex-col justify-center items-center text-white p-4 text-center">
+                        <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight">Cardápio Semanal</h2>
+                        <p class="mt-4 text-lg md:text-xl font-medium max-w-2xl">Confira nosso cardápio organizado por
+                            dias da semana</p>
                     </div>
-                 `;
-                 return;
-            }
-            container.innerHTML = this.state.orders.map((order, index) => `
-                <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-gray-100 dark:border-slate-700 p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="flex items-center gap-4">
-                            <div class="bg-primary/10 dark:bg-primary/20 rounded-full p-3">
-                                <i class="ph ph-receipt text-xl text-primary"></i>
+                </section>
+
+                <!-- Seletor de Dias -->
+                <section class="mb-8">
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <button class="day-btn px-6 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105" data-day="segunda">Segunda</button>
+                        <button class="day-btn px-6 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105" data-day="terca">Terça</button>
+                        <button class="day-btn px-6 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105" data-day="quarta">Quarta</button>
+                        <button class="day-btn px-6 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105" data-day="quinta">Quinta</button>
+                        <button class="day-btn px-6 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105" data-day="sexta">Sexta</button>
+                    </div>
+                </section>
+
+                <!-- Conteúdo do Menu Diário -->
+                <section id="daily-menu-content" class="space-y-8">
+                    <!-- Conteúdo será preenchido dinamicamente pelo JavaScript -->
+                </section>
+            </div>
+
+            <!-- Página: Serviços -->
+            <div id="page-servicos" class="page-content hidden">
+                <!-- Header da Página -->
+                <div
+                    class="bg-gradient-to-r from-primary/90 to-primary h-48 rounded-2xl shadow-lg flex flex-col justify-center items-center text-white p-6 text-center mb-8">
+                    <div class="bg-white/20 backdrop-blur-sm rounded-full p-4 mb-4">
+                        <i class="ph ph-handshake text-4xl"></i>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-2">Nossos Serviços</h2>
+                    <p class="text-lg opacity-90">Soluções completas em alimentação corporativa</p>
+                </div>
+
+                <!-- Nossos Serviços -->
+                <section class="mb-16">
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Refeições Preparadas In Loco -->
+                        <div
+                            class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-8 border border-gray-100 dark:border-slate-700 hover:shadow-xl transition-shadow">
+                            <div class="text-left mb-6">
+                                <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-4">Refeições Preparadas
+                                    In Loco</h4>
                             </div>
-                            <div>
-                                <h3 class="font-bold text-lg text-slate-900 dark:text-white">Pedido #${order.id}</h3>
-                                <p class="text-sm text-slate-500 dark:text-slate-400 flex items-center gap-1">
-                                    <i class="ph ph-calendar text-xs"></i>
-                                    ${order.date}
+                            <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-justify">
+                                Oferecemos soluções completas em alimentação corporativa, produzindo refeições dentro
+                                das empresas com infraestrutura própria. Garantimos total segurança alimentar e um
+                                rigoroso padrão de qualidade, atendendo integralmente às normas sanitárias e exigências
+                                legais.
+                            </p>
+                        </div>
+
+                        <!-- Refeições Transportadas -->
+                        <div
+                            class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-8 border border-gray-100 dark:border-slate-700 hover:shadow-xl transition-shadow">
+                            <div class="text-left mb-6">
+                                <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-4">Refeições
+                                    Transportadas</h4>
+                            </div>
+                            <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-justify">
+                                Para empresas sem infraestrutura para produção local, disponibilizamos refeições
+                                transportadas com a máxima segurança. As refeições são preparadas em nossa cozinha
+                                central e entregues em embalagens térmicas apropriadas (hot boxes), utilizando veículos
+                                inspecionados. Todo o processo é supervisionado por nossa equipe de nutricionistas,
+                                assegurando a qualidade dos alimentos até o momento do consumo.
+                            </p>
+                        </div>
+
+                        <!-- Coffee Break/ Eventos -->
+                        <div
+                            class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-8 border border-gray-100 dark:border-slate-700 hover:shadow-xl transition-shadow">
+                            <div class="text-left mb-6">
+                                <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-4">Coffee Break/ Eventos
+                                </h4>
+                            </div>
+                            <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-justify">
+                                Atendemos demandas específicas para coffee breaks, personalizando cada serviço de acordo
+                                com as preferências e necessidades do cliente. Nossa equipe elabora um cardápio
+                                exclusivo, garantindo sofisticação, qualidade e praticidade para eventos corporativos e
+                                reuniões.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Seção de Parceiros -->
+                <section class="mb-16">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <!-- Logos dos Parceiros -->
+                        <div>
+                            <div class="grid grid-cols-2 gap-6">
+                            <!-- Linha 1 -->
+                            <div class="bg-white dark:bg-slate-800 rounded-lg p-4 shadow-md flex items-center justify-center h-20 border border-gray-100 dark:border-slate-700">
+                                <span class="text-slate-700 dark:text-slate-300 font-bold text-lg">CREDIMÓVEIS NOVOLAR</span>
+                            </div>
+                            <div class="bg-white dark:bg-slate-800 rounded-lg p-4 shadow-md flex items-center justify-center h-20 border border-gray-100 dark:border-slate-700">
+                                <span class="text-slate-700 dark:text-slate-300 font-bold text-lg">PERFILPLAST</span>
+                            </div>
+                            
+                            <!-- Linha 2 -->
+                            <div class="bg-white dark:bg-slate-800 rounded-lg p-4 shadow-md flex items-center justify-center h-20 border border-gray-100 dark:border-slate-700">
+                                <span class="text-slate-700 dark:text-slate-300 font-bold text-lg">RAYOVAC</span>
+                            </div>
+                            <div class="bg-white dark:bg-slate-800 rounded-lg p-4 shadow-md flex items-center justify-center h-20 border border-gray-100 dark:border-slate-700">
+                                <span class="text-slate-700 dark:text-slate-300 font-bold text-lg">DCDN</span>
+                            </div>
+                            
+                            <!-- Linha 3 -->
+                            <div class="bg-white dark:bg-slate-800 rounded-lg p-4 shadow-md flex items-center justify-center h-20 border border-gray-100 dark:border-slate-700">
+                                <span class="text-slate-700 dark:text-slate-300 font-bold text-lg">Natto</span>
+                            </div>
+                            <div class="bg-white dark:bg-slate-800 rounded-lg p-4 shadow-md flex items-center justify-center h-20 border border-gray-100 dark:border-slate-700">
+                                <span class="text-slate-700 dark:text-slate-300 font-bold text-lg">InBetta</span>
+                            </div>
+                            
+                            <!-- Linha 4 -->
+                            <div class="bg-white dark:bg-slate-800 rounded-lg p-4 shadow-md flex items-center justify-center h-20 border border-gray-100 dark:border-slate-700">
+                                <span class="text-slate-700 dark:text-slate-300 font-bold text-lg">VOLVO Gotemburgo</span>
+                            </div>
+                            <div class="bg-white dark:bg-slate-800 rounded-lg p-4 shadow-md flex items-center justify-center h-20 border border-gray-100 dark:border-slate-700">
+                                <span class="text-slate-700 dark:text-slate-300 font-bold text-lg">NOVA FASE</span>
+                            </div>
+                            
+                            <!-- Linha 5 -->
+                            <div class="bg-white dark:bg-slate-800 rounded-lg p-4 shadow-md flex items-center justify-center h-20 col-span-2 border border-gray-100 dark:border-slate-700">
+                                <span class="text-primary font-bold text-lg">WYDA</span>
+                            </div>
+                        </div>
+                        </div>
+
+                        <!-- Vantagens -->
+                        <div>
+                            <h3 class="text-3xl font-bold mb-8 text-slate-900 dark:text-white">VANTAGENS DE SER NOSSO
+                                <span class="text-primary">PARCEIRO</span></h3>
+
+                            <div class="space-y-6">
+                                <div class="flex items-start gap-4">
+                                    <div class="bg-primary/20 rounded-lg p-2 flex-shrink-0 mt-1">
+                                        <i class="ph ph-check text-primary text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+                                            <strong>Cardápio personalizado</strong> garantindo e respeitando a harmonia
+                                            entre os ingredientes
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start gap-4">
+                                    <div class="bg-primary/20 rounded-lg p-2 flex-shrink-0 mt-1">
+                                        <i class="ph ph-check text-primary text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+                                            <strong>Ambiente aconchegante e agradável</strong> para saborear sua
+                                            refeição
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start gap-4">
+                                    <div class="bg-primary/20 rounded-lg p-2 flex-shrink-0 mt-1">
+                                        <i class="ph ph-check text-primary text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+                                            <strong>Refeitório decorado em datas comemorativas</strong>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Seção de Localização e Mapa -->
+                <section class="mt-16">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <!-- Como Chegar -->
+                        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-8 border border-gray-100 dark:border-slate-700">
+                            <div class="text-center mb-6">
+                                <div class="bg-primary/10 dark:bg-primary/20 rounded-full p-4 w-20 h-20 mx-auto mb-4 flex items-center justify-center">
+                                    <i class="ph ph-navigation-arrow text-3xl text-primary"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold text-slate-900 dark:text-white">Como Chegar</h3>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-3">
+                                    <i class="ph ph-car text-lg text-primary"></i>
+                                    <span class="text-slate-700 dark:text-slate-300">Estacionamento gratuito disponível</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <i class="ph ph-bus text-lg text-primary"></i>
+                                    <span class="text-slate-700 dark:text-slate-300">Próximo ao transporte público</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <i class="ph ph-wheelchair text-lg text-primary"></i>
+                                    <span class="text-slate-700 dark:text-slate-300">Acesso para pessoas com deficiência</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Mapa -->
+                        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-8 border border-gray-100 dark:border-slate-700">
+                            <div class="text-center mb-6">
+                                <div class="bg-primary/10 dark:bg-primary/20 rounded-full p-4 w-20 h-20 mx-auto mb-4 flex items-center justify-center">
+                                    <i class="ph ph-map text-3xl text-primary"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold text-slate-900 dark:text-white">Localização</h3>
+                            </div>
+                            <div class="bg-gray-100 dark:bg-slate-700 rounded-xl h-64 flex items-center justify-center">
+                                <div class="text-center">
+                                    <i class="ph ph-map text-6xl text-gray-400 dark:text-slate-500 mb-4"></i>
+                                    <p class="text-gray-600 dark:text-slate-400">Mapa interativo em breve</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Página: Galeria -->
+            <div id="page-galeria" class="page-content hidden">
+                <!-- Header da Página -->
+                <div
+                    class="bg-gradient-to-r from-primary/90 to-primary h-48 rounded-2xl shadow-lg flex flex-col justify-center items-center text-white p-6 text-center mb-8">
+                    <div class="bg-white/20 backdrop-blur-sm rounded-full p-4 mb-4">
+                        <i class="ph ph-images text-4xl"></i>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-2">Galeria</h2>
+                    <p class="text-lg opacity-90">Conheça nossos pratos e instalações</p>
+                </div>
+
+                <!-- Galeria de Fotos -->
+                <section class="mb-16">
+                    <h3 class="text-3xl font-bold text-center mb-12 text-slate-900 dark:text-white">Nossos Pratos</h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Prato 1 -->
+                        <div
+                            class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <div
+                                class="h-48 bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center">
+                                <i class="ph ph-bowl-food text-6xl text-primary"></i>
+                            </div>
+                            <div class="p-6">
+                                <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Feijoada Completa</h4>
+                                <p class="text-slate-700 dark:text-slate-300">Nossa tradicional feijoada com todos os
+                                    acompanhamentos</p>
+                            </div>
+                        </div>
+
+                        <!-- Prato 2 -->
+                        <div
+                            class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <div
+                                class="h-48 bg-gradient-to-br from-green-500/20 to-green-400/10 flex items-center justify-center">
+                                <i class="ph ph-fish text-6xl text-green-600"></i>
+                            </div>
+                            <div class="p-6">
+                                <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Peixe Grelhado</h4>
+                                <p class="text-slate-700 dark:text-slate-300">Peixe fresco grelhado com temperos
+                                    especiais</p>
+                            </div>
+                        </div>
+
+                        <!-- Prato 3 -->
+                        <div
+                            class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <div
+                                class="h-48 bg-gradient-to-br from-red-500/20 to-red-400/10 flex items-center justify-center">
+                                <i class="ph ph-hamburger text-6xl text-red-600"></i>
+                            </div>
+                            <div class="p-6">
+                                <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Carne de Panela</h4>
+                                <p class="text-slate-700 dark:text-slate-300">Carne macia cozida no ponto perfeito</p>
+                            </div>
+                        </div>
+
+                        <!-- Prato 4 -->
+                        <div
+                            class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <div
+                                class="h-48 bg-gradient-to-br from-yellow-500/20 to-yellow-400/10 flex items-center justify-center">
+                                <i class="ph ph-egg text-6xl text-yellow-600"></i>
+                            </div>
+                            <div class="p-6">
+                                <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Frango Grelhado</h4>
+                                <p class="text-slate-700 dark:text-slate-300">Frango suculento grelhado com ervas</p>
+                            </div>
+                        </div>
+
+                        <!-- Prato 5 -->
+                        <div
+                            class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <div
+                                class="h-48 bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center">
+                        <i class="ph ph-pizza text-6xl text-primary"></i>
+                            </div>
+                            <div class="p-6">
+                                <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Lasanha de Carne</h4>
+                                <p class="text-slate-700 dark:text-slate-300">Lasanha caseira com molho especial</p>
+                            </div>
+                        </div>
+
+                        <!-- Prato 6 -->
+                        <div
+                            class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <div
+                                class="h-48 bg-gradient-to-br from-pink-500/20 to-pink-400/10 flex items-center justify-center">
+                                <i class="ph ph-ice-cream text-6xl text-pink-600"></i>
+                            </div>
+                            <div class="p-6">
+                                <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Sobremesas</h4>
+                                <p class="text-slate-700 dark:text-slate-300">Deliciosas sobremesas caseiras</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Instalações -->
+                <section>
+                    <h3 class="text-3xl font-bold text-center mb-12 text-slate-900 dark:text-white">Nossas Instalações
+                    </h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Cozinha -->
+                        <div
+                            class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <div
+                                class="h-64 bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center">
+                        <i class="ph ph-cooking-pot text-8xl text-primary"></i>
+                            </div>
+                            <div class="p-6">
+                                <h4 class="text-2xl font-bold text-slate-900 dark:text-white mb-3">Cozinha Industrial
+                                </h4>
+                                <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+                                    Equipamentos modernos e ambiente higienizado seguindo todas as normas de segurança
+                                    alimentar.
                                 </p>
                             </div>
                         </div>
-                        <div class="text-right">
-                           <p class="font-bold text-xl text-primary mb-1">${this.formatCurrency(order.total)}</p>
-                           <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400">
-                               <i class="ph ph-check-circle text-xs mr-1"></i>
-                               Entregue
-                           </span>
+
+                        <!-- Refeitório -->
+                        <div
+                            class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <div
+                                class="h-64 bg-gradient-to-br from-green-500/20 to-green-400/10 flex items-center justify-center">
+                                <i class="ph ph-chair text-8xl text-green-600"></i>
+                            </div>
+                            <div class="p-6">
+                                <h4 class="text-2xl font-bold text-slate-900 dark:text-white mb-3">Refeitório</h4>
+                                <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+                                    Ambiente acolhedor e confortável para suas refeições, com capacidade para grandes
+                                    grupos.
+                                </p>
+                            </div>
                         </div>
                     </div>
-                    
-                    <div class="border-t border-gray-100 dark:border-slate-600 pt-4">
-                        <div class="flex justify-between items-center">
-                            <p class="text-sm text-slate-600 dark:text-slate-300">
-                                <span class="font-medium">${order.items.length}</span> ${order.items.length === 1 ? 'item' : 'itens'} no pedido
-                            </p>
-                            <button data-order-index="${index}" class="reorder-btn bg-gradient-to-r from-primary/10 to-primary/5 hover:from-primary hover:to-primary/90 text-primary hover:text-white px-4 py-2 rounded-xl font-semibold text-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 flex items-center gap-2 border border-primary/20 hover:border-transparent">
-                                <i class="ph ph-arrow-clockwise text-sm"></i>
-                                <span>Pedir novamente</span>
-                            </button>
-                        </div>
+                </section>
+            </div>
+
+
+
+            <!-- Página: Contato -->
+            <div id="page-contato" class="page-content hidden">
+                <!-- Header da Página -->
+                <div
+                    class="bg-gradient-to-r from-green-600/90 to-green-700 h-48 rounded-2xl shadow-lg flex flex-col justify-center items-center text-white p-6 text-center mb-8">
+                    <div class="bg-white/20 backdrop-blur-sm rounded-full p-4 mb-4">
+                        <i class="ph ph-phone text-4xl"></i>
                     </div>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-2">Contato</h2>
+                    <p class="text-lg opacity-90">Entre em contato conosco</p>
                 </div>
-            `).join('');
-        },
 
-        renderProfile() {
-            document.getElementById('name').value = this.state.profile.name;
-            document.getElementById('address').value = this.state.profile.address;
-            document.getElementById('phone').value = this.state.profile.phone;
-        },
+                <!-- Informações de Contato e Formulário -->
+                <section>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <!-- Informações de Contato -->
+                        <div
+                            class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-8 border border-gray-100 dark:border-slate-700">
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Fale Conosco</h3>
 
-        renderFavorites() {
-            const container = document.getElementById('favorite-items');
-            const favoriteItems = this.state.menu.filter(item => this.state.favorites.includes(item.id));
+                            <div class="space-y-6">
+                                <!-- Telefone -->
+                                <div class="flex items-start gap-4">
+                                    <div class="bg-primary/10 dark:bg-primary/20 rounded-full p-3 flex-shrink-0">
+                                        <i class="ph ph-phone text-xl text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-slate-900 dark:text-white mb-1">Telefone</h4>
+                                        <p class="text-slate-700 dark:text-slate-300">(11) 1234-5678</p>
+                                        <p class="text-slate-700 dark:text-slate-300">(11) 98765-4321</p>
+                                    </div>
+                                </div>
 
-            if(favoriteItems.length === 0) {
-                container.innerHTML = `
-                    <div class="col-span-full flex flex-col items-center justify-center py-12 text-center">
-                        <div class="bg-gray-100 dark:bg-slate-700 rounded-full p-6 mb-4">
-                            <i class="ph ph-heart text-3xl text-gray-400 dark:text-slate-500"></i>
+                                <!-- Email -->
+                                <div class="flex items-start gap-4">
+                                    <div class="bg-primary/10 dark:bg-primary/20 rounded-full p-3 flex-shrink-0">
+                                        <i class="ph ph-envelope text-xl text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-slate-900 dark:text-white mb-1">Email</h4>
+                                        <p class="text-slate-700 dark:text-slate-300">contato@bondegusto.com.br</p>
+                                        <p class="text-slate-700 dark:text-slate-300">vendas@bondegusto.com.br</p>
+                                    </div>
+                                </div>
+
+                                <!-- WhatsApp -->
+                                <div class="flex items-start gap-4">
+                                    <div class="bg-primary/10 dark:bg-primary/20 rounded-full p-3 flex-shrink-0">
+                                        <i class="ph ph-whatsapp-logo text-xl text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-slate-900 dark:text-white mb-1">WhatsApp</h4>
+                                        <p class="text-slate-700 dark:text-slate-300">(11) 98765-4321</p>
+                                        <a href="https://wa.me/5511987654321"
+                                            class="text-primary hover:text-primary/80 transition-colors">Enviar
+                                            mensagem</a>
+                                    </div>
+                                </div>
+
+                                <!-- Localização -->
+                                <div class="flex items-start gap-4">
+                                    <div class="bg-primary/10 dark:bg-primary/20 rounded-full p-3 flex-shrink-0">
+                                        <i class="ph ph-map-pin text-xl text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-slate-900 dark:text-white mb-1">Endereço</h4>
+                                        <p class="text-slate-700 dark:text-slate-300">Rua das Indústrias, 123<br>Distrito Industrial<br>São Paulo - SP<br>CEP: 01234-567</p>
+                                    </div>
+                                </div>
+
+                                <!-- Horário de Funcionamento -->
+                                <div class="flex items-start gap-4">
+                                    <div class="bg-primary/10 dark:bg-primary/20 rounded-full p-3 flex-shrink-0">
+                                        <i class="ph ph-clock text-xl text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-slate-900 dark:text-white mb-1">Horário de Funcionamento</h4>
+                                        <p class="text-slate-700 dark:text-slate-300">Segunda a Sexta: 06:00 às 18:00<br>Sábado: 07:00 às 14:00<br>Domingo: Fechado</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <p class="text-gray-500 dark:text-slate-400 font-medium">Ainda não marcou nenhum item como favorito</p>
-                        <p class="text-sm text-gray-400 dark:text-slate-500 mt-1">Explore o cardápio e marque seus pratos preferidos</p>
+
+                        <!-- Formulário de Contato -->
+                        <div
+                            class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-8 border border-gray-100 dark:border-slate-700">
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Envie uma Mensagem</h3>
+
+                            <form id="contact-form" class="space-y-6">
+                                <!-- Nome -->
+                                <div>
+                                    <label for="name"
+                                        class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Nome
+                                        Completo</label>
+                                    <input type="text" id="name" name="name" required
+                                        class="w-full px-4 py-3 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-slate-700 dark:text-white transition-colors">
+                                </div>
+
+                                <!-- Email -->
+                                <div>
+                                    <label for="email"
+                                        class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Email</label>
+                                    <input type="email" id="email" name="email" required
+                                        class="w-full px-4 py-3 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-slate-700 dark:text-white transition-colors">
+                                </div>
+
+                                <!-- Telefone -->
+                                <div>
+                                    <label for="phone"
+                                        class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Telefone</label>
+                                    <input type="tel" id="phone" name="phone"
+                                        class="w-full px-4 py-3 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-slate-700 dark:text-white transition-colors">
+                                </div>
+
+                                <!-- Assunto -->
+                                <div>
+                                    <label for="subject"
+                                        class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Assunto</label>
+                                    <select id="subject" name="subject" required
+                                        class="w-full px-4 py-3 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-slate-700 dark:text-white transition-colors">
+                                        <option value="">Selecione um assunto</option>
+                                        <option value="orcamento">Solicitar Orçamento</option>
+                                        <option value="informacoes">Informações sobre Serviços</option>
+                                        <option value="parceria">Proposta de Parceria</option>
+                                        <option value="outros">Outros</option>
+                                    </select>
+                                </div>
+
+                                <!-- Mensagem -->
+                                <div>
+                                    <label for="message"
+                                        class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Mensagem</label>
+                                    <textarea id="message" name="message" rows="4" required
+                                        class="w-full px-4 py-3 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-slate-700 dark:text-white transition-colors resize-none"></textarea>
+                                </div>
+
+                                <!-- Botão de Envio -->
+                                <button type="submit"
+                                    class="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2">
+                                    <i class="ph ph-paper-plane-tilt"></i>
+                                    Enviar Mensagem
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+        </div>
+    </main>
+
+
+
+
+
+    <script>
+        // Este script foi completamente reestruturado para ser mais modular e escalável.
+        // Utiliza um objeto `app` para gerir o estado e as funcionalidades.
+
+        const app = {
+            // --- ESTADO DA APLICAÇÃO ---
+            state: {
+                // Cardápios por região
+                regionalMenus: {
+                    'sao-paulo': {
+                        'segunda': {
+                            principal: 'Frango Grelhado com Arroz Integral',
+                            acompanhamento: 'Feijão Preto, Salada Verde',
+                            sobremesa: 'Fruta da Estação'
+                        },
+                        'terca': {
+                            principal: 'Peixe Assado com Batata Doce',
+                            acompanhamento: 'Lentilha, Legumes Refogados',
+                            sobremesa: 'Pudim de Leite'
+                        },
+                        'quarta': {
+                            principal: 'Carne Bovina com Arroz Branco',
+                            acompanhamento: 'Feijão Carioca, Salada Mista',
+                            sobremesa: 'Gelatina'
+                        },
+                        'quinta': {
+                            principal: 'Frango Ensopado com Mandioca',
+                            acompanhamento: 'Feijão Verde, Couve Refogada',
+                            sobremesa: 'Doce de Leite'
+                        },
+                        'sexta': {
+                            principal: 'Peixe Grelhado com Quinoa',
+                            acompanhamento: 'Grão de Bico, Salada de Tomate',
+                            sobremesa: 'Fruta da Estação'
+                        }
+                    },
+                    'rio-de-janeiro': {
+                        'segunda': {
+                            principal: 'Moqueca de Peixe com Arroz de Coco',
+                            acompanhamento: 'Feijão Preto, Farofa de Dendê',
+                            sobremesa: 'Açaí com Granola'
+                        },
+                        'terca': {
+                            principal: 'Picanha Grelhada com Arroz Branco',
+                            acompanhamento: 'Feijão Tropeiro, Couve à Mineira',
+                            sobremesa: 'Brigadeiro'
+                        },
+                        'quarta': {
+                            principal: 'Camarão na Moranga',
+                            acompanhamento: 'Arroz de Alho, Salada Tropical',
+                            sobremesa: 'Cocada'
+                        },
+                        'quinta': {
+                            principal: 'Feijoada Carioca',
+                            acompanhamento: 'Arroz Branco, Couve, Farofa',
+                            sobremesa: 'Pudim de Leite Condensado'
+                        },
+                        'sexta': {
+                            principal: 'Bobó de Camarão',
+                            acompanhamento: 'Arroz Branco, Salada de Rúcula',
+                            sobremesa: 'Quindim'
+                        }
+                    },
+                    'belo-horizonte': {
+                        'segunda': {
+                            principal: 'Frango com Quiabo',
+                            acompanhamento: 'Tutu de Feijão, Couve Refogada',
+                            sobremesa: 'Doce de Leite Mineiro'
+                        },
+                        'terca': {
+                            principal: 'Lombo de Porco com Tropeiro',
+                            acompanhamento: 'Arroz Branco, Ora-pro-nóbis',
+                            sobremesa: 'Pé de Moleque'
+                        },
+                        'quarta': {
+                            principal: 'Costelinha com Mandioca',
+                            acompanhamento: 'Feijão Carioca, Couve à Mineira',
+                            sobremesa: 'Goiabada com Queijo'
+                        },
+                        'quinta': {
+                            principal: 'Galinhada Mineira',
+                            acompanhamento: 'Feijão Tropeiro, Salada Verde',
+                            sobremesa: 'Doce de Mamão'
+                        },
+                        'sexta': {
+                            principal: 'Peixe Pintado Grelhado',
+                            acompanhamento: 'Arroz com Pequi, Vinagrete',
+                            sobremesa: 'Cajuzinho'
+                        }
+                    },
+                    'brasilia': {
+                        'segunda': {
+                            principal: 'Pacu Assado com Farofa',
+                            acompanhamento: 'Arroz com Pequi, Vinagrete',
+                            sobremesa: 'Doce de Buriti'
+                        },
+                        'terca': {
+                            principal: 'Carne de Sol com Macaxeira',
+                            acompanhamento: 'Feijão Verde, Salada de Tomate',
+                            sobremesa: 'Cocada de Coco'
+                        },
+                        'quarta': {
+                            principal: 'Galinhada com Pequi',
+                            acompanhamento: 'Feijão Carioca, Couve Refogada',
+                            sobremesa: 'Doce de Leite'
+                        },
+                        'quinta': {
+                            principal: 'Costela no Bafo',
+                            acompanhamento: 'Arroz Branco, Mandioca Cozida',
+                            sobremesa: 'Pudim de Tapioca'
+                        },
+                        'sexta': {
+                            principal: 'Pintado na Telha',
+                            acompanhamento: 'Arroz Carreteiro, Salada Mista',
+                            sobremesa: 'Pamonha Doce'
+                        }
+                    },
+                    'salvador': {
+                        'segunda': {
+                            principal: 'Moqueca Baiana',
+                            acompanhamento: 'Arroz de Coco, Farofa de Dendê',
+                            sobremesa: 'Cocada Baiana'
+                        },
+                        'terca': {
+                            principal: 'Acarajé com Vatapá',
+                            acompanhamento: 'Caruru, Salada de Vinagrete',
+                            sobremesa: 'Quindim'
+                        },
+                        'quarta': {
+                            principal: 'Bobó de Camarão',
+                            acompanhamento: 'Arroz Branco, Salada Tropical',
+                            sobremesa: 'Baba de Moça'
+                        },
+                        'quinta': {
+                            principal: 'Xinxim de Galinha',
+                            acompanhamento: 'Arroz de Hauçá, Farofa',
+                            sobremesa: 'Doce de Caju'
+                        },
+                        'sexta': {
+                            principal: 'Casquinha de Siri',
+                            acompanhamento: 'Arroz de Coco, Salada Verde',
+                            sobremesa: 'Beijinho de Coco'
+                        }
+                    }
+                },
+                currentPage: 'entrada',
+                selectedDay: 'segunda',
+                isDarkMode: localStorage.getItem('darkMode') === 'true'
+            },
+
+            // --- INICIALIZAÇÃO ---
+            init() {
+                this.setupEventListeners();
+                this.render();
+            },
+
+            // --- MÉTODOS DE RENDERIZAÇÃO ---
+            render() {
+                this.renderPage();
+                this.renderWeeklyMenu();
+            },
+
+            renderPage() {
+                document.querySelectorAll('.page-content').forEach(p => p.classList.add('hidden'));
+                document.getElementById(`page-${this.state.currentPage}`).classList.remove('hidden');
+
+                document.querySelectorAll('.nav-btn').forEach(b => {
+                    const isActive = b.dataset.page === this.state.currentPage;
+                    b.classList.toggle('page-active', isActive);
+                    const icon = b.querySelector('i');
+                    if (icon) {
+                        icon.classList.toggle('ph-fill', isActive);
+                        icon.classList.toggle('ph', !isActive);
+                    }
+                });
+                document.querySelectorAll('.nav-btn-mobile').forEach(b => {
+                    b.classList.toggle('page-active', b.dataset.page === this.state.currentPage);
+                });
+            },
+
+            getCurrentUserMenu() {
+                const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+                if (!currentUser || !currentUser.location) {
+                    // Retorna cardápio padrão se não houver usuário logado
+                    return this.state.regionalMenus['sao-paulo'];
+                }
+                return this.state.regionalMenus[currentUser.location] || this.state.regionalMenus['sao-paulo'];
+            },
+            
+            getLocationDisplayName(locationKey) {
+                const locations = {
+                    'sao-paulo': 'São Paulo - SP',
+                    'rio-de-janeiro': 'Rio de Janeiro - RJ',
+                    'belo-horizonte': 'Belo Horizonte - MG',
+                    'brasilia': 'Brasília - DF',
+                    'salvador': 'Salvador - BA',
+                    'recife': 'Recife - PE',
+                    'fortaleza': 'Fortaleza - CE',
+                    'porto-alegre': 'Porto Alegre - RS'
+                };
+                return locations[locationKey] || 'São Paulo - SP';
+            },
+            
+            renderWeeklyMenu() {
+                const dayButtons = document.querySelectorAll('.day-btn');
+                const menuContent = document.getElementById('daily-menu-content');
+
+                if (!menuContent) return;
+
+                // Atualiza botões dos dias
+                dayButtons.forEach(btn => {
+                    btn.classList.toggle('bg-primary', btn.dataset.day === this.state.selectedDay);
+                    btn.classList.toggle('text-white', btn.dataset.day === this.state.selectedDay);
+                    btn.classList.toggle('bg-white', btn.dataset.day !== this.state.selectedDay);
+                    btn.classList.toggle('text-slate-700', btn.dataset.day !== this.state.selectedDay);
+                });
+
+                // Obter cardápio da região do usuário
+                const userMenu = this.getCurrentUserMenu();
+                const dayMenu = userMenu[this.state.selectedDay];
+                
+                // Obter informações do usuário para mostrar a região
+                const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+                const locationName = currentUser ? this.getLocationDisplayName(currentUser.location) : 'São Paulo - SP';
+                if (dayMenu) {
+                    menuContent.innerHTML = `
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-8 border border-gray-100 dark:border-slate-700">
+                        <div class="text-center mb-8">
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Menu de ${this.state.selectedDay.charAt(0).toUpperCase() + this.state.selectedDay.slice(1)}-feira</h3>
+                            <p class="text-slate-600 dark:text-slate-400">Cardápio Regional - ${locationName}</p>
+                            <p class="text-sm text-slate-500 dark:text-slate-500 mt-1">Refeições balanceadas e nutritivas</p>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="text-center">
+                                <div class="bg-primary/10 dark:bg-primary/20 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                                    <i class="ph ph-bowl-food text-2xl text-primary"></i>
+                                </div>
+                                <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Prato Principal</h4>
+                                <p class="text-slate-700 dark:text-slate-300">${dayMenu.principal}</p>
+                            </div>
+                            
+                            <div class="text-center">
+                                <div class="bg-primary/10 dark:bg-primary/20 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                                    <i class="ph ph-leaf text-2xl text-primary"></i>
+                                </div>
+                                <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Acompanhamentos</h4>
+                                <p class="text-slate-700 dark:text-slate-300">${dayMenu.acompanhamento}</p>
+                            </div>
+                            
+                            <div class="text-center">
+                                <div class="bg-primary/10 dark:bg-primary/20 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                                    <i class="ph ph-ice-cream text-2xl text-primary"></i>
+                                </div>
+                                <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Sobremesa</h4>
+                                <p class="text-slate-700 dark:text-slate-300">${dayMenu.sobremesa}</p>
+                            </div>
+                        </div>
                     </div>
                 `;
-                return;
-            }
-            
-            const template = document.getElementById('favorite-item-template');
-            container.innerHTML = '';
-            
-            favoriteItems.forEach(item => {
-                const clone = template.content.cloneNode(true);
-                clone.querySelector('div').dataset.id = item.id;
-                clone.querySelector('h3').textContent = item.name;
-                clone.querySelector('p').textContent = item.description;
-                clone.querySelector('.flex.justify-between span').textContent = this.formatCurrency(item.price);
-                clone.querySelector('img').src = item.image;
-                clone.querySelector('img').alt = item.name;
-                
-                container.appendChild(clone);
-            });
-        },
-
-        // --- MANIPULADORES DE EVENTOS ---
-        setupEventListeners() {
-            document.addEventListener('click', async (e) => {
-                // Navegação
-                const navBtn = e.target.closest('.nav-btn, .nav-btn-mobile');
-                if (navBtn) this.handleNavClick(navBtn.dataset.page);
-
-                // Filtros
-                const filterBtn = e.target.closest('.filter-btn');
-                if (filterBtn) this.handleFilterClick(filterBtn.dataset.filter);
-
-                // Ações do Carrinho
-                if (e.target.closest('.add-to-cart-btn')) this.handleAddToCart(e.target.closest('[data-id]').dataset.id);
-                if (e.target.closest('.remove-from-cart-btn')) this.handleRemoveFromCart(e.target.closest('[data-id]').dataset.id);
-                if (e.target.closest('.quantity-change-btn')) this.handleChangeQuantity(e.target.closest('[data-id]').dataset.id, e.target.closest('[data-change]').dataset.change);
-                
-                // Favoritos
-                if (e.target.closest('.favorite-btn')) this.handleToggleFavorite(e.target.closest('[data-id]').dataset.id);
-                
-                // Pedidos
-                if (e.target.closest('.reorder-btn')) this.handleReorder(e.target.closest('[data-order-index]').dataset.orderIndex);
-
-                // UI
-                if (e.target.closest('#cart-toggle-btn')) this.toggleCart(true);
-                if (e.target.closest('#close-cart-btn') || e.target.id === 'cart-sidebar-backdrop') this.toggleCart(false);
-                if (e.target.closest('#theme-toggle-btn')) this.toggleTheme();
-                
-                // Funcionalidades
-                if (e.target.closest('#checkout-btn')) this.handleCheckout();
-            });
-            
-            document.getElementById('profile-form').addEventListener('submit', e => {
-                e.preventDefault();
-                this.handleProfileSave();
-            });
-        },
-        
-        handleNavClick(page) {
-            this.state.currentPage = page;
-            this.renderPage();
-        },
-        
-        handleFilterClick(filter) {
-            this.state.currentFilter = filter;
-            this.renderMenu();
-        },
-
-        handleAddToCart(id) {
-            const itemId = parseInt(id);
-            const item = this.state.menu.find(i => i.id === itemId);
-            const cartItem = this.state.cart.find(i => i.id === itemId);
-
-            if (cartItem) {
-                cartItem.quantity++;
-            } else {
-                this.state.cart.push({ ...item, quantity: 1 });
-            }
-            this.showToast(`${item.name} adicionado!`);
-            this.renderCart();
-            this.saveStateToStorage();
-        },
-        
-        handleRemoveFromCart(id) {
-            const itemId = parseInt(id);
-            this.state.cart = this.state.cart.filter(item => item.id !== itemId);
-            this.renderCart();
-            this.saveStateToStorage();
-        },
-
-        handleChangeQuantity(id, change) {
-            const itemId = parseInt(id);
-            const changeAmount = parseInt(change);
-            const cartItem = this.state.cart.find(i => i.id === itemId);
-            if (cartItem) {
-                cartItem.quantity += changeAmount;
-                if (cartItem.quantity <= 0) {
-                    this.handleRemoveFromCart(id);
-                } else {
-                    this.renderCart();
-                    this.saveStateToStorage();
                 }
-            }
-        },
-        
-        handleToggleFavorite(id) {
-            const itemId = parseInt(id);
-            const index = this.state.favorites.indexOf(itemId);
-            if (index > -1) {
-                this.state.favorites.splice(index, 1);
-            } else {
-                this.state.favorites.push(itemId);
-            }
-            this.renderMenu();
-            this.renderFavorites();
-            this.saveStateToStorage();
-        },
+            },
 
-        handleProfileSave() {
-            this.state.profile.name = document.getElementById('name').value;
-            this.state.profile.address = document.getElementById('address').value;
-            this.state.profile.phone = document.getElementById('phone').value;
-            this.saveStateToStorage();
-            this.showToast('Perfil guardado com sucesso!', 'success');
-        },
-        
-        handleReorder(orderIndex) {
-            const order = this.state.orders[orderIndex];
-            if(order) {
-                this.state.cart = JSON.parse(JSON.stringify(order.items)); // Deep copy
-                this.renderCart();
-                this.saveStateToStorage();
-                this.showToast('Pedido adicionado ao carrinho!');
-                this.toggleCart(true);
-            }
-        },
-        
-        handleCheckout() {
-            if(this.state.cart.length === 0) return;
+
+
+
+
+            // --- MANIPULADORES DE EVENTOS ---
+            setupEventListeners() {
+                document.addEventListener('click', async (e) => {
+                    // Navegação
+                    const navBtn = e.target.closest('.nav-btn, .nav-btn-mobile');
+                    if (navBtn) this.handleNavClick(navBtn.dataset.page);
+
+                    // Seleção de dia no cardápio
+                    const dayBtn = e.target.closest('.day-btn');
+                    if (dayBtn) this.handleDayClick(dayBtn.dataset.day);
+
+                    // UI
+                    if (e.target.closest('#theme-toggle-btn')) this.toggleTheme();
+                });
+
+                // Formulário de contato
+                const contactForm = document.getElementById('contact-form');
+                if (contactForm) {
+                    contactForm.addEventListener('submit', (e) => this.handleContactForm(e));
+                }
+            },
+
+            handleNavClick(page) {
+                // Verificar se é tentativa de acesso ao cardápio
+                if (page === 'cardapio') {
+                    // Verificar se o usuário está logado
+                    const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+                    if (!currentUser) {
+                        // Mostrar modal de login se não estiver logado
+                        this.showLoginRequiredMessage();
+                        return;
+                    }
+                }
+                
+                this.state.currentPage = page;
+                this.render();
+            },
             
-            const { name, address } = this.state.profile;
-            if(!name || !address) {
-                this.showToast('Por favor, preencha o seu perfil primeiro.', 'warning');
-                this.state.currentPage = 'perfil';
-                this.renderPage();
-                this.toggleCart(false);
-                return;
-            }
-
-            const newOrder = {
-                id: (this.state.orders.length + 1).toString().padStart(4, '0'),
-                date: new Date().toLocaleDateString('pt-PT'),
-                items: this.state.cart,
-                total: this.state.cart.reduce((sum, item) => sum + item.price * item.quantity, 0),
-            };
-
-            this.state.orders.unshift(newOrder);
-            this.state.cart = [];
-            
-            this.render();
-            this.saveStateToStorage();
-            this.toggleCart(false);
-            this.showOrderConfirmation(newOrder);
-        },
-
-
-
-        // --- HELPERS E UI ---
-        formatCurrency(value) {
-            return value.toLocaleString('pt-PT', { style: 'currency', currency: 'BRL' }); // BRL para R$
-        },
-        
-        toggleCart(forceOpen) {
-            this.state.isCartOpen = forceOpen !== undefined ? forceOpen : !this.state.isCartOpen;
-            const sidebar = document.getElementById('cart-sidebar');
-            const backdrop = document.getElementById('cart-sidebar-backdrop');
-            
-            if(this.state.isCartOpen) {
-                backdrop.classList.remove('hidden');
-                sidebar.classList.remove('translate-x-full');
-            } else {
-                backdrop.classList.add('hidden');
-                sidebar.classList.add('translate-x-full');
-            }
-        },
-        
-        toggleTheme() {
-            const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            this.updateTheme(newTheme);
-            localStorage.setItem('theme', newTheme);
-        },
-
-        updateTheme(theme) {
-            if (theme === 'dark') {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-            }
-        },
-
-        showToast(message, type = 'success') {
-            const toast = document.getElementById('toast');
-            const icon = document.getElementById('toast-icon');
-            document.getElementById('toast-message').textContent = message;
-
-            icon.className = 'ph-fill text-xl';
-            if (type === 'success') icon.classList.add('ph-check-circle', 'text-green-400');
-            else if (type === 'warning') icon.classList.add('ph-warning-circle', 'text-yellow-400');
-            else icon.classList.add('ph-info', 'text-blue-400');
-
-            toast.classList.remove('opacity-0', 'translate-y-10');
-            setTimeout(() => {
-                toast.classList.add('opacity-0', 'translate-y-10');
-            }, 3000);
-        },
-        
-        showOrderConfirmation(order) {
-            const modalBackdrop = document.getElementById('modal-backdrop');
-            const modalContent = document.getElementById('modal-content');
-            
-            modalContent.innerHTML = `
-                <div class="text-center">
-                    <i class="ph-fill ph-rocket-launch text-6xl text-primary mx-auto"></i>
-                    <h3 class="text-2xl font-bold mt-4">Pedido Confirmado!</h3>
-                    <p class="text-slate-500 dark:text-white mt-2">Obrigado, ${this.state.profile.name}! O seu pedido #${order.id} está a ser preparado.</p>
-                    <div class="mt-6 text-left space-y-2">
-                        <p><strong>Total:</strong> ${this.formatCurrency(order.total)}</p>
-                        <p><strong>Morada:</strong> ${this.state.profile.address}</p>
+            showLoginRequiredMessage() {
+                // Criar toast de aviso
+                const toast = document.createElement('div');
+                toast.className = 'fixed top-4 right-4 bg-orange-500 text-white px-6 py-4 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform duration-300';
+                toast.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <i class="ph ph-warning-circle text-xl"></i>
+                        <div>
+                            <p class="font-semibold">Login Necessário</p>
+                            <p class="text-sm opacity-90">Faça login para acessar o cardápio</p>
+                        </div>
                     </div>
-                    <button id="close-modal-btn" class="btn-primary mt-6 w-full">Excelente!</button>
-                </div>
-            `;
-            
-            modalBackdrop.classList.remove('hidden');
-            modalBackdrop.classList.add('flex');
-            
-            modalBackdrop.querySelector('#close-modal-btn').onclick = () => {
-                modalBackdrop.classList.add('hidden');
-            };
-        },
-    };
-    
-    // --- ESTILOS DE COMPONENTES GLOBAIS (para não repetir no JS) ---
-    const styleSheet = document.createElement("style");
-    styleSheet.innerText = `
+                `;
+                
+                document.body.appendChild(toast);
+                
+                // Animar entrada
+                setTimeout(() => {
+                    toast.style.transform = 'translateX(0)';
+                }, 100);
+                
+                // Remover após 4 segundos
+                setTimeout(() => {
+                    toast.style.transform = 'translateX(100%)';
+                    setTimeout(() => {
+                        if (toast.parentNode) {
+                            toast.parentNode.removeChild(toast);
+                        }
+                    }, 300);
+                }, 4000);
+                
+                // Abrir modal de login após um breve delay
+                setTimeout(() => {
+                    if (window.loginSystem) {
+                        window.loginSystem.openModal();
+                    }
+                }, 1000);
+            },
+
+            handleDayClick(day) {
+                this.state.selectedDay = day;
+                this.renderWeeklyMenu();
+            },
+
+            handleContactForm(e) {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+                const data = {
+                    name: formData.get('name'),
+                    email: formData.get('email'),
+                    phone: formData.get('phone'),
+                    subject: formData.get('subject'),
+                    message: formData.get('message')
+                };
+
+                // Simular envio do formulário
+                const submitBtn = e.target.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+
+                submitBtn.innerHTML = '<i class="ph ph-spinner animate-spin"></i> Enviando...';
+                submitBtn.disabled = true;
+
+                setTimeout(() => {
+                    submitBtn.innerHTML = '<i class="ph ph-check"></i> Mensagem Enviada!';
+                    submitBtn.classList.remove('bg-primary', 'hover:bg-primary/90');
+                    submitBtn.classList.add('bg-primary/80', 'hover:bg-primary/70');
+
+                    // Reset form
+                    e.target.reset();
+
+                    setTimeout(() => {
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.disabled = false;
+                        submitBtn.classList.remove('bg-primary/80', 'hover:bg-primary/70');
+                        submitBtn.classList.add('bg-primary', 'hover:bg-primary/90');
+                    }, 3000);
+                }, 2000);
+            },
+
+
+
+            // --- HELPERS E UI ---
+            toggleTheme() {
+                const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                this.updateTheme(newTheme);
+                localStorage.setItem('theme', newTheme);
+            },
+
+            updateTheme(theme) {
+                if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            },
+        };
+
+        // --- ESTILOS DE COMPONENTES GLOBAIS (para não repetir no JS) ---
+        const styleSheet = document.createElement("style");
+        styleSheet.innerText = `
         .nav-btn {
             display: flex;
             align-items: center;
@@ -888,7 +1477,7 @@
             padding: 0.625rem 1rem;
             border-radius: 9999px;
             font-weight: 600;
-            font-size: 0.875rem;
+            font-size: 1.2rem;
             color: #475569;
             transition: all 0.2s;
             text-decoration: none;
@@ -1131,12 +1720,367 @@
               color: #f1f5f9;
           }
       `;
-    document.head.appendChild(styleSheet);
-    
-    document.addEventListener('DOMContentLoaded', () => app.init());
+        document.head.appendChild(styleSheet);
+
+        // Sistema de Login
+        const loginSystem = {
+            // Simulação de banco de dados de usuários
+            users: [
+                { email: 'joao@email.com', password: '123456', location: 'sao-paulo' },
+                { email: 'maria@email.com', password: '123456', location: 'rio-de-janeiro' },
+                { email: 'pedro@email.com', password: '123456', location: 'belo-horizonte' },
+                { email: 'ana@email.com', password: '123456', location: 'brasilia' },
+                { email: 'carlos@email.com', password: '123456', location: 'salvador' }
+            ],
+            
+            currentUser: null,
+            
+            init() {
+                this.bindEvents();
+                this.checkAuthStatus();
+                this.updateMobileNavGrid();
+            },
+            
+            bindEvents() {
+                // Botão de login no header
+                document.getElementById('login-toggle-btn').addEventListener('click', () => {
+                    this.openModal();
+                });
+                
+                // Fechar modal
+                document.getElementById('close-login-modal').addEventListener('click', () => {
+                    this.closeModal();
+                });
+                
+                // Fechar modal clicando fora
+                document.getElementById('login-modal').addEventListener('click', (e) => {
+                    if (e.target.id === 'login-modal') {
+                        this.closeModal();
+                    }
+                });
+                
+                // Toggle senha
+                document.getElementById('toggle-password').addEventListener('click', () => {
+                    this.togglePassword();
+                });
+                
+                // Submit do formulário
+                document.getElementById('login-form').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.handleLogin();
+                });
+            },
+            
+            openModal() {
+                document.getElementById('login-modal').classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            },
+            
+            closeModal() {
+                document.getElementById('login-modal').classList.add('hidden');
+                document.body.style.overflow = 'auto';
+                this.clearForm();
+            },
+            
+            togglePassword() {
+                const passwordInput = document.getElementById('password');
+                const toggleIcon = document.querySelector('#toggle-password i');
+                
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    toggleIcon.className = 'ph ph-eye-slash text-xl';
+                } else {
+                    passwordInput.type = 'password';
+                    toggleIcon.className = 'ph ph-eye text-xl';
+                }
+            },
+            
+            async handleLogin() {
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const location = document.getElementById('location-select').value;
+                
+                // Mostrar loading
+                this.setLoading(true);
+                this.hideError();
+                
+                // Simular delay de rede
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                // Validar campos
+                if (!email || !password || !location) {
+                    this.showError('Por favor, preencha todos os campos.');
+                    this.setLoading(false);
+                    return;
+                }
+                
+                // Buscar usuário
+                const user = this.users.find(u => u.email === email && u.password === password);
+                
+                if (!user) {
+                    this.showError('Email ou senha incorretos.');
+                    this.setLoading(false);
+                    return;
+                }
+                
+                // Verificar localização
+                if (user.location !== location) {
+                    this.showError('Localização incorreta. Verifique a cidade cadastrada em sua conta.');
+                    this.setLoading(false);
+                    return;
+                }
+                
+                // Login bem-sucedido
+                this.currentUser = user;
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                
+                this.setLoading(false);
+                this.closeModal();
+                this.updateLoginButton();
+                
+                // Mostrar mensagem de sucesso
+                this.showSuccessMessage(`Bem-vindo(a)! Login realizado com sucesso.`);
+            },
+            
+            setLoading(loading) {
+                const submitBtn = document.getElementById('login-submit');
+                const loginText = document.getElementById('login-text');
+                const loginLoading = document.getElementById('login-loading');
+                
+                if (loading) {
+                    submitBtn.disabled = true;
+                    loginText.textContent = 'Entrando...';
+                    loginLoading.classList.remove('hidden');
+                } else {
+                    submitBtn.disabled = false;
+                    loginText.textContent = 'Entrar';
+                    loginLoading.classList.add('hidden');
+                }
+            },
+            
+            showError(message) {
+                const errorDiv = document.getElementById('login-error');
+                const errorMessage = document.getElementById('login-error-message');
+                
+                errorMessage.textContent = message;
+                errorDiv.classList.remove('hidden');
+            },
+            
+            hideError() {
+                document.getElementById('login-error').classList.add('hidden');
+            },
+            
+            clearForm() {
+                document.getElementById('login-form').reset();
+                this.hideError();
+                this.setLoading(false);
+            },
+            
+            checkAuthStatus() {
+                const savedUser = localStorage.getItem('currentUser');
+                if (savedUser) {
+                    this.currentUser = JSON.parse(savedUser);
+                    this.updateLoginButton();
+                } else {
+                    // Garantir que os botões do cardápio estejam ocultos se não há usuário logado
+                    this.updateMenuVisibility();
+                }
+            },
+            
+            updateLoginButton() {
+                const loginBtn = document.getElementById('login-toggle-btn');
+                const icon = loginBtn.querySelector('i');
+                
+                // Remover todos os event listeners existentes
+                const newBtn = loginBtn.cloneNode(true);
+                loginBtn.parentNode.replaceChild(newBtn, loginBtn);
+                
+                const updatedBtn = document.getElementById('login-toggle-btn');
+                const updatedIcon = updatedBtn.querySelector('i');
+                
+                if (this.currentUser) {
+                    updatedIcon.className = 'ph ph-user-check text-xl';
+                    updatedBtn.title = `Logado como: ${this.currentUser.email}`;
+                    
+                    // Adicionar menu dropdown para logout
+                    updatedBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        this.showUserMenu();
+                    });
+                } else {
+                    updatedIcon.className = 'ph ph-user text-xl';
+                    updatedBtn.title = 'Fazer login';
+                    
+                    // Adicionar event listener para abrir modal de login
+                    updatedBtn.addEventListener('click', () => {
+                        this.openModal();
+                    });
+                }
+                
+                // Atualizar visibilidade dos botões do cardápio
+                this.updateMenuVisibility();
+                
+                // Atualizar grid da navegação mobile
+                this.updateMobileNavGrid();
+            },
+            
+            updateMenuVisibility() {
+                // Selecionar botões do cardápio (desktop e mobile)
+                const menuBtnsDesktop = document.querySelectorAll('button[data-page="cardapio"].nav-btn');
+                const menuBtnsMobile = document.querySelectorAll('button[data-page="cardapio"].nav-btn-mobile');
+                
+                const allMenuBtns = [...menuBtnsDesktop, ...menuBtnsMobile];
+                
+                if (this.currentUser) {
+                    // Usuário logado: mostrar botões do cardápio
+                    allMenuBtns.forEach(btn => {
+                        btn.style.display = '';
+                    });
+                } else {
+                    // Usuário não logado: ocultar botões do cardápio
+                    allMenuBtns.forEach(btn => {
+                        btn.style.display = 'none';
+                    });
+                }
+            },
+            
+            updateMobileNavGrid() {
+                const mobileNavContainer = document.getElementById('mobile-nav-container');
+                if (mobileNavContainer) {
+                    if (this.currentUser) {
+                        // Usuário logado: 6 colunas (inclui botão cardápio)
+                        mobileNavContainer.className = mobileNavContainer.className.replace('grid-cols-5', 'grid-cols-6');
+                    } else {
+                        // Usuário não logado: 5 colunas (sem botão cardápio)
+                        mobileNavContainer.className = mobileNavContainer.className.replace('grid-cols-6', 'grid-cols-5');
+                    }
+                }
+            },
+            
+            showUserMenu() {
+                // Criar menu dropdown simples
+                const existingMenu = document.getElementById('user-menu');
+                if (existingMenu) {
+                    existingMenu.remove();
+                    return;
+                }
+                
+                const menu = document.createElement('div');
+                menu.id = 'user-menu';
+                menu.className = 'absolute top-full right-0 mt-2 bg-white dark:bg-slate-800 rounded-lg shadow-lg border border-slate-200 dark:border-slate-700 py-2 min-w-48 z-50';
+                menu.innerHTML = `
+                    <div class="px-4 py-2 border-b border-slate-200 dark:border-slate-700">
+                        <p class="text-sm font-medium text-slate-900 dark:text-white">${this.currentUser.email}</p>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Localização: ${this.getLocationName(this.currentUser.location)}</p>
+                    </div>
+                    <button id="logout-btn" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20 transition-colors">
+                        <i class="ph ph-sign-out mr-2"></i>Sair
+                    </button>
+                `;
+                
+                document.getElementById('login-toggle-btn').parentElement.style.position = 'relative';
+                document.getElementById('login-toggle-btn').parentElement.appendChild(menu);
+                
+                // Logout
+                document.getElementById('logout-btn').addEventListener('click', () => {
+                    this.logout();
+                });
+                
+                // Fechar menu clicando fora
+                setTimeout(() => {
+                    document.addEventListener('click', () => {
+                        menu.remove();
+                    }, { once: true });
+                }, 100);
+            },
+            
+            logout() {
+                 this.currentUser = null;
+                 localStorage.removeItem('currentUser');
+                 
+                 // Remover menu
+                 const menu = document.getElementById('user-menu');
+                 if (menu) menu.remove();
+                 
+                 // Verificar se está na página do cardápio e redirecionar para o início
+                 const currentPage = document.querySelector('.page-content:not(.hidden)');
+                 if (currentPage && currentPage.id === 'page-cardapio') {
+                     // Ocultar página atual
+                     currentPage.classList.add('hidden');
+                     
+                     // Mostrar página inicial
+                     const homePage = document.getElementById('page-entrada');
+                     if (homePage) {
+                         homePage.classList.remove('hidden');
+                     }
+                     
+                     // Atualizar navegação
+                     document.querySelectorAll('.nav-btn, .nav-btn-mobile').forEach(btn => {
+                         btn.classList.remove('active');
+                     });
+                     
+                     // Ativar botão início
+                     document.querySelectorAll('[data-page="entrada"]').forEach(btn => {
+                         btn.classList.add('active');
+                     });
+                 }
+                 
+                 // Atualizar botão usando a função existente
+                 this.updateLoginButton();
+                 
+                 this.showSuccessMessage('Logout realizado com sucesso!');
+             },
+            
+            getLocationName(locationKey) {
+                const locations = {
+                    'sao-paulo': 'São Paulo - SP',
+                    'rio-de-janeiro': 'Rio de Janeiro - RJ',
+                    'belo-horizonte': 'Belo Horizonte - MG',
+                    'brasilia': 'Brasília - DF',
+                    'salvador': 'Salvador - BA',
+                    'fortaleza': 'Fortaleza - CE',
+                    'recife': 'Recife - PE',
+                    'porto-alegre': 'Porto Alegre - RS'
+                };
+                return locations[locationKey] || locationKey;
+            },
+            
+            showSuccessMessage(message) {
+                // Criar toast de sucesso
+                const toast = document.createElement('div');
+                toast.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform';
+                toast.innerHTML = `
+                    <div class="flex items-center">
+                        <i class="ph ph-check-circle text-lg mr-2"></i>
+                        <span>${message}</span>
+                    </div>
+                `;
+                
+                document.body.appendChild(toast);
+                
+                // Animar entrada
+                setTimeout(() => {
+                    toast.classList.remove('translate-x-full');
+                }, 100);
+                
+                // Remover após 3 segundos
+                setTimeout(() => {
+                    toast.classList.add('translate-x-full');
+                    setTimeout(() => {
+                        toast.remove();
+                    }, 300);
+                }, 3000);
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            app.init();
+            loginSystem.init();
+            // Expor loginSystem globalmente para acesso em outras funções
+            window.loginSystem = loginSystem;
+        });
 
     </script>
 </body>
+
 </html>
-
-
