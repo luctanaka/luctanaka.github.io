@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="pt-pt" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bondegusto - Cozinha Industrial</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Ícones: Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script>
+        // Colocado no <head> para ser executado antes da renderização do body
+        // e evitar o "flash" do tema incorreto.
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+    </script>
+    <script>
+        // Configuração do Tailwind para modo escuro e cores personalizadas
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#f39200', // Laranja do logo Bondegusto
+                            light: '#f5a83b',
+                            dark: '#d47e00',
+                        },
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Estilos Globais e Animações */
+        html {
+            /* Fundo aplicado aqui para garantir que toda a janela tenha cor */
+            @apply bg-gray-50 dark:bg-slate-950;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            @apply bg-gray-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-300;
+        }
+        
+        /* Estilos dos botões de filtro */
+        .filter-btn {
+            padding: 0.375rem 1rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            border: 2px solid #e5e7eb;
+            color: #374151;
+            transition: all 0.2s;
+            background-color: transparent;
+            cursor: pointer;
+        }
+        .filter-btn:hover {
+            background-color: #f3f4f6;
+        }
+        .filter-btn.filter-active {
+            background-color: #f39200;
+            border-color: #f39200;
+            color: white;
+        }
+        .dark .filter-btn {
+            border-color: #475569;
+            color: white;
+        }
+        .dark .filter-btn:hover {
+            background-color: #475569;
+        }
+        /* Animação do Spinner */
+        .spinner {
+            border: 2px solid rgba(255,255,255,.2);
+            border-left-color: #fff;
+            border-radius: 50%;
+            width: 1.25rem;
+            height: 1.25rem;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Animações de entrada para o carrinho e modais */
+        .cart-enter { transform: translateX(100%); }
+        .cart-enter-active { transform: translateX(0); }
+        .cart-leave-active { transform: translateX(100%); }
+        .modal-backdrop-enter { opacity: 0; }
+        .modal-backdrop-enter-active { opacity: 1; }
+        .modal-backdrop-leave-active { opacity: 0; }
+        .modal-content-enter { opacity: 0; transform: scale(0.95); }
+        .modal-content-enter-active { opacity: 1; transform: scale(1); }
+        .modal-content-leave-active { opacity: 0; transform: scale(0.95); }
+
+        /* Estilo para a barra de scroll */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #aaa; }
+        
+        .dark ::-webkit-scrollbar-track { background: #1e293b; }
+        .dark ::-webkit-scrollbar-thumb { background: #475569; }
+        .dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+        
+        /* Truncamento de texto */
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        /* Ajustes específicos para dispositivos dobráveis como Galaxy Z Fold */
+        @media (min-width: 344px) and (max-width: 500px) {
+            #menu-items > div {
+                transform: scale(0.9);
+                transform-origin: center;
+            }
+            .btn-primary-small {
+                padding: 0.125rem 0.25rem !important;
+                font-size: 0.5rem !important;
+                border-radius: 0.25rem !important;
+            }
+            #menu-items {
+                gap: 0.125rem !important;
+            }
+            .menu-item-template h3 {
+                font-size: 0.75rem !important;
+            }
+            .menu-item-template p {
+                font-size: 0.625rem !important;
+            }
+            .menu-item-template .text-lg {
+                font-size: 0.875rem !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CABEÇALHO -->
+    <header class="bg-white/90 dark:bg-slate-900/95 backdrop-blur-md sticky top-0 z-40 shadow-sm dark:shadow-slate-800/20">
+        <div class="container mx-auto px-1 sm:px-2 lg:px-3">
+            <div class="relative flex items-center justify-between h-24 sm:h-20 md:h-24 lg:h-28">
+                <!-- Logo -->
+                <div class="flex items-center justify-start flex-shrink-0 ml-0 sm:-ml-10 md:-ml-20 mt-0 sm:-mt-2 md:-mt-5">
+                    <img src="MARCA BONDEGUSTO SEM FUNDON HORIZ 2.png" alt="Logo Bondegusto" class="h-32 sm:h-40 md:h-56 lg:h-72 w-auto object-contain max-w-full">
+                </div>
+                <!-- Navegação Principal -->
+                <nav class="hidden md:flex items-center justify-center gap-6 absolute left-1/2 transform -translate-x-1/2">
+                    <button data-page="cardapio" class="nav-btn page-active">
+                        <i class="ph ph-bowl-food text-lg"></i>
+                        <span>Cardápio</span>
+                    </button>
+                    <button data-page="pedidos" class="nav-btn">
+                        <i class="ph ph-receipt text-lg"></i>
+                        <span>Meus Pedidos</span>
+                    </button>
+                    <button data-page="perfil" class="nav-btn">
+                        <i class="ph ph-user text-lg"></i>
+                        <span>Perfil</span>
+                    </button>
+                </nav>
+                <!-- Ações -->
+                <div class="flex items-center justify-end gap-3 flex-shrink-0">
+                    <button id="theme-toggle-btn" class="p-2.5 rounded-full hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">
+                        <i class="ph ph-sun text-xl block dark:hidden"></i>
+                        <i class="ph ph-moon text-xl hidden dark:block"></i>
+                    </button>
+                    <button id="cart-toggle-btn" class="relative p-2.5 rounded-full hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">
+                        <i class="ph ph-shopping-cart text-xl"></i>
+                        <span id="cart-count" class="absolute -top-1 -right-1 bg-primary text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center border-2 border-gray-50 dark:border-slate-900">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Navegação Mobile (Fundo) -->
+    <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/90 dark:bg-slate-900/95 backdrop-blur-md shadow-[0_-2px_5px_rgba(0,0,0,0.05)] dark:shadow-[0_-2px_5px_rgba(0,0,0,0.3)] z-40">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-3">
+             <button data-page="cardapio" class="nav-btn-mobile page-active">
+                <i class="ph ph-bowl-food text-2xl"></i><span class="text-xs font-medium">Cardápio</span>
+             </button>
+             <button data-page="pedidos" class="nav-btn-mobile">
+                <i class="ph ph-receipt text-2xl"></i><span class="text-xs font-medium">Pedidos</span>
+             </button>
+             <button data-page="perfil" class="nav-btn-mobile">
+                <i class="ph ph-user text-2xl"></i><span class="text-xs font-medium">Perfil</span>
+             </button>
+        </div>
+    </nav>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="w-full min-h-screen py-8 pb-24 md:pb-8 bg-gray-50 dark:bg-slate-950">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Página: Cardápio -->
+        <div id="page-cardapio" class="page-content">
+            <section class="mb-12">
+                <div class="bg-gradient-to-r from-primary/80 to-primary h-64 rounded-2xl shadow-lg flex flex-col justify-center items-center text-white p-4 text-center">
+                    <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight">O sabor que o conecta ao momento.</h2>
+                    <p class="mt-4 text-lg md:text-xl font-medium max-w-2xl">Explore o nosso cardápio e descubra pratos feitos com paixão e os melhores ingredientes.</p>
+                </div>
+            </section>
+            <section class="bg-gray-50 dark:bg-slate-950">
+                 <h3 class="text-3xl font-bold text-center mb-8 text-slate-900 dark:text-white">O Nosso Cardápio</h3>
+                 <div id="category-filters" class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8"></div>
+                 <div id="menu-items" class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 md:gap-6"></div>
+            </section>
+        </div>
+        
+        <!-- Página: Meus Pedidos -->
+        <div id="page-pedidos" class="page-content hidden bg-gray-50 dark:bg-slate-950">
+            <!-- Header da Página -->
+            <div class="bg-gradient-to-r from-primary/90 to-primary h-48 rounded-2xl shadow-lg flex flex-col justify-center items-center text-white p-6 text-center mb-8">
+                <div class="bg-white/20 backdrop-blur-sm rounded-full p-4 mb-4">
+                    <i class="ph ph-receipt text-4xl"></i>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold mb-2">Meus Pedidos</h2>
+                <p class="text-lg opacity-90">Histórico completo dos seus pedidos</p>
+            </div>
+            
+            <div id="order-history" class="space-y-6">
+                <div class="flex flex-col items-center justify-center py-16 text-center">
+                    <div class="bg-gray-100 dark:bg-slate-700 rounded-full p-8 mb-6">
+                        <i class="ph ph-receipt text-4xl text-gray-400 dark:text-slate-500"></i>
+                    </div>
+                    <p class="text-gray-500 dark:text-slate-400 font-medium text-lg mb-2">Ainda não fez nenhum pedido</p>
+                    <p class="text-sm text-gray-400 dark:text-slate-500">Explore o cardápio e faça o seu primeiro pedido</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Página: Perfil -->
+        <div id="page-perfil" class="page-content hidden bg-gray-50 dark:bg-slate-950">
+            <!-- Header da Página -->
+            <div class="bg-gradient-to-r from-primary/90 to-primary h-48 rounded-2xl shadow-lg flex flex-col justify-center items-center text-white p-6 text-center mb-8">
+                <div class="bg-white/20 backdrop-blur-sm rounded-full p-4 mb-4">
+                    <i class="ph ph-user text-4xl"></i>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold mb-2">O seu Perfil</h2>
+                <p class="text-lg opacity-90">Gerencie suas informações e preferências</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Card de Informações Pessoais -->
+                <div class="lg:col-span-1">
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-6 border border-gray-100 dark:border-slate-700">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="bg-primary/10 dark:bg-primary/20 rounded-full p-3">
+                                <i class="ph ph-identification-card text-xl text-primary"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white">Informações Pessoais</h3>
+                                <p class="text-sm text-slate-500 dark:text-slate-400">Dados para entrega e contato</p>
+                            </div>
+                        </div>
+                        
+                        <form id="profile-form" class="space-y-5">
+                            <div class="space-y-2">
+                                <label for="name" class="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-300">
+                                    <i class="ph ph-user text-primary"></i>
+                                    Nome Completo
+                                </label>
+                                <input type="text" id="name" required class="form-input-modern" placeholder="Digite seu nome completo">
+                            </div>
+                            
+                            <div class="space-y-2">
+                                <label for="address" class="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-300">
+                                    <i class="ph ph-map-pin text-primary"></i>
+                                    Morada de Entrega
+                                </label>
+                                <input type="text" id="address" required class="form-input-modern" placeholder="Rua, número, bairro">
+                            </div>
+                            
+                            <div class="space-y-2">
+                                <label for="phone" class="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-300">
+                                    <i class="ph ph-phone text-primary"></i>
+                                    Telefone
+                                </label>
+                                <input type="tel" id="phone" required class="form-input-modern" placeholder="(00) 00000-0000">
+                            </div>
+                            
+                            <button type="submit" class="w-full btn-primary-modern group">
+                                <i class="ph ph-check-circle text-lg group-hover:scale-110 transition-transform"></i>
+                                <span>Guardar Informações</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Card de Favoritos -->
+                <div class="lg:col-span-2">
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-6 border border-gray-100 dark:border-slate-700">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="bg-red-50 dark:bg-red-900/20 rounded-full p-3">
+                                <i class="ph ph-heart text-xl text-red-500"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white">Os Seus Favoritos</h3>
+                                <p class="text-sm text-slate-500 dark:text-slate-400">Pratos que você mais gosta</p>
+                            </div>
+                        </div>
+                        
+                        <div id="favorite-items" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="col-span-full flex flex-col items-center justify-center py-12 text-center">
+                                <div class="bg-gray-100 dark:bg-slate-700 rounded-full p-6 mb-4">
+                                    <i class="ph ph-heart text-3xl text-gray-400 dark:text-slate-500"></i>
+                                </div>
+                                <p class="text-gray-500 dark:text-slate-400 font-medium">Ainda não marcou nenhum item como favorito</p>
+                                <p class="text-sm text-gray-400 dark:text-slate-500 mt-1">Explore o cardápio e marque seus pratos preferidos</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </main>
+
+    <!-- CARRINHO (Sidebar) -->
+    <div id="cart-sidebar-backdrop" class="fixed inset-0 bg-black/50 z-40 hidden transition-opacity duration-300"></div>
+    <aside id="cart-sidebar" class="fixed top-0 right-0 h-full w-full max-w-md bg-gray-50 dark:bg-slate-950 z-50 shadow-2xl flex flex-col transition-transform duration-300 transform translate-x-full">
+        <div class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-slate-700">
+            <h2 class="text-2xl font-bold">O seu Pedido</h2>
+            <button id="close-cart-btn" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-slate-800">
+                <i class="ph ph-x text-2xl"></i>
+            </button>
+        </div>
+        <div id="cart-items" class="flex-grow p-4 overflow-y-auto"></div>
+        <div class="p-4 border-t border-gray-200 dark:border-slate-700 space-y-4">
+
+            <div class="flex justify-between items-center text-xl font-bold">
+                <span>Total:</span>
+                <span id="cart-total">R$ 0,00</span>
+            </div>
+            <button id="checkout-btn" class="btn-primary">Finalizar Pedido</button>
+        </div>
+    </aside>
+    
+    <!-- MODAL GENÉRICO -->
+    <div id="modal-backdrop" class="fixed inset-0 bg-black/60 z-50 hidden items-center justify-center p-4 transition-opacity duration-300">
+        <div id="modal-content" class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl w-full max-w-md p-6 transition-all duration-300">
+            <!-- Conteúdo do Modal será injetado aqui -->
+        </div>
+    </div>
+    
+    <!-- TOAST DE NOTIFICAÇÃO -->
+    <div id="toast" class="fixed bottom-20 md:bottom-5 right-5 bg-slate-800 dark:bg-slate-200 text-white dark:text-black px-5 py-3 rounded-lg shadow-lg opacity-0 translate-y-10 transition-all duration-300 flex items-center gap-3">
+        <i id="toast-icon" class="ph-fill ph-check-circle text-xl text-green-400"></i>
+        <span id="toast-message"></span>
+    </div>
+
+    <!-- TEMPLATES (para clonar com JS) -->
+    <template id="menu-item-template">
+        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-md dark:shadow-slate-900/50 overflow-hidden transform hover:-translate-y-1 transition-transform duration-300 flex flex-col">
+            <div class="relative">
+                <img src="" alt="" class="w-full h-32 sm:h-40 md:h-48 object-cover">
+                <button class="favorite-btn absolute top-2 right-2 sm:top-3 sm:right-3 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm p-1.5 sm:p-2 rounded-full transition-colors">
+                    <i class="ph ph-heart text-lg sm:text-xl text-slate-700 dark:text-white"></i>
+                </button>
+            </div>
+            <div class="p-3 sm:p-4 flex flex-col flex-grow">
+                <h3 class="text-base sm:text-lg font-bold mb-1 text-slate-900 dark:text-white"></h3>
+                <p class="text-xs sm:text-sm text-slate-500 dark:text-white mb-3 sm:mb-4 flex-grow line-clamp-2"></p>
+                <div class="flex justify-between items-center mt-auto">
+                    <span class="text-lg sm:text-xl font-bold text-primary"></span>
+                    <button class="add-to-cart-btn btn-primary-small text-xs sm:text-sm px-2 sm:px-4 py-1 sm:py-2">Adicionar</button>
+                </div>
+            </div>
+        </div>
+    </template>
+    
+    <template id="favorite-item-template">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-gray-100 dark:border-slate-700 overflow-hidden transform hover:-translate-y-2 hover:shadow-xl transition-all duration-300 group h-80 sm:h-96 flex flex-col">
+            <div class="relative overflow-hidden">
+                <img src="" alt="" class="w-full h-32 sm:h-40 object-cover group-hover:scale-105 transition-transform duration-300">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <button class="favorite-btn absolute top-2 right-2 sm:top-3 sm:right-3 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm p-2 sm:p-2.5 rounded-full transition-all duration-300 hover:scale-110 shadow-lg">
+                    <i class="ph-fill ph-heart text-base sm:text-lg text-red-500"></i>
+                </button>
+                <div class="absolute top-2 left-2 sm:top-3 sm:left-3 bg-primary/90 backdrop-blur-sm px-2 sm:px-3 py-0.5 sm:py-1 rounded-full">
+                    <span class="text-white text-xs font-bold">FAVORITO</span>
+                </div>
+            </div>
+            <div class="p-3 sm:p-5 flex flex-col flex-grow">
+                <h3 class="text-base sm:text-lg font-bold mb-1 sm:mb-2 text-slate-900 dark:text-white group-hover:text-primary transition-colors duration-300"></h3>
+                <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-3 sm:mb-4 line-clamp-2 flex-grow"></p>
+                <div class="flex justify-between items-center mt-auto">
+                    <span class="text-lg sm:text-xl font-bold text-primary"></span>
+                    <button class="add-to-cart-btn bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary text-white px-2 sm:px-4 py-1 sm:py-2 rounded-xl font-semibold text-xs sm:text-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 flex items-center gap-1 sm:gap-2">
+                        <i class="ph ph-shopping-cart text-xs sm:text-sm"></i>
+                        <span>Adicionar</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </template>
+    
+    <script>
+    // Este script foi completamente reestruturado para ser mais modular e escalável.
+    // Utiliza um objeto `app` para gerir o estado e as funcionalidades.
+    
+    const app = {
+        // --- ESTADO DA APLICAÇÃO ---
+        state: {
+            menu: [
+                { id: 1, name: 'Feijoada Completa', category: 'principais', price: 45.50, description: 'Acompanha arroz, couve, farofa e laranja.', image: 'https://placehold.co/400x300/c81e1e/FFFFFF?text=Feijoada' },
+                { id: 2, name: 'Parmegiana de Filé Mignon', category: 'principais', price: 55.00, description: 'Suculento filé mignon com molho de tomate e queijo derretido.', image: 'https://placehold.co/400x300/c81e1e/FFFFFF?text=Parmegiana' },
+                { id: 3, name: 'Salmão Grelhado', category: 'principais', price: 62.90, description: 'Com legumes na manteiga de ervas.', image: 'https://placehold.co/400x300/c81e1e/FFFFFF?text=Salmão' },
+                { id: 4, name: 'Bruschetta Tradicional', category: 'entradas', price: 25.00, description: 'Fatias de pão italiano com tomate fresco, alho e manjericão.', image: 'https://placehold.co/400x300/2a9d8f/FFFFFF?text=Bruschetta' },
+                { id: 5, name: 'Dadinhos de Tapioca', category: 'entradas', price: 30.00, description: 'Com geleia de pimenta agridoce.', image: 'https://placehold.co/400x300/2a9d8f/FFFFFF?text=Dadinhos' },
+                { id: 6, name: 'Vinho Tinto Seco', category: 'bebidas', price: 75.00, description: 'Garrafa de Cabernet Sauvignon.', image: 'https://placehold.co/400x300/f4a261/FFFFFF?text=Vinho' },
+                { id: 7, name: 'Suco Natural de Laranja', category: 'bebidas', price: 10.00, description: 'Feito com laranjas frescas.', image: 'https://placehold.co/400x300/f4a261/FFFFFF?text=Suco' },
+                { id: 8, name: 'Petit Gâteau', category: 'sobremesas', price: 28.00, description: 'Bolo de chocolate com interior cremoso e gelado de baunilha.', image: 'https://placehold.co/400x300/e76f51/FFFFFF?text=Sobremesa' }
+            ],
+            cart: [],
+            favorites: [],
+            orders: [],
+            profile: { name: '', address: '', phone: '' },
+            currentPage: 'cardapio',
+            currentFilter: 'todos',
+            isCartOpen: false,
+        },
+
+        // --- INICIALIZAÇÃO ---
+        init() {
+            this.loadStateFromStorage();
+            this.setupEventListeners();
+            this.render();
+            // A definição do tema agora é feita no <head> para evitar flash.
+            // A função `updateTheme` ainda é usada pelo botão de toggle.
+        },
+
+        // --- GESTÃO DE ESTADO E STORAGE ---
+        saveStateToStorage() {
+            const stateToSave = {
+                cart: this.state.cart,
+                favorites: this.state.favorites,
+                orders: this.state.orders,
+                profile: this.state.profile,
+            };
+            localStorage.setItem('appState', JSON.stringify(stateToSave));
+        },
+
+        loadStateFromStorage() {
+            const savedState = localStorage.getItem('appState');
+            if (savedState) {
+                try {
+                    const parsedState = JSON.parse(savedState);
+                    this.state = { ...this.state, ...parsedState };
+                } catch (e) {
+                    console.error("Failed to parse state from localStorage", e);
+                    localStorage.removeItem('appState');
+                }
+            }
+        },
+        
+        // --- MÉTODOS DE RENDERIZAÇÃO ---
+        render() {
+            this.renderPage();
+            this.renderMenu();
+            this.renderCart();
+            this.renderOrders();
+            this.renderProfile();
+            this.renderFavorites();
+        },
+        
+        renderPage() {
+            document.querySelectorAll('.page-content').forEach(p => p.classList.add('hidden'));
+            document.getElementById(`page-${this.state.currentPage}`).classList.remove('hidden');
+            
+            document.querySelectorAll('.nav-btn').forEach(b => {
+                const isActive = b.dataset.page === this.state.currentPage;
+                b.classList.toggle('page-active', isActive);
+                const icon = b.querySelector('i');
+                if (icon) {
+                    icon.classList.toggle('ph-fill', isActive);
+                    icon.classList.toggle('ph', !isActive);
+                }
+            });
+            document.querySelectorAll('.nav-btn-mobile').forEach(b => {
+                b.classList.toggle('page-active', b.dataset.page === this.state.currentPage);
+            });
+        },
+        
+        renderMenu() {
+            const container = document.getElementById('menu-items');
+            const filtersContainer = document.getElementById('category-filters');
+            container.innerHTML = '';
+
+            // Renderiza filtros
+            const categories = ['todos', ...new Set(this.state.menu.map(item => item.category))];
+            filtersContainer.innerHTML = categories.map(cat => `
+                <button data-filter="${cat}" class="filter-btn ${this.state.currentFilter === cat ? 'filter-active' : ''}">${cat.charAt(0).toUpperCase() + cat.slice(1)}</button>
+            `).join('');
+
+            // Renderiza itens
+            const filteredMenu = this.state.currentFilter === 'todos' 
+                ? this.state.menu 
+                : this.state.menu.filter(item => item.category === this.state.currentFilter);
+
+            const template = document.getElementById('menu-item-template');
+            filteredMenu.forEach(item => {
+                const clone = template.content.cloneNode(true);
+                clone.querySelector('div').dataset.id = item.id;
+                clone.querySelector('h3').textContent = item.name;
+                clone.querySelector('p').textContent = item.description;
+                clone.querySelector('span').textContent = this.formatCurrency(item.price);
+                clone.querySelector('img').src = item.image;
+                clone.querySelector('img').alt = item.name;
+
+                const favBtn = clone.querySelector('.favorite-btn');
+                const isFavorite = this.state.favorites.includes(item.id);
+                favBtn.querySelector('i').classList.toggle('ph-fill', isFavorite);
+                favBtn.querySelector('i').classList.toggle('text-red-500', isFavorite);
+
+                container.appendChild(clone);
+            });
+        },
+        
+        renderCart() {
+            const container = document.getElementById('cart-items');
+            container.innerHTML = '';
+
+            if (this.state.cart.length === 0) {
+                container.innerHTML = `<p class="text-center text-gray-500 dark:text-white mt-8">O seu carrinho está vazio.</p>`;
+            } else {
+                this.state.cart.forEach(cartItem => {
+                    container.innerHTML += `
+                        <div class="flex items-center gap-2 sm:gap-4 mb-3 sm:mb-4 p-2 sm:p-3 bg-white dark:bg-slate-800 rounded-lg">
+                            <img src="${cartItem.image}" class="w-12 h-12 sm:w-16 sm:h-16 rounded-md object-cover">
+                            <div class="flex-grow min-w-0">
+                                <p class="font-semibold text-sm sm:text-base truncate">${cartItem.name}</p>
+                                <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400">${this.formatCurrency(cartItem.price)}</p>
+                            </div>
+                            <div class="flex items-center gap-1 sm:gap-2">
+                                <button data-id="${cartItem.id}" data-change="-1" class="quantity-change-btn w-6 h-6 sm:w-7 sm:h-7 text-sm">-</button>
+                                <span class="font-bold w-4 sm:w-6 text-center text-sm">${cartItem.quantity}</span>
+                                <button data-id="${cartItem.id}" data-change="1" class="quantity-change-btn w-6 h-6 sm:w-7 sm:h-7 text-sm">+</button>
+                            </div>
+                            <button data-id="${cartItem.id}" class="remove-from-cart-btn p-1"><i class="ph ph-trash text-red-500 text-sm sm:text-base"></i></button>
+                        </div>
+                    `;
+                });
+            }
+            this.updateCartSummary();
+        },
+
+        updateCartSummary() {
+            const totalItems = this.state.cart.reduce((sum, item) => sum + item.quantity, 0);
+            const totalPrice = this.state.cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+            document.getElementById('cart-count').textContent = totalItems;
+            document.getElementById('cart-total').textContent = this.formatCurrency(totalPrice);
+            document.getElementById('checkout-btn').disabled = totalItems === 0;
+
+        },
+
+        renderOrders() {
+            const container = document.getElementById('order-history');
+            if(this.state.orders.length === 0) {
+                 container.innerHTML = `
+                    <div class="flex flex-col items-center justify-center py-16 text-center">
+                        <div class="bg-gray-100 dark:bg-slate-700 rounded-full p-8 mb-6">
+                            <i class="ph ph-receipt text-4xl text-gray-400 dark:text-slate-500"></i>
+                        </div>
+                        <p class="text-gray-500 dark:text-slate-400 font-medium text-lg mb-2">Ainda não fez nenhum pedido</p>
+                        <p class="text-sm text-gray-400 dark:text-slate-500">Explore o cardápio e faça o seu primeiro pedido</p>
+                    </div>
+                 `;
+                 return;
+            }
+            container.innerHTML = this.state.orders.map((order, index) => `
+                <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-gray-100 dark:border-slate-700 p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex items-center gap-4">
+                            <div class="bg-primary/10 dark:bg-primary/20 rounded-full p-3">
+                                <i class="ph ph-receipt text-xl text-primary"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg text-slate-900 dark:text-white">Pedido #${order.id}</h3>
+                                <p class="text-sm text-slate-500 dark:text-slate-400 flex items-center gap-1">
+                                    <i class="ph ph-calendar text-xs"></i>
+                                    ${order.date}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                           <p class="font-bold text-xl text-primary mb-1">${this.formatCurrency(order.total)}</p>
+                           <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400">
+                               <i class="ph ph-check-circle text-xs mr-1"></i>
+                               Entregue
+                           </span>
+                        </div>
+                    </div>
+                    
+                    <div class="border-t border-gray-100 dark:border-slate-600 pt-4">
+                        <div class="flex justify-between items-center">
+                            <p class="text-sm text-slate-600 dark:text-slate-300">
+                                <span class="font-medium">${order.items.length}</span> ${order.items.length === 1 ? 'item' : 'itens'} no pedido
+                            </p>
+                            <button data-order-index="${index}" class="reorder-btn bg-gradient-to-r from-primary/10 to-primary/5 hover:from-primary hover:to-primary/90 text-primary hover:text-white px-4 py-2 rounded-xl font-semibold text-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 flex items-center gap-2 border border-primary/20 hover:border-transparent">
+                                <i class="ph ph-arrow-clockwise text-sm"></i>
+                                <span>Pedir novamente</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        },
+
+        renderProfile() {
+            document.getElementById('name').value = this.state.profile.name;
+            document.getElementById('address').value = this.state.profile.address;
+            document.getElementById('phone').value = this.state.profile.phone;
+        },
+
+        renderFavorites() {
+            const container = document.getElementById('favorite-items');
+            const favoriteItems = this.state.menu.filter(item => this.state.favorites.includes(item.id));
+
+            if(favoriteItems.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full flex flex-col items-center justify-center py-12 text-center">
+                        <div class="bg-gray-100 dark:bg-slate-700 rounded-full p-6 mb-4">
+                            <i class="ph ph-heart text-3xl text-gray-400 dark:text-slate-500"></i>
+                        </div>
+                        <p class="text-gray-500 dark:text-slate-400 font-medium">Ainda não marcou nenhum item como favorito</p>
+                        <p class="text-sm text-gray-400 dark:text-slate-500 mt-1">Explore o cardápio e marque seus pratos preferidos</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            const template = document.getElementById('favorite-item-template');
+            container.innerHTML = '';
+            
+            favoriteItems.forEach(item => {
+                const clone = template.content.cloneNode(true);
+                clone.querySelector('div').dataset.id = item.id;
+                clone.querySelector('h3').textContent = item.name;
+                clone.querySelector('p').textContent = item.description;
+                clone.querySelector('.flex.justify-between span').textContent = this.formatCurrency(item.price);
+                clone.querySelector('img').src = item.image;
+                clone.querySelector('img').alt = item.name;
+                
+                container.appendChild(clone);
+            });
+        },
+
+        // --- MANIPULADORES DE EVENTOS ---
+        setupEventListeners() {
+            document.addEventListener('click', async (e) => {
+                // Navegação
+                const navBtn = e.target.closest('.nav-btn, .nav-btn-mobile');
+                if (navBtn) this.handleNavClick(navBtn.dataset.page);
+
+                // Filtros
+                const filterBtn = e.target.closest('.filter-btn');
+                if (filterBtn) this.handleFilterClick(filterBtn.dataset.filter);
+
+                // Ações do Carrinho
+                if (e.target.closest('.add-to-cart-btn')) this.handleAddToCart(e.target.closest('[data-id]').dataset.id);
+                if (e.target.closest('.remove-from-cart-btn')) this.handleRemoveFromCart(e.target.closest('[data-id]').dataset.id);
+                if (e.target.closest('.quantity-change-btn')) this.handleChangeQuantity(e.target.closest('[data-id]').dataset.id, e.target.closest('[data-change]').dataset.change);
+                
+                // Favoritos
+                if (e.target.closest('.favorite-btn')) this.handleToggleFavorite(e.target.closest('[data-id]').dataset.id);
+                
+                // Pedidos
+                if (e.target.closest('.reorder-btn')) this.handleReorder(e.target.closest('[data-order-index]').dataset.orderIndex);
+
+                // UI
+                if (e.target.closest('#cart-toggle-btn')) this.toggleCart(true);
+                if (e.target.closest('#close-cart-btn') || e.target.id === 'cart-sidebar-backdrop') this.toggleCart(false);
+                if (e.target.closest('#theme-toggle-btn')) this.toggleTheme();
+                
+                // Funcionalidades
+                if (e.target.closest('#checkout-btn')) this.handleCheckout();
+            });
+            
+            document.getElementById('profile-form').addEventListener('submit', e => {
+                e.preventDefault();
+                this.handleProfileSave();
+            });
+        },
+        
+        handleNavClick(page) {
+            this.state.currentPage = page;
+            this.renderPage();
+        },
+        
+        handleFilterClick(filter) {
+            this.state.currentFilter = filter;
+            this.renderMenu();
+        },
+
+        handleAddToCart(id) {
+            const itemId = parseInt(id);
+            const item = this.state.menu.find(i => i.id === itemId);
+            const cartItem = this.state.cart.find(i => i.id === itemId);
+
+            if (cartItem) {
+                cartItem.quantity++;
+            } else {
+                this.state.cart.push({ ...item, quantity: 1 });
+            }
+            this.showToast(`${item.name} adicionado!`);
+            this.renderCart();
+            this.saveStateToStorage();
+        },
+        
+        handleRemoveFromCart(id) {
+            const itemId = parseInt(id);
+            this.state.cart = this.state.cart.filter(item => item.id !== itemId);
+            this.renderCart();
+            this.saveStateToStorage();
+        },
+
+        handleChangeQuantity(id, change) {
+            const itemId = parseInt(id);
+            const changeAmount = parseInt(change);
+            const cartItem = this.state.cart.find(i => i.id === itemId);
+            if (cartItem) {
+                cartItem.quantity += changeAmount;
+                if (cartItem.quantity <= 0) {
+                    this.handleRemoveFromCart(id);
+                } else {
+                    this.renderCart();
+                    this.saveStateToStorage();
+                }
+            }
+        },
+        
+        handleToggleFavorite(id) {
+            const itemId = parseInt(id);
+            const index = this.state.favorites.indexOf(itemId);
+            if (index > -1) {
+                this.state.favorites.splice(index, 1);
+            } else {
+                this.state.favorites.push(itemId);
+            }
+            this.renderMenu();
+            this.renderFavorites();
+            this.saveStateToStorage();
+        },
+
+        handleProfileSave() {
+            this.state.profile.name = document.getElementById('name').value;
+            this.state.profile.address = document.getElementById('address').value;
+            this.state.profile.phone = document.getElementById('phone').value;
+            this.saveStateToStorage();
+            this.showToast('Perfil guardado com sucesso!', 'success');
+        },
+        
+        handleReorder(orderIndex) {
+            const order = this.state.orders[orderIndex];
+            if(order) {
+                this.state.cart = JSON.parse(JSON.stringify(order.items)); // Deep copy
+                this.renderCart();
+                this.saveStateToStorage();
+                this.showToast('Pedido adicionado ao carrinho!');
+                this.toggleCart(true);
+            }
+        },
+        
+        handleCheckout() {
+            if(this.state.cart.length === 0) return;
+            
+            const { name, address } = this.state.profile;
+            if(!name || !address) {
+                this.showToast('Por favor, preencha o seu perfil primeiro.', 'warning');
+                this.state.currentPage = 'perfil';
+                this.renderPage();
+                this.toggleCart(false);
+                return;
+            }
+
+            const newOrder = {
+                id: (this.state.orders.length + 1).toString().padStart(4, '0'),
+                date: new Date().toLocaleDateString('pt-PT'),
+                items: this.state.cart,
+                total: this.state.cart.reduce((sum, item) => sum + item.price * item.quantity, 0),
+            };
+
+            this.state.orders.unshift(newOrder);
+            this.state.cart = [];
+            
+            this.render();
+            this.saveStateToStorage();
+            this.toggleCart(false);
+            this.showOrderConfirmation(newOrder);
+        },
+
+
+
+        // --- HELPERS E UI ---
+        formatCurrency(value) {
+            return value.toLocaleString('pt-PT', { style: 'currency', currency: 'BRL' }); // BRL para R$
+        },
+        
+        toggleCart(forceOpen) {
+            this.state.isCartOpen = forceOpen !== undefined ? forceOpen : !this.state.isCartOpen;
+            const sidebar = document.getElementById('cart-sidebar');
+            const backdrop = document.getElementById('cart-sidebar-backdrop');
+            
+            if(this.state.isCartOpen) {
+                backdrop.classList.remove('hidden');
+                sidebar.classList.remove('translate-x-full');
+            } else {
+                backdrop.classList.add('hidden');
+                sidebar.classList.add('translate-x-full');
+            }
+        },
+        
+        toggleTheme() {
+            const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            this.updateTheme(newTheme);
+            localStorage.setItem('theme', newTheme);
+        },
+
+        updateTheme(theme) {
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        },
+
+        showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const icon = document.getElementById('toast-icon');
+            document.getElementById('toast-message').textContent = message;
+
+            icon.className = 'ph-fill text-xl';
+            if (type === 'success') icon.classList.add('ph-check-circle', 'text-green-400');
+            else if (type === 'warning') icon.classList.add('ph-warning-circle', 'text-yellow-400');
+            else icon.classList.add('ph-info', 'text-blue-400');
+
+            toast.classList.remove('opacity-0', 'translate-y-10');
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-10');
+            }, 3000);
+        },
+        
+        showOrderConfirmation(order) {
+            const modalBackdrop = document.getElementById('modal-backdrop');
+            const modalContent = document.getElementById('modal-content');
+            
+            modalContent.innerHTML = `
+                <div class="text-center">
+                    <i class="ph-fill ph-rocket-launch text-6xl text-primary mx-auto"></i>
+                    <h3 class="text-2xl font-bold mt-4">Pedido Confirmado!</h3>
+                    <p class="text-slate-500 dark:text-white mt-2">Obrigado, ${this.state.profile.name}! O seu pedido #${order.id} está a ser preparado.</p>
+                    <div class="mt-6 text-left space-y-2">
+                        <p><strong>Total:</strong> ${this.formatCurrency(order.total)}</p>
+                        <p><strong>Morada:</strong> ${this.state.profile.address}</p>
+                    </div>
+                    <button id="close-modal-btn" class="btn-primary mt-6 w-full">Excelente!</button>
+                </div>
+            `;
+            
+            modalBackdrop.classList.remove('hidden');
+            modalBackdrop.classList.add('flex');
+            
+            modalBackdrop.querySelector('#close-modal-btn').onclick = () => {
+                modalBackdrop.classList.add('hidden');
+            };
+        },
+    };
+    
+    // --- ESTILOS DE COMPONENTES GLOBAIS (para não repetir no JS) ---
+    const styleSheet = document.createElement("style");
+    styleSheet.innerText = `
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.625rem 1rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: #475569;
+            transition: all 0.2s;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .nav-btn:hover {
+            background-color: #f1f5f9;
+            color: #0f172a;
+        }
+        .nav-btn.page-active {
+            background-color: rgba(243, 146, 0, 0.1);
+            color: #f39200;
+            font-weight: 700;
+        }
+        .dark .nav-btn {
+            color: white;
+        }
+        .dark .nav-btn:hover {
+            background-color: #334155;
+            color: white;
+        }
+        .dark .nav-btn.page-active {
+            background-color: rgba(243, 146, 0, 0.25);
+            color: #fbbf24;
+        }
+        @media (max-width: 768px) {
+            .nav-btn {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.75rem;
+            }
+        }
+        .nav-btn-mobile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem 0;
+            color: #475569;
+            transition: color 0.2s;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .nav-btn-mobile.page-active {
+            color: #f39200;
+        }
+        .dark .nav-btn-mobile {
+            color: white;
+        }
+
+        .form-input { @apply w-full px-3 py-2 bg-white dark:bg-slate-700 border border-gray-300 dark:border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary; }
+        .form-input-modern {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            outline: none;
+        }
+        .form-input-modern:focus {
+            border-color: #f39200;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(243, 146, 0, 0.1);
+        }
+        .dark .form-input-modern {
+            background-color: #1e293b;
+            border-color: #475569;
+            color: white;
+        }
+        .dark .form-input-modern:focus {
+            border-color: #f39200;
+            background-color: #334155;
+        }
+        .btn-primary {
+            width: 100%;
+            background-color: #f39200;
+            color: white;
+            padding: 0.625rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 700;
+            transition: background-color 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary:hover {
+            background-color: #fbbf24;
+        }
+        .btn-primary:disabled {
+            background-color: #9ca3af;
+            cursor: not-allowed;
+        }
+        .btn-primary-modern {
+            width: 100%;
+            background: linear-gradient(135deg, #f39200, #fbbf24);
+            color: white;
+            padding: 0.875rem 1.5rem;
+            border-radius: 0.75rem;
+            font-size: 1rem;
+            font-weight: 700;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 12px rgba(243, 146, 0, 0.3);
+        }
+        .btn-primary-modern:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(243, 146, 0, 0.4);
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+        }
+        .btn-primary-modern:active {
+            transform: translateY(0);
+        }
+        .btn-primary-modern:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        .btn-primary-small {
+            background-color: #f39200;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.375rem;
+            font-size: 0.625rem;
+            font-weight: 600;
+            transition: background-color 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+        @media (min-width: 640px) {
+            .btn-primary-small {
+                padding: 0.5rem 1rem;
+                font-size: 0.875rem;
+            }
+        }
+        .btn-primary-small:hover {
+            background-color: #fbbf24;
+        }
+        .btn-secondary {
+            width: 100%;
+            background-color: #e2e8f0;
+            color: #1e293b;
+            padding: 0.625rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 700;
+            transition: background-color 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-secondary:hover {
+            background-color: #cbd5e1;
+        }
+        .btn-secondary:disabled {
+            background-color: #9ca3af;
+            cursor: not-allowed;
+        }
+        .dark .btn-secondary {
+            background-color: #334155;
+            color: white;
+        }
+        .dark .btn-secondary:hover {
+            background-color: #475569;
+        }
+        .quantity-change-btn {
+            background-color: #e5e7eb;
+            border-radius: 50%;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            min-width: 1.5rem;
+            min-height: 1.5rem;
+        }
+        .quantity-change-btn:hover {
+            background-color: #d1d5db;
+            transform: scale(1.05);
+        }
+        .dark .quantity-change-btn {
+            background-color: #334155;
+            color: white;
+        }
+        .dark .quantity-change-btn:hover {
+             background-color: #475569;
+         }
+         
+         /* Botão do carrinho no header */
+         #cart-toggle-btn {
+             color: #475569;
+         }
+         #cart-toggle-btn:hover {
+             background-color: #f1f5f9;
+         }
+         .dark #cart-toggle-btn {
+             color: #e2e8f0;
+         }
+         .dark #cart-toggle-btn:hover {
+              background-color: #334155;
+          }
+          
+          /* Textos dentro do carrinho */
+          #cart-sidebar h2 {
+              color: #1f2937;
+          }
+          .dark #cart-sidebar h2 {
+              color: #f8fafc;
+          }
+          #cart-sidebar .font-semibold {
+              color: #374151;
+          }
+          .dark #cart-sidebar .font-semibold {
+              color: #e2e8f0;
+          }
+          #cart-sidebar .text-slate-500 {
+              color: #64748b;
+          }
+          .dark #cart-sidebar .text-slate-500 {
+              color: #cbd5e1;
+          }
+          #cart-sidebar .font-bold {
+              color: #1f2937;
+          }
+          .dark #cart-sidebar .font-bold {
+              color: #f1f5f9;
+          }
+          #cart-total {
+              color: #1f2937;
+          }
+          .dark #cart-total {
+              color: #f1f5f9;
+          }
+      `;
+    document.head.appendChild(styleSheet);
+    
+    document.addEventListener('DOMContentLoaded', () => app.init());
+
+    </script>
+</body>
+</html>
+
+
