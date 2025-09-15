@@ -248,6 +248,10 @@
                         <i class="ph ph-phone text-lg"></i>
                         <span>Contato</span>
                     </button>
+                    <button data-page="avaliacoes" class="nav-btn">
+                        <i class="ph ph-star text-lg"></i>
+                        <span>Avaliações</span>
+                    </button>
                     <button data-page="sobre" class="nav-btn">
                         <i class="ph ph-info text-lg"></i>
                         <span>Sobre</span>
@@ -367,6 +371,9 @@
 
             <button data-page="contato" class="nav-btn-mobile">
                 <i class="ph ph-phone text-xl"></i><span class="text-xs font-medium">Contato</span>
+            </button>
+            <button data-page="avaliacoes" class="nav-btn-mobile">
+                <i class="ph ph-star text-xl"></i><span class="text-xs font-medium">Avaliações</span>
             </button>
             <button data-page="sobre" class="nav-btn-mobile">
                 <i class="ph ph-info text-xl"></i><span class="text-xs font-medium">Sobre</span>
@@ -909,6 +916,308 @@
 
 
 
+            <!-- Página: Avaliações -->
+            <div id="page-avaliacoes" class="page-content hidden">
+                <!-- Header da Página -->
+                <div
+                    class="bg-gradient-to-r from-yellow-500/90 to-yellow-600 h-48 rounded-2xl shadow-lg flex flex-col justify-center items-center text-white p-6 text-center mb-8">
+                    <div class="bg-white/20 backdrop-blur-sm rounded-full p-4 mb-4">
+                        <i class="ph ph-star text-4xl"></i>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-2">Avaliações</h2>
+                    <p class="text-lg opacity-90">Compartilhe sua experiência conosco</p>
+                </div>
+
+                <!-- Formulário de Avaliação -->
+                <section class="mb-12">
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-8 border border-gray-100 dark:border-slate-700">
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-6 text-center">Deixe sua Avaliação</h3>
+                        
+                        <form id="rating-form" class="space-y-6">
+                            <!-- Nome -->
+                            <div>
+                                <label for="customer-name" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                                    Nome *
+                                </label>
+                                <input type="text" id="customer-name" required 
+                                    class="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-slate-700 text-slate-900 dark:text-white" 
+                                    placeholder="Seu nome completo">
+                            </div>
+
+                            <!-- Email -->
+                            <div>
+                                <label for="customer-email" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                                    Email *
+                                </label>
+                                <input type="email" id="customer-email" required 
+                                    class="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-slate-700 text-slate-900 dark:text-white" 
+                                    placeholder="seu@email.com">
+                            </div>
+
+                            <!-- Empresa -->
+                            <div>
+                                <label for="customer-company" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                                    Empresa
+                                </label>
+                                <input type="text" id="customer-company" 
+                                    class="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-slate-700 text-slate-900 dark:text-white" 
+                                    placeholder="Nome da sua empresa">
+                            </div>
+
+                            <!-- Avaliação por Estrelas -->
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                                    Avaliação Geral *
+                                </label>
+                                <div class="flex items-center space-x-2">
+                                    <div id="star-rating" class="flex space-x-1">
+                                        <span class="star text-4xl cursor-pointer text-gray-300 hover:text-yellow-400 transition-colors" data-value="1">★</span>
+                                        <span class="star text-4xl cursor-pointer text-gray-300 hover:text-yellow-400 transition-colors" data-value="2">★</span>
+                                        <span class="star text-4xl cursor-pointer text-gray-300 hover:text-yellow-400 transition-colors" data-value="3">★</span>
+                                        <span class="star text-4xl cursor-pointer text-gray-300 hover:text-yellow-400 transition-colors" data-value="4">★</span>
+                                        <span class="star text-4xl cursor-pointer text-gray-300 hover:text-yellow-400 transition-colors" data-value="5">★</span>
+                                    </div>
+
+                                </div>
+                                <input type="hidden" id="rating-value" name="rating" required>
+                            </div>
+
+                            <!-- Comentário -->
+                            <div>
+                                <label for="customer-comment" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                                    Comentário *
+                                </label>
+                                <textarea id="customer-comment" required rows="4" 
+                                    class="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-slate-700 text-slate-900 dark:text-white resize-none" 
+                                    placeholder="Conte-nos sobre sua experiência com nossos serviços..."></textarea>
+                            </div>
+
+                            <!-- Botão de Envio -->
+                            <div class="text-center">
+                                <button type="submit" id="submit-rating" 
+                                    class="bg-primary hover:bg-primary/90 text-white font-semibold py-3 px-8 rounded-lg transition-colors flex items-center justify-center mx-auto">
+                                    <span id="submit-text">Enviar Avaliação</span>
+                                    <i id="submit-loading" class="ph ph-spinner-gap text-lg ml-2 animate-spin hidden"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- Estatísticas das Avaliações -->
+                <section class="mb-8">
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-6 border border-gray-100 dark:border-slate-700">
+                        <div class="text-center">
+                            <div class="flex items-center justify-center mb-4">
+                                <div class="flex text-yellow-400 text-3xl mr-4">
+                                    <i class="ph ph-star-fill"></i>
+                                    <i class="ph ph-star-fill"></i>
+                                    <i class="ph ph-star-fill"></i>
+                                    <i class="ph ph-star-fill"></i>
+                                    <i class="ph ph-star-half"></i>
+                                </div>
+                                <div>
+                                    <div class="text-3xl font-bold text-slate-900 dark:text-white">4.6</div>
+                                    <div class="text-sm text-slate-500 dark:text-slate-400">de 5 estrelas</div>
+                                </div>
+                            </div>
+                            <p class="text-slate-600 dark:text-slate-400">Baseado em 127 avaliações</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Avaliações Existentes -->
+                <section class="mb-12">
+                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-6 text-center">O que nossos clientes dizem</h3>
+                    
+                    <!-- Tabela de Avaliações -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-gray-100 dark:border-slate-700 overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead class="bg-gray-50 dark:bg-slate-700">
+                                    <tr>
+                                        <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Cliente</th>
+                                        <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Cargo/Empresa</th>
+                                        <th class="px-6 py-4 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Avaliação</th>
+                                        <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Comentário</th>
+                                        <th class="px-6 py-4 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Data</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200 dark:divide-slate-600">
+                                    <!-- Avaliação 1 -->
+                                    <tr class="hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors">
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="font-medium text-slate-900 dark:text-white">Maria Silva</div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="text-sm text-slate-600 dark:text-slate-300">Gerente de RH</div>
+                                            <div class="text-xs text-slate-500 dark:text-slate-400">Empresa X</div>
+                                        </td>
+                                        <td class="px-6 py-4 text-center">
+                                            <div class="flex items-center justify-center text-yellow-400">
+                                                <i class="ph ph-star-fill"></i>
+                                                <i class="ph ph-star-fill"></i>
+                                                <i class="ph ph-star-fill"></i>
+                                                <i class="ph ph-star-fill"></i>
+                                                <i class="ph ph-star-fill"></i>
+                                            </div>
+                                            <div class="text-sm font-semibold text-slate-600 dark:text-slate-400 mt-1">5.0</div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="text-sm text-slate-700 dark:text-slate-300 max-w-xs">
+                                                "A comida é sempre fresca e deliciosa. A equipe é muito atenciosa e o serviço é impecável. Recomendo a todos!"
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 text-center">
+                                            <div class="text-sm text-slate-500 dark:text-slate-400">Há 2 dias</div>
+                                        </td>
+                                    </tr>
+                                    
+                                    <!-- Avaliação 2 -->
+                                    <tr class="hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors">
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="font-medium text-slate-900 dark:text-white">João Souza</div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="text-sm text-slate-600 dark:text-slate-300">Diretor de Operações</div>
+                                            <div class="text-xs text-slate-500 dark:text-slate-400">Empresa Y</div>
+                                        </td>
+                                        <td class="px-6 py-4 text-center">
+                                            <div class="flex items-center justify-center text-yellow-400">
+                                                <i class="ph ph-star-fill"></i>
+                                                <i class="ph ph-star-fill"></i>
+                                                <i class="ph ph-star-fill"></i>
+                                                <i class="ph ph-star-fill"></i>
+                                                <i class="ph ph-star text-gray-300"></i>
+                                            </div>
+                                            <div class="text-sm font-semibold text-slate-600 dark:text-slate-400 mt-1">4.0</div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="text-sm text-slate-700 dark:text-slate-300 max-w-xs">
+                                                "Excelente variedade no cardápio e a qualidade da comida é impressionante. O melhor refeitório que já tivemos na empresa."
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 text-center">
+                                            <div class="text-sm text-slate-500 dark:text-slate-400">Há 5 dias</div>
+                                        </td>
+                                    </tr>
+                                    
+                                    <!-- Avaliação 3 -->
+                                    <tr class="hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors">
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="font-medium text-slate-900 dark:text-white">Ana Costa</div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="text-sm text-slate-600 dark:text-slate-300">Coordenadora de Eventos</div>
+                                            <div class="text-xs text-slate-500 dark:text-slate-400">Empresa Z</div>
+                                        </td>
+                                        <td class="px-6 py-4 text-center">
+                                            <div class="flex items-center justify-center text-yellow-400">
+                                                <i class="ph ph-star-fill"></i>
+                                                <i class="ph ph-star-fill"></i>
+                                                <i class="ph ph-star-fill"></i>
+                                                <i class="ph ph-star-fill"></i>
+                                                <i class="ph ph-star-half"></i>
+                                            </div>
+                                            <div class="text-sm font-semibold text-slate-600 dark:text-slate-400 mt-1">4.5</div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="text-sm text-slate-700 dark:text-slate-300 max-w-xs">
+                                                "O atendimento é fantástico e a comida tem um sabor caseiro que nos faz sentir em casa. Parabéns a toda a equipe do Bondegusto!"
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 text-center">
+                                            <div class="text-sm text-slate-500 dark:text-slate-400">Há 1 semana</div>
+                                        </td>
+                                    </tr>
+                                    
+                                    <!-- Avaliação 4 -->
+                                    <tr class="hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors">
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="font-medium text-slate-900 dark:text-white">Carlos Mendes</div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="text-sm text-slate-600 dark:text-slate-300">Empresário</div>
+                                            <div class="text-xs text-slate-500 dark:text-slate-400">-</div>
+                                        </td>
+                                        <td class="px-6 py-4 text-center">
+                                            <div class="flex items-center justify-center text-yellow-400">
+                                                <i class="ph ph-star-fill"></i>
+                                                <i class="ph ph-star-fill"></i>
+                                                <i class="ph ph-star-fill"></i>
+                                                <i class="ph ph-star-fill"></i>
+                                                <i class="ph ph-star-fill"></i>
+                                            </div>
+                                            <div class="text-sm font-semibold text-slate-600 dark:text-slate-400 mt-1">5.0</div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="text-sm text-slate-700 dark:text-slate-300 max-w-xs">
+                                                "Ótima experiência gastronômica. O atendimento é rápido e eficiente. Recomendo especialmente o prato do dia!"
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 text-center">
+                                            <div class="text-sm text-slate-500 dark:text-slate-400">Há 2 semanas</div>
+                                        </td>
+                                    </tr>
+                                    
+                                    <!-- Avaliação 5 -->
+                                    <tr class="hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors">
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="font-medium text-slate-900 dark:text-white">Fernanda Lima</div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="text-sm text-slate-600 dark:text-slate-300">Consultora</div>
+                                            <div class="text-xs text-slate-500 dark:text-slate-400">-</div>
+                                        </td>
+                                        <td class="px-6 py-4 text-center">
+                                            <div class="flex items-center justify-center text-yellow-400">
+                                                <i class="ph ph-star-fill"></i>
+                                                <i class="ph ph-star-fill"></i>
+                                                <i class="ph ph-star-fill"></i>
+                                                <i class="ph ph-star text-gray-300"></i>
+                                                <i class="ph ph-star text-gray-300"></i>
+                                            </div>
+                                            <div class="text-sm font-semibold text-slate-600 dark:text-slate-400 mt-1">3.0</div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="text-sm text-slate-700 dark:text-slate-300 max-w-xs">
+                                                "Ambiente aconchegante e comida saborosa. Só achei que poderia ter mais opções vegetarianas no cardápio."
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 text-center">
+                                            <div class="text-sm text-slate-500 dark:text-slate-400">Há 3 semanas</div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <!-- Resumo das Avaliações -->
+                        <div class="bg-gray-50 dark:bg-slate-700 px-6 py-4 border-t border-gray-200 dark:border-slate-600">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-4">
+                                    <div class="text-sm text-slate-600 dark:text-slate-300">
+                                        <span class="font-semibold">Avaliação Média:</span>
+                                        <span class="text-yellow-500 font-bold ml-1">4.3/5.0</span>
+                                    </div>
+                                    <div class="text-sm text-slate-600 dark:text-slate-300">
+                                        <span class="font-semibold">Total de Avaliações:</span>
+                                        <span class="font-bold ml-1">5</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center text-yellow-400">
+                                    <i class="ph ph-star-fill"></i>
+                                    <i class="ph ph-star-fill"></i>
+                                    <i class="ph ph-star-fill"></i>
+                                    <i class="ph ph-star-fill"></i>
+                                    <i class="ph ph-star-half"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
             <!-- Página: Contato -->
             <div id="page-contato" class="page-content hidden">
                 <!-- Header da Página -->
@@ -1367,6 +1676,12 @@
                 
                 this.state.currentPage = page;
                 this.render();
+                
+                // Scroll para o topo da página
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
             },
             
             showLoginRequiredMessage() {
@@ -2044,7 +2359,7 @@
                 };
                 return locations[locationKey] || locationKey;
             },
-            
+
             showSuccessMessage(message) {
                 // Criar toast de sucesso
                 const toast = document.createElement('div');
@@ -2070,12 +2385,184 @@
                         toast.remove();
                     }, 300);
                 }, 3000);
-            }
+            },
+
+
+
+
         };
 
         document.addEventListener('DOMContentLoaded', () => {
             app.init();
             loginSystem.init();
+            
+            // Inicializar sistema de avaliação diretamente
+            const stars = document.querySelectorAll('.star');
+            const ratingValue = document.getElementById('rating-value');
+            const ratingForm = document.getElementById('rating-form');
+
+            if (stars.length && ratingValue && ratingForm) {
+                let currentRating = 0;
+
+                // Função para atualizar as estrelas
+                function updateStars() {
+                    stars.forEach((star, index) => {
+                        if (index + 1 <= currentRating) {
+                            // Estrela preenchida (amarela)
+                            star.style.color = '#facc15'; // text-yellow-400
+                        } else {
+                            // Estrela vazia (cinza)
+                            star.style.color = '#d1d5db'; // text-gray-300
+                        }
+                    });
+                }
+
+                // Inicializar estrelas
+                updateStars();
+
+                // Configurar eventos das estrelas
+                stars.forEach((star, index) => {
+                    // Evento de hover
+                    star.addEventListener('mouseenter', () => {
+                        const hoverRating = index + 1;
+                        stars.forEach((s, i) => {
+                            if (i + 1 <= hoverRating) {
+                                s.style.color = '#facc15'; // text-yellow-400
+                            } else {
+                                s.style.color = '#d1d5db'; // text-gray-300
+                            }
+                        });
+                    });
+
+                    // Evento de sair do hover
+                    star.addEventListener('mouseleave', () => {
+                        updateStars();
+                    });
+
+                    // Evento de clique
+                    star.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        const clickedRating = parseInt(star.dataset.value);
+                        
+                        // Se clicar na mesma estrela já selecionada, desmarcar
+                        if (currentRating === clickedRating) {
+                            currentRating = 0;
+                            ratingValue.value = '';
+                        } else {
+                            currentRating = clickedRating;
+                            ratingValue.value = currentRating;
+                        }
+                        
+                        updateStars();
+                    });
+                });
+
+
+
+
+
+                // Configurar envio do formulário
+                ratingForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    
+                    const submitBtn = document.getElementById('submit-rating');
+                    const submitText = document.getElementById('submit-text');
+                    const submitLoading = document.getElementById('submit-loading');
+                    const commentText = document.getElementById('rating-comment').value.trim();
+
+                    if (currentRating === 0) {
+                        app.showSuccessMessage('Por favor, selecione uma avaliação com estrelas.');
+                        return;
+                    }
+
+                    // Mostrar loading
+                    submitText.textContent = 'Enviando...';
+                    submitLoading.classList.remove('hidden');
+                    submitBtn.disabled = true;
+
+                    // Simular envio
+                    setTimeout(() => {
+                        // Adicionar nova avaliação à lista
+                        addNewReview(currentRating, commentText);
+                        
+                        // Atualizar estatísticas
+                        updateRatingStats();
+                        
+                        // Resetar formulário
+                        ratingForm.reset();
+                        ratingValue.value = '';
+                        currentRating = 0;
+                        
+                        // Resetar estrelas
+                        starButtons.forEach(btn => {
+                            btn.className = 'star-btn text-3xl text-gray-300 hover:text-yellow-400 transition-colors';
+                            btn.querySelector('i').className = 'ph ph-star';
+                        });
+
+                        // Resetar botão
+                        submitText.textContent = 'Enviar Avaliação';
+                        submitLoading.classList.add('hidden');
+                        submitBtn.disabled = false;
+
+                        // Mostrar mensagem de sucesso
+                        app.showSuccessMessage('Avaliação enviada com sucesso! Obrigado pelo seu feedback.');
+                    }, 2000);
+                });
+                
+                // Função para adicionar nova avaliação
+                function addNewReview(rating, comment) {
+                    const reviewsContainer = document.querySelector('.space-y-6');
+                    if (!reviewsContainer) return;
+                    
+                    const starsHtml = generateStarsHtml(rating);
+                    const newReviewHtml = `
+                        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                            <div class="flex items-start justify-between mb-3">
+                                <div>
+                                    <h4 class="font-semibold text-gray-900">Você</h4>
+                                    <p class="text-sm text-gray-600">Agora mesmo</p>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <div class="flex text-lg">
+                                        ${starsHtml}
+                                    </div>
+                                    <span class="text-sm font-medium text-gray-700">${rating}.0</span>
+                                </div>
+                            </div>
+                            <p class="text-gray-700">${comment || 'Sem comentário adicional.'}</p>
+                        </div>
+                    `;
+                    
+                    reviewsContainer.insertAdjacentHTML('afterbegin', newReviewHtml);
+                }
+                
+                // Função para gerar HTML das estrelas
+                function generateStarsHtml(rating) {
+                    let starsHtml = '';
+                    for (let i = 1; i <= 5; i++) {
+                        if (i <= rating) {
+                            starsHtml += '<i class="ph ph-star-fill text-yellow-400"></i>';
+                        } else {
+                            starsHtml += '<i class="ph ph-star text-gray-300"></i>';
+                        }
+                    }
+                    return starsHtml;
+                }
+                
+                // Função para atualizar estatísticas
+                function updateRatingStats() {
+                    const avgElement = document.querySelector('.text-4xl.font-bold');
+                    const countElement = document.querySelector('.text-gray-600');
+                    
+                    if (avgElement && countElement) {
+                        const currentCount = parseInt(countElement.textContent.match(/\d+/)[0]);
+                        const newCount = currentCount + 1;
+                        countElement.textContent = `${newCount} avaliações`;
+                    }
+                }
+            }
+            
             // Expor loginSystem globalmente para acesso em outras funções
             window.loginSystem = loginSystem;
         });
