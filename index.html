@@ -556,14 +556,41 @@
                     </div>
                 </section>
 
-                <!-- Seletor de Dias -->
+                <!-- Calendário e Seletor de Visualização -->
                 <section class="mb-8">
+                    <!-- Controles do Calendário -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-6 mb-6">
+                        <!-- Header do Calendário -->
+                        <div class="flex items-center justify-center mb-6">
+                            <h3 id="calendar-month-year" class="text-xl font-bold text-slate-900 dark:text-white"></h3>
+                        </div>
+                        
+                        <!-- Calendário -->
+                        <div class="grid grid-cols-7 gap-1 mb-4">
+                            <!-- Cabeçalho dos dias da semana -->
+                            <div class="text-center text-sm font-semibold text-slate-600 dark:text-slate-400 py-2">Dom</div>
+                            <div class="text-center text-sm font-semibold text-slate-600 dark:text-slate-400 py-2">Seg</div>
+                            <div class="text-center text-sm font-semibold text-slate-600 dark:text-slate-400 py-2">Ter</div>
+                            <div class="text-center text-sm font-semibold text-slate-600 dark:text-slate-400 py-2">Qua</div>
+                            <div class="text-center text-sm font-semibold text-slate-600 dark:text-slate-400 py-2">Qui</div>
+                            <div class="text-center text-sm font-semibold text-slate-600 dark:text-slate-400 py-2">Sex</div>
+                            <div class="text-center text-sm font-semibold text-slate-600 dark:text-slate-400 py-2">Sáb</div>
+                        </div>
+                        
+                        <!-- Dias do calendário -->
+                        <div id="calendar-days" class="grid grid-cols-7 gap-1">
+                            <!-- Dias serão preenchidos dinamicamente -->
+                        </div>
+                    </div>
+                    
+                    <!-- Opções de Visualização -->
                     <div class="flex flex-wrap justify-center gap-4">
-                        <button class="day-btn px-6 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105" data-day="segunda">Segunda</button>
-                        <button class="day-btn px-6 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105" data-day="terca">Terça</button>
-                        <button class="day-btn px-6 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105" data-day="quarta">Quarta</button>
-                        <button class="day-btn px-6 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105" data-day="quinta">Quinta</button>
-                        <button class="day-btn px-6 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105" data-day="sexta">Sexta</button>
+                        <button id="view-day" class="view-btn px-6 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105 bg-primary text-white" data-view="day">
+                            <i class="ph ph-calendar text-lg mr-2"></i>Dia Selecionado
+                        </button>
+                        <button id="view-week" class="view-btn px-6 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105 bg-white dark:bg-slate-700 text-slate-700 dark:text-white border border-gray-200 dark:border-slate-600" data-view="week">
+                            <i class="ph ph-calendar-dots text-lg mr-2"></i>Semana Completa
+                        </button>
                     </div>
                 </section>
 
@@ -1380,147 +1407,181 @@
         const app = {
             // --- ESTADO DA APLICAÇÃO ---
             state: {
-                // Cardápios por região
+                // Cardápios mensais por região (cada dia tem um cardápio único)
                 regionalMenus: {
                     'sao-paulo': {
-                        'segunda': {
-                            principal: 'Frango Grelhado com Arroz Integral',
-                            acompanhamento: 'Feijão Preto, Salada Verde',
-                            sobremesa: 'Fruta da Estação'
-                        },
-                        'terca': {
-                            principal: 'Peixe Assado com Batata Doce',
-                            acompanhamento: 'Lentilha, Legumes Refogados',
-                            sobremesa: 'Pudim de Leite'
-                        },
-                        'quarta': {
-                            principal: 'Carne Bovina com Arroz Branco',
-                            acompanhamento: 'Feijão Carioca, Salada Mista',
-                            sobremesa: 'Gelatina'
-                        },
-                        'quinta': {
-                            principal: 'Frango Ensopado com Mandioca',
-                            acompanhamento: 'Feijão Verde, Couve Refogada',
-                            sobremesa: 'Doce de Leite'
-                        },
-                        'sexta': {
-                            principal: 'Peixe Grelhado com Quinoa',
-                            acompanhamento: 'Grão de Bico, Salada de Tomate',
-                            sobremesa: 'Fruta da Estação'
-                        }
+                        1: { principal: 'Frango Grelhado com Arroz Integral', acompanhamento: 'Feijão Preto, Salada Verde', sobremesa: 'Fruta da Estação' },
+                        2: { principal: 'Peixe Assado com Batata Doce', acompanhamento: 'Lentilha, Legumes Refogados', sobremesa: 'Pudim de Leite' },
+                        3: { principal: 'Carne Bovina com Arroz Branco', acompanhamento: 'Feijão Carioca, Salada Mista', sobremesa: 'Gelatina' },
+                        4: { principal: 'Frango Ensopado com Mandioca', acompanhamento: 'Feijão Verde, Couve Refogada', sobremesa: 'Doce de Leite' },
+                        5: { principal: 'Peixe Grelhado com Quinoa', acompanhamento: 'Grão de Bico, Salada de Tomate', sobremesa: 'Fruta da Estação' },
+                        6: { principal: 'Lasanha de Berinjela', acompanhamento: 'Salada Caesar, Pão de Alho', sobremesa: 'Tiramisu' },
+                        7: { principal: 'Salmão Grelhado com Risotto', acompanhamento: 'Aspargos, Salada de Rúcula', sobremesa: 'Mousse de Chocolate' },
+                        8: { principal: 'Picanha na Chapa', acompanhamento: 'Arroz com Alho, Farofa', sobremesa: 'Brigadeiro Gourmet' },
+                        9: { principal: 'Frango à Parmegiana', acompanhamento: 'Purê de Batata, Salada Mista', sobremesa: 'Pudim de Pão' },
+                        10: { principal: 'Bacalhau à Brás', acompanhamento: 'Batata Palha, Azeitonas', sobremesa: 'Pastel de Nata' },
+                        11: { principal: 'Costela Assada', acompanhamento: 'Mandioca Cozida, Vinagrete', sobremesa: 'Doce de Abóbora' },
+                        12: { principal: 'Linguado Grelhado', acompanhamento: 'Arroz de Brócolis, Cenoura Refogada', sobremesa: 'Sorvete de Coco' },
+                        13: { principal: 'Frango Xadrez', acompanhamento: 'Arroz Branco, Legumes Orientais', sobremesa: 'Gelatina de Frutas' },
+                        14: { principal: 'Carne de Panela', acompanhamento: 'Polenta Cremosa, Couve Refogada', sobremesa: 'Quindim' },
+                        15: { principal: 'Peixe à Delícia', acompanhamento: 'Arroz de Coco, Salada Tropical', sobremesa: 'Cocada Queimada' },
+                        16: { principal: 'Frango Caipira', acompanhamento: 'Tutu de Feijão, Ora-pro-nóbis', sobremesa: 'Doce de Leite Cremoso' },
+                        17: { principal: 'Bife à Milanesa', acompanhamento: 'Batata Frita, Salada de Alface', sobremesa: 'Pavê de Chocolate' },
+                        18: { principal: 'Robalo Assado', acompanhamento: 'Arroz de Limão, Legumes Grelhados', sobremesa: 'Mousse de Maracujá' },
+                        19: { principal: 'Frango Teriyaki', acompanhamento: 'Arroz Japonês, Legumes no Vapor', sobremesa: 'Mochi de Morango' },
+                        20: { principal: 'Carne Assada', acompanhamento: 'Batata Rústica, Salada de Beterraba', sobremesa: 'Torta de Maçã' },
+                        21: { principal: 'Peixe Empanado', acompanhamento: 'Arroz Pilaf, Salada Coleslaw', sobremesa: 'Cheesecake de Frutas Vermelhas' },
+                        22: { principal: 'Frango Stroganoff', acompanhamento: 'Arroz Branco, Batata Palha', sobremesa: 'Brigadeiro de Colher' },
+                        23: { principal: 'Lombo Suíno', acompanhamento: 'Purê de Mandioquinha, Brócolis', sobremesa: 'Pudim de Leite Condensado' },
+                        24: { principal: 'Dourado Grelhado', acompanhamento: 'Quinoa Colorida, Salada de Folhas', sobremesa: 'Açaí com Granola' },
+                        25: { principal: 'Frango Assado', acompanhamento: 'Arroz com Cenoura, Feijão Fradinho', sobremesa: 'Doce de Mamão' },
+                        26: { principal: 'Carne de Sol', acompanhamento: 'Macaxeira, Baião de Dois', sobremesa: 'Cocada de Forno' },
+                        27: { principal: 'Pescada Cozida', acompanhamento: 'Arroz de Tomate, Salada Verde', sobremesa: 'Manjar Branco' },
+                        28: { principal: 'Frango Refogado', acompanhamento: 'Macarrão Alho e Óleo, Salada Caprese', sobremesa: 'Gelato de Baunilha' },
+                        29: { principal: 'Picanha Acebolada', acompanhamento: 'Arroz Carreteiro, Farofa de Bacon', sobremesa: 'Petit Gateau' },
+                        30: { principal: 'Salmão Teriyaki', acompanhamento: 'Arroz Integral, Shimeji Refogado', sobremesa: 'Dorayaki' },
+                        31: { principal: 'Frango à Brasileira', acompanhamento: 'Arroz com Pequi, Guariroba', sobremesa: 'Pamonha Doce' }
                     },
                     'rio-de-janeiro': {
-                        'segunda': {
-                            principal: 'Moqueca de Peixe com Arroz de Coco',
-                            acompanhamento: 'Feijão Preto, Farofa de Dendê',
-                            sobremesa: 'Açaí com Granola'
-                        },
-                        'terca': {
-                            principal: 'Picanha Grelhada com Arroz Branco',
-                            acompanhamento: 'Feijão Tropeiro, Couve à Mineira',
-                            sobremesa: 'Brigadeiro'
-                        },
-                        'quarta': {
-                            principal: 'Camarão na Moranga',
-                            acompanhamento: 'Arroz de Alho, Salada Tropical',
-                            sobremesa: 'Cocada'
-                        },
-                        'quinta': {
-                            principal: 'Feijoada Carioca',
-                            acompanhamento: 'Arroz Branco, Couve, Farofa',
-                            sobremesa: 'Pudim de Leite Condensado'
-                        },
-                        'sexta': {
-                            principal: 'Bobó de Camarão',
-                            acompanhamento: 'Arroz Branco, Salada de Rúcula',
-                            sobremesa: 'Quindim'
-                        }
+                        1: { principal: 'Moqueca de Peixe com Arroz de Coco', acompanhamento: 'Feijão Preto, Farofa de Dendê', sobremesa: 'Açaí com Granola' },
+                        2: { principal: 'Picanha Grelhada com Arroz Branco', acompanhamento: 'Feijão Tropeiro, Couve à Mineira', sobremesa: 'Brigadeiro' },
+                        3: { principal: 'Camarão na Moranga', acompanhamento: 'Arroz de Alho, Salada Tropical', sobremesa: 'Cocada' },
+                        4: { principal: 'Feijoada Carioca', acompanhamento: 'Arroz Branco, Couve, Farofa', sobremesa: 'Pudim de Leite Condensado' },
+                        5: { principal: 'Bobó de Camarão', acompanhamento: 'Arroz Branco, Salada de Rúcula', sobremesa: 'Quindim' },
+                        6: { principal: 'Peixe à Carioca', acompanhamento: 'Pirão de Peixe, Salada de Palmito', sobremesa: 'Beijinho de Coco' },
+                        7: { principal: 'Churrasco Carioca', acompanhamento: 'Farofa Rica, Vinagrete', sobremesa: 'Doce de Leite Pastoso' },
+                        8: { principal: 'Casquinha de Caranguejo', acompanhamento: 'Arroz de Coco, Salada Verde', sobremesa: 'Pudim de Tapioca' },
+                        9: { principal: 'Linguiça Calabresa', acompanhamento: 'Feijão Carioca, Couve Refogada', sobremesa: 'Goiabada Cascão' },
+                        10: { principal: 'Robalo Grelhado', acompanhamento: 'Arroz de Camarão, Salada Mista', sobremesa: 'Mousse de Cupuaçu' },
+                        11: { principal: 'Costela de Tambaqui', acompanhamento: 'Pirão de Banana, Salada Tropical', sobremesa: 'Cocada Preta' },
+                        12: { principal: 'Frango à Passarinho', acompanhamento: 'Polenta Frita, Molho Apimentado', sobremesa: 'Brigadeiro de Pistache' },
+                        13: { principal: 'Badejo na Brasa', acompanhamento: 'Arroz de Brócolis, Batata Doce', sobremesa: 'Quindim de Coco' },
+                        14: { principal: 'Picadinho Carioca', acompanhamento: 'Banana da Terra, Couve Mineira', sobremesa: 'Doce de Banana' },
+                        15: { principal: 'Camarão Empanado', acompanhamento: 'Arroz de Alho, Salada Caesar', sobremesa: 'Pavê de Amendoim' },
+                        16: { principal: 'Carne Seca Acebolada', acompanhamento: 'Macaxeira Cozida, Feijão Verde', sobremesa: 'Cocada Branca' },
+                        17: { principal: 'Peixe Espada Grelhado', acompanhamento: 'Risotto de Camarão, Aspargos', sobremesa: 'Mousse de Maracujá' },
+                        18: { principal: 'Frango com Quiabo', acompanhamento: 'Angu de Milho, Torresmo', sobremesa: 'Doce de Abóbora' },
+                        19: { principal: 'Lagosta Thermidor', acompanhamento: 'Arroz de Coco, Salada de Rúcula', sobremesa: 'Crème Brûlée' },
+                        20: { principal: 'Costela no Bafo', acompanhamento: 'Mandioca Cozida, Vinagrete', sobremesa: 'Pudim de Pão' },
+                        21: { principal: 'Dourada Assada', acompanhamento: 'Arroz de Tomate, Legumes Grelhados', sobremesa: 'Geleia de Mocotó' },
+                        22: { principal: 'Frango Xadrez', acompanhamento: 'Arroz Branco, Batata Palha', sobremesa: 'Brigadeiro de Oreo' },
+                        23: { principal: 'Camarão na Moranga', acompanhamento: 'Farofa de Dendê, Salada Tropical', sobremesa: 'Cocada de Forno' },
+                        24: { principal: 'Peixe à Delícia', acompanhamento: 'Arroz de Coco, Purê de Batata', sobremesa: 'Manjar de Coco' },
+                        25: { principal: 'Picanha na Pedra', acompanhamento: 'Arroz Carreteiro, Farofa Rica', sobremesa: 'Petit Gateau' },
+                        26: { principal: 'Robalo com Camarão', acompanhamento: 'Risotto de Limão, Salada Verde', sobremesa: 'Mousse de Chocolate Branco' },
+                        27: { principal: 'Frango Ensopado', acompanhamento: 'Polenta Cremosa, Couve à Mineira', sobremesa: 'Doce de Leite Cremoso' },
+                        28: { principal: 'Camarão Grelhado', acompanhamento: 'Arroz de Alho, Salada de Palmito', sobremesa: 'Quindim de Leite' },
+                        29: { principal: 'Peixe Pintado', acompanhamento: 'Pirão de Peixe, Salada Mista', sobremesa: 'Cocada Queimada' },
+                        30: { principal: 'Costela de Porco', acompanhamento: 'Feijão Tropeiro, Couve Refogada', sobremesa: 'Brigadeiro Gourmet' },
+                        31: { principal: 'Moqueca Capixaba', acompanhamento: 'Arroz de Coco, Farofa de Banana', sobremesa: 'Pudim de Claras' }
                     },
                     'belo-horizonte': {
-                        'segunda': {
-                            principal: 'Frango com Quiabo',
-                            acompanhamento: 'Tutu de Feijão, Couve Refogada',
-                            sobremesa: 'Doce de Leite Mineiro'
-                        },
-                        'terca': {
-                            principal: 'Lombo de Porco com Tropeiro',
-                            acompanhamento: 'Arroz Branco, Ora-pro-nóbis',
-                            sobremesa: 'Pé de Moleque'
-                        },
-                        'quarta': {
-                            principal: 'Costelinha com Mandioca',
-                            acompanhamento: 'Feijão Carioca, Couve à Mineira',
-                            sobremesa: 'Goiabada com Queijo'
-                        },
-                        'quinta': {
-                            principal: 'Galinhada Mineira',
-                            acompanhamento: 'Feijão Tropeiro, Salada Verde',
-                            sobremesa: 'Doce de Mamão'
-                        },
-                        'sexta': {
-                            principal: 'Peixe Pintado Grelhado',
-                            acompanhamento: 'Arroz com Pequi, Vinagrete',
-                            sobremesa: 'Cajuzinho'
-                        }
+                        1: { principal: 'Frango com Quiabo', acompanhamento: 'Tutu de Feijão, Couve Refogada', sobremesa: 'Doce de Leite Mineiro' },
+                        2: { principal: 'Lombo de Porco com Tropeiro', acompanhamento: 'Arroz Branco, Ora-pro-nóbis', sobremesa: 'Pé de Moleque' },
+                        3: { principal: 'Costelinha com Mandioca', acompanhamento: 'Feijão Carioca, Couve à Mineira', sobremesa: 'Goiabada com Queijo' },
+                        4: { principal: 'Galinhada Mineira', acompanhamento: 'Feijão Tropeiro, Salada Verde', sobremesa: 'Doce de Mamão' },
+                        5: { principal: 'Peixe Pintado Grelhado', acompanhamento: 'Arroz com Pequi, Vinagrete', sobremesa: 'Cajuzinho' },
+                        6: { principal: 'Leitão à Pururuca', acompanhamento: 'Farofa de Torresmo, Couve Mineira', sobremesa: 'Doce de Abóbora' },
+                        7: { principal: 'Frango Caipira', acompanhamento: 'Angu de Milho, Ora-pro-nóbis', sobremesa: 'Rapadura com Queijo' },
+                        8: { principal: 'Costela de Porco', acompanhamento: 'Feijão Tropeiro, Couve Refogada', sobremesa: 'Doce de Leite Pastoso' },
+                        9: { principal: 'Linguiça Mineira', acompanhamento: 'Tutu de Feijão, Torresmo', sobremesa: 'Pé de Moleque' },
+                        10: { principal: 'Galinha d\'Angola', acompanhamento: 'Arroz com Pequi, Guariroba', sobremesa: 'Doce de Caju' },
+                        11: { principal: 'Pernil Assado', acompanhamento: 'Mandioca Cozida, Couve à Mineira', sobremesa: 'Goiabada Cascão' },
+                        12: { principal: 'Frango Ensopado', acompanhamento: 'Polenta Cremosa, Salada Verde', sobremesa: 'Doce de Mamão Verde' },
+                        13: { principal: 'Carne de Panela', acompanhamento: 'Angu de Milho, Couve Refogada', sobremesa: 'Cajuzinho de Amendoim' },
+                        14: { principal: 'Lombo Suíno', acompanhamento: 'Feijão Carioca, Ora-pro-nóbis', sobremesa: 'Doce de Leite com Coco' },
+                        15: { principal: 'Galinhada com Pequi', acompanhamento: 'Farofa de Banana, Couve Mineira', sobremesa: 'Pamonha Doce' },
+                        16: { principal: 'Costela no Bafo', acompanhamento: 'Tutu de Feijão, Torresmo', sobremesa: 'Doce de Abóbora com Coco' },
+                        17: { principal: 'Frango à Mineira', acompanhamento: 'Arroz Branco, Couve Refogada', sobremesa: 'Pé de Moleque Caseiro' },
+                        18: { principal: 'Lombo com Abacaxi', acompanhamento: 'Feijão Tropeiro, Salada Mista', sobremesa: 'Doce de Leite Cremoso' },
+                        19: { principal: 'Galinha Caipira', acompanhamento: 'Angu de Milho, Ora-pro-nóbis', sobremesa: 'Goiabada com Queijo Minas' },
+                        20: { principal: 'Costelinha Barbecue', acompanhamento: 'Mandioca Frita, Couve à Mineira', sobremesa: 'Doce de Mamão com Coco' },
+                        21: { principal: 'Frango com Ora-pro-nóbis', acompanhamento: 'Tutu de Feijão, Couve Refogada', sobremesa: 'Cajuzinho Gourmet' },
+                        22: { principal: 'Pernil de Porco', acompanhamento: 'Feijão Carioca, Farofa de Torresmo', sobremesa: 'Doce de Leite com Amendoim' },
+                        23: { principal: 'Galinhada Especial', acompanhamento: 'Arroz com Pequi, Guariroba', sobremesa: 'Pamonha Salgada' },
+                        24: { principal: 'Costela Assada', acompanhamento: 'Polenta Frita, Couve Mineira', sobremesa: 'Doce de Abóbora Cremoso' },
+                        25: { principal: 'Frango Refogado', acompanhamento: 'Angu de Milho, Ora-pro-nóbis', sobremesa: 'Pé de Moleque de Leite' },
+                        26: { principal: 'Lombo na Cachaça', acompanhamento: 'Feijão Tropeiro, Couve Refogada', sobremesa: 'Doce de Leite com Rapadura' },
+                        27: { principal: 'Galinha ao Molho Pardo', acompanhamento: 'Tutu de Feijão, Torresmo', sobremesa: 'Goiabada Mineira' },
+                        28: { principal: 'Costelinha Agridoce', acompanhamento: 'Arroz Branco, Couve à Mineira', sobremesa: 'Doce de Mamão com Leite' },
+                        29: { principal: 'Frango com Pequi', acompanhamento: 'Feijão Carioca, Guariroba', sobremesa: 'Cajuzinho de Coco' },
+                        30: { principal: 'Pernil Defumado', acompanhamento: 'Mandioca Cozida, Ora-pro-nóbis', sobremesa: 'Doce de Leite Tradicional' },
+                        31: { principal: 'Galinhada Completa', acompanhamento: 'Angu de Milho, Couve Refogada', sobremesa: 'Pé de Moleque Especial' }
                     },
                     'brasilia': {
-                        'segunda': {
-                            principal: 'Pacu Assado com Farofa',
-                            acompanhamento: 'Arroz com Pequi, Vinagrete',
-                            sobremesa: 'Doce de Buriti'
-                        },
-                        'terca': {
-                            principal: 'Carne de Sol com Macaxeira',
-                            acompanhamento: 'Feijão Verde, Salada de Tomate',
-                            sobremesa: 'Cocada de Coco'
-                        },
-                        'quarta': {
-                            principal: 'Galinhada com Pequi',
-                            acompanhamento: 'Feijão Carioca, Couve Refogada',
-                            sobremesa: 'Doce de Leite'
-                        },
-                        'quinta': {
-                            principal: 'Costela no Bafo',
-                            acompanhamento: 'Arroz Branco, Mandioca Cozida',
-                            sobremesa: 'Pudim de Tapioca'
-                        },
-                        'sexta': {
-                            principal: 'Pintado na Telha',
-                            acompanhamento: 'Arroz Carreteiro, Salada Mista',
-                            sobremesa: 'Pamonha Doce'
-                        }
+                        1: { principal: 'Pacu Assado com Farofa', acompanhamento: 'Arroz com Pequi, Vinagrete', sobremesa: 'Doce de Buriti' },
+                        2: { principal: 'Carne de Sol com Macaxeira', acompanhamento: 'Feijão Verde, Salada de Tomate', sobremesa: 'Cocada de Coco' },
+                        3: { principal: 'Galinhada com Pequi', acompanhamento: 'Feijão Carioca, Couve Refogada', sobremesa: 'Doce de Leite' },
+                        4: { principal: 'Costela no Bafo', acompanhamento: 'Arroz Branco, Mandioca Cozida', sobremesa: 'Pudim de Tapioca' },
+                        5: { principal: 'Pintado na Telha', acompanhamento: 'Arroz Carreteiro, Salada Mista', sobremesa: 'Pamonha Doce' },
+                        6: { principal: 'Peixe Dourado Grelhado', acompanhamento: 'Farofa de Pequi, Guariroba', sobremesa: 'Doce de Mangaba' },
+                        7: { principal: 'Frango Caipira', acompanhamento: 'Angu de Milho, Ora-pro-nóbis', sobremesa: 'Rapadura com Queijo' },
+                        8: { principal: 'Surubim Ensopado', acompanhamento: 'Pirão de Mandioca, Couve Mineira', sobremesa: 'Cajuzinho do Cerrado' },
+                        9: { principal: 'Tambaqui na Brasa', acompanhamento: 'Arroz com Açafrão, Vinagrete', sobremesa: 'Doce de Araticum' },
+                        10: { principal: 'Galinha d\'Angola', acompanhamento: 'Polenta Cremosa, Almeirão', sobremesa: 'Pamonha com Coco' },
+                        11: { principal: 'Carne Seca com Abóbora', acompanhamento: 'Feijão de Corda, Farofa de Banana', sobremesa: 'Doce de Caju' },
+                        12: { principal: 'Peixe Pintado com Pequi', acompanhamento: 'Arroz com Guariroba, Salada Verde', sobremesa: 'Doce de Cagaita' },
+                        13: { principal: 'Frango com Guariroba', acompanhamento: 'Mandioca Cozida, Ora-pro-nóbis', sobremesa: 'Rapadura de Buriti' },
+                        14: { principal: 'Costela de Tambaqui', acompanhamento: 'Pirão de Peixe, Couve Refogada', sobremesa: 'Doce de Jatobá' },
+                        15: { principal: 'Galinhada Especial', acompanhamento: 'Feijão Tropeiro, Guariroba', sobremesa: 'Cajuzinho de Mangaba' },
+                        16: { principal: 'Pacu na Telha', acompanhamento: 'Arroz Branco, Farofa de Pequi', sobremesa: 'Pamonha Doce Especial' },
+                        17: { principal: 'Frango Ensopado', acompanhamento: 'Polenta Frita, Almeirão Refogado', sobremesa: 'Doce de Buriti Cremoso' },
+                        18: { principal: 'Pintado Grelhado', acompanhamento: 'Angu de Milho, Couve Mineira', sobremesa: 'Doce de Pequi com Leite' },
+                        19: { principal: 'Carne de Sol Acebolada', acompanhamento: 'Feijão Verde, Salada Mista', sobremesa: 'Cajuzinho de Araticum' },
+                        20: { principal: 'Surubim na Brasa', acompanhamento: 'Pirão de Mandioca, Vinagrete', sobremesa: 'Rapadura com Caju' },
+                        21: { principal: 'Galinha Caipira', acompanhamento: 'Arroz com Açafrão, Ora-pro-nóbis', sobremesa: 'Doce de Cagaita Cremoso' },
+                        22: { principal: 'Tambaqui Grelhado', acompanhamento: 'Feijão de Corda, Guariroba', sobremesa: 'Pamonha com Queijo' },
+                        23: { principal: 'Frango com Pequi', acompanhamento: 'Polenta Cremosa, Almeirão', sobremesa: 'Doce de Mangaba com Coco' },
+                        24: { principal: 'Peixe Dourado Assado', acompanhamento: 'Arroz Carreteiro, Farofa de Banana', sobremesa: 'Cajuzinho de Jatobá' },
+                        25: { principal: 'Costela de Porco', acompanhamento: 'Mandioca Frita, Couve Refogada', sobremesa: 'Doce de Buriti com Leite' },
+                        26: { principal: 'Galinhada com Guariroba', acompanhamento: 'Feijão Tropeiro, Ora-pro-nóbis', sobremesa: 'Pamonha Salgada Especial' },
+                        27: { principal: 'Pacu Completo', acompanhamento: 'Pirão de Peixe, Salada Verde', sobremesa: 'Rapadura de Caju' },
+                        28: { principal: 'Frango Refogado', acompanhamento: 'Angu de Milho, Guariroba', sobremesa: 'Doce de Araticum Cremoso' },
+                        29: { principal: 'Pintado Ensopado', acompanhamento: 'Arroz com Pequi, Vinagrete', sobremesa: 'Cajuzinho de Cagaita' },
+                        30: { principal: 'Carne Seca com Jerimum', acompanhamento: 'Feijão Verde, Farofa de Pequi', sobremesa: 'Doce de Pequi Tradicional' },
+                        31: { principal: 'Tambaqui Completo', acompanhamento: 'Pirão de Mandioca, Almeirão', sobremesa: 'Pamonha Doce Tradicional' }
                     },
                     'salvador': {
-                        'segunda': {
-                            principal: 'Moqueca Baiana',
-                            acompanhamento: 'Arroz de Coco, Farofa de Dendê',
-                            sobremesa: 'Cocada Baiana'
-                        },
-                        'terca': {
-                            principal: 'Acarajé com Vatapá',
-                            acompanhamento: 'Caruru, Salada de Vinagrete',
-                            sobremesa: 'Quindim'
-                        },
-                        'quarta': {
-                            principal: 'Bobó de Camarão',
-                            acompanhamento: 'Arroz Branco, Salada Tropical',
-                            sobremesa: 'Baba de Moça'
-                        },
-                        'quinta': {
-                            principal: 'Xinxim de Galinha',
-                            acompanhamento: 'Arroz de Hauçá, Farofa',
-                            sobremesa: 'Doce de Caju'
-                        },
-                        'sexta': {
-                            principal: 'Casquinha de Siri',
-                            acompanhamento: 'Arroz de Coco, Salada Verde',
-                            sobremesa: 'Beijinho de Coco'
-                        }
+                        1: { principal: 'Moqueca Baiana', acompanhamento: 'Arroz de Coco, Farofa de Dendê', sobremesa: 'Cocada Baiana' },
+                        2: { principal: 'Acarajé com Vatapá', acompanhamento: 'Caruru, Salada de Vinagrete', sobremesa: 'Quindim' },
+                        3: { principal: 'Bobó de Camarão', acompanhamento: 'Arroz Branco, Salada Tropical', sobremesa: 'Baba de Moça' },
+                        4: { principal: 'Xinxim de Galinha', acompanhamento: 'Arroz de Hauçá, Farofa', sobremesa: 'Doce de Caju' },
+                        5: { principal: 'Casquinha de Siri', acompanhamento: 'Arroz de Coco, Salada Verde', sobremesa: 'Beijinho de Coco' },
+                        6: { principal: 'Moqueca de Peixe', acompanhamento: 'Pirão de Peixe, Farofa de Dendê', sobremesa: 'Cocada Preta' },
+                        7: { principal: 'Vatapá de Camarão', acompanhamento: 'Arroz Branco, Caruru', sobremesa: 'Quindim de Coco' },
+                        8: { principal: 'Bobó de Galinha', acompanhamento: 'Farofa de Mandioca, Salada Mista', sobremesa: 'Baba de Moça Especial' },
+                        9: { principal: 'Xinxim de Camarão', acompanhamento: 'Arroz de Hauçá, Vinagrete', sobremesa: 'Doce de Mamão Baiano' },
+                        10: { principal: 'Moqueca de Siri', acompanhamento: 'Arroz de Coco, Farofa', sobremesa: 'Beijinho de Tapioca' },
+                        11: { principal: 'Acarajé Especial', acompanhamento: 'Caruru Cremoso, Salada Tropical', sobremesa: 'Cocada Queimada' },
+                        12: { principal: 'Bobó de Peixe', acompanhamento: 'Arroz Branco, Farofa de Dendê', sobremesa: 'Quindim Tradicional' },
+                        13: { principal: 'Moqueca de Camarão', acompanhamento: 'Pirão de Mandioca, Salada Verde', sobremesa: 'Baba de Moça com Coco' },
+                        14: { principal: 'Vatapá de Galinha', acompanhamento: 'Arroz de Coco, Caruru', sobremesa: 'Doce de Caju Baiano' },
+                        15: { principal: 'Xinxim de Peixe', acompanhamento: 'Farofa de Mandioca, Vinagrete', sobremesa: 'Beijinho de Coco Especial' },
+                        16: { principal: 'Casquinha de Camarão', acompanhamento: 'Arroz de Hauçá, Salada Mista', sobremesa: 'Cocada Branca' },
+                        17: { principal: 'Moqueca Mista', acompanhamento: 'Pirão de Peixe, Farofa', sobremesa: 'Quindim de Leite' },
+                        18: { principal: 'Bobó Misto', acompanhamento: 'Arroz Branco, Caruru', sobremesa: 'Baba de Moça Cremosa' },
+                        19: { principal: 'Acarajé com Caruru', acompanhamento: 'Farofa de Dendê, Salada Tropical', sobremesa: 'Doce de Mamão com Coco' },
+                        20: { principal: 'Vatapá Especial', acompanhamento: 'Arroz de Coco, Vinagrete', sobremesa: 'Beijinho de Amendoim' },
+                        21: { principal: 'Xinxim Completo', acompanhamento: 'Pirão de Mandioca, Salada Verde', sobremesa: 'Cocada de Cupuaçu' },
+                        22: { principal: 'Moqueca de Lagosta', acompanhamento: 'Arroz de Hauçá, Farofa', sobremesa: 'Quindim de Maracujá' },
+                        23: { principal: 'Bobó de Lagosta', acompanhamento: 'Farofa de Dendê, Caruru', sobremesa: 'Baba de Moça com Frutas' },
+                        24: { principal: 'Casquinha Especial', acompanhamento: 'Arroz Branco, Salada Mista', sobremesa: 'Doce de Caju com Leite' },
+                        25: { principal: 'Acarajé Gourmet', acompanhamento: 'Vatapá Cremoso, Vinagrete', sobremesa: 'Beijinho de Coco Gourmet' },
+                        26: { principal: 'Moqueca Tradicional', acompanhamento: 'Pirão de Peixe, Farofa de Mandioca', sobremesa: 'Cocada Tradicional' },
+                        27: { principal: 'Xinxim de Frutos do Mar', acompanhamento: 'Arroz de Coco, Caruru', sobremesa: 'Quindim Especial' },
+                        28: { principal: 'Bobó Tradicional', acompanhamento: 'Farofa de Dendê, Salada Tropical', sobremesa: 'Baba de Moça Tradicional' },
+                        29: { principal: 'Vatapá de Frutos do Mar', acompanhamento: 'Arroz de Hauçá, Vinagrete', sobremesa: 'Doce de Mamão Especial' },
+                        30: { principal: 'Moqueca Completa', acompanhamento: 'Pirão de Mandioca, Farofa', sobremesa: 'Beijinho de Coco Tradicional' },
+                        31: { principal: 'Acarajé Tradicional', acompanhamento: 'Caruru Especial, Salada Verde', sobremesa: 'Cocada Baiana Especial' }
                     }
                 },
                 currentPage: 'entrada',
-                selectedDay: 'segunda',
-                isDarkMode: localStorage.getItem('darkMode') === 'true'
+                selectedDay: 1,
+                isDarkMode: localStorage.getItem('darkMode') === 'true',
+                // Propriedades do calendário (fixo no mês atual)
+                currentDate: new Date(),
+                selectedDate: new Date(),
+                viewMode: 'day' // 'day' ou 'week'
             },
 
             // --- INICIALIZAÇÃO ---
@@ -1533,6 +1594,7 @@
             render() {
                 this.renderPage();
                 this.renderWeeklyMenu();
+                this.renderCalendar();
             },
 
             renderPage() {
@@ -1553,13 +1615,20 @@
                 });
             },
 
-            getCurrentUserMenu() {
+            getCurrentUserMenu(date = null) {
                 const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
-                if (!currentUser || !currentUser.location) {
-                    // Retorna cardápio padrão se não houver usuário logado
-                    return this.state.regionalMenus['sao-paulo'];
+                const userLocation = currentUser?.location || 'sao-paulo';
+                const regionalMenu = this.state.regionalMenus[userLocation] || this.state.regionalMenus['sao-paulo'];
+                
+                if (date) {
+                    const dayOfMonth = date.getDate();
+                    return regionalMenu[dayOfMonth] || regionalMenu[1];
                 }
-                return this.state.regionalMenus[currentUser.location] || this.state.regionalMenus['sao-paulo'];
+                
+                // Se não há data específica, usa a data atual
+                const today = new Date();
+                const dayOfMonth = today.getDate();
+                return regionalMenu[dayOfMonth] || regionalMenu[1];
             },
             
             getLocationDisplayName(locationKey) {
@@ -1577,68 +1646,226 @@
             },
             
             renderWeeklyMenu() {
-                const dayButtons = document.querySelectorAll('.day-btn');
                 const menuContent = document.getElementById('daily-menu-content');
-
                 if (!menuContent) return;
 
-                // Atualiza botões dos dias
-                dayButtons.forEach(btn => {
-                    btn.classList.toggle('bg-primary', btn.dataset.day === this.state.selectedDay);
-                    btn.classList.toggle('text-white', btn.dataset.day === this.state.selectedDay);
-                    btn.classList.toggle('bg-white', btn.dataset.day !== this.state.selectedDay);
-                    btn.classList.toggle('text-slate-700', btn.dataset.day !== this.state.selectedDay);
-                });
-
-                // Obter cardápio da região do usuário
-                const userMenu = this.getCurrentUserMenu();
-                const dayMenu = userMenu[this.state.selectedDay];
-                
                 // Obter informações do usuário para mostrar a região
                 const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
                 const locationName = currentUser ? this.getLocationDisplayName(currentUser.location) : 'São Paulo - SP';
-                if (dayMenu) {
-                    menuContent.innerHTML = `
+                
+                if (this.state.viewMode === 'day') {
+                    // Visualização de um dia específico
+                    const selectedDate = this.state.selectedDate;
+                    const dayMenu = this.getCurrentUserMenu(selectedDate);
+                    
+                    if (dayMenu) {
+                        const dateStr = selectedDate.toLocaleDateString('pt-BR', { 
+                            weekday: 'long', 
+                            year: 'numeric', 
+                            month: 'long', 
+                            day: 'numeric' 
+                        });
+                        
+                        menuContent.innerHTML = `
+                        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-8 border border-gray-100 dark:border-slate-700">
+                            <div class="text-center mb-8">
+                                <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Menu do Dia ${selectedDate.getDate()}</h3>
+                                <p class="text-slate-600 dark:text-slate-400">${dateStr}</p>
+                                <p class="text-slate-600 dark:text-slate-400">Cardápio Regional - ${locationName}</p>
+                                <p class="text-sm text-slate-500 dark:text-slate-500 mt-1">Refeições balanceadas e nutritivas</p>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="text-center">
+                                    <div class="bg-primary/10 dark:bg-primary/20 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                                        <i class="ph ph-bowl-food text-2xl text-primary"></i>
+                                    </div>
+                                    <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Prato Principal</h4>
+                                    <p class="text-slate-700 dark:text-slate-300">${dayMenu.principal}</p>
+                                </div>
+                                
+                                <div class="text-center">
+                                    <div class="bg-primary/10 dark:bg-primary/20 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                                        <i class="ph ph-leaf text-2xl text-primary"></i>
+                                    </div>
+                                    <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Acompanhamentos</h4>
+                                    <p class="text-slate-700 dark:text-slate-300">${dayMenu.acompanhamento}</p>
+                                </div>
+                                
+                                <div class="text-center">
+                                    <div class="bg-primary/10 dark:bg-primary/20 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                                        <i class="ph ph-ice-cream text-2xl text-primary"></i>
+                                    </div>
+                                    <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Sobremesa</h4>
+                                    <p class="text-slate-700 dark:text-slate-300">${dayMenu.sobremesa}</p>
+                                </div>
+                            </div>
+                        </div>
+                        `;
+                    }
+                } else {
+                    // Visualização da semana completa - mostra a semana do dia selecionado (segunda a domingo)
+                    const selectedDate = this.state.selectedDate;
+                    
+                    // Calcular o início da semana (segunda-feira)
+                    const dayOfWeek = selectedDate.getDay(); // 0 = domingo, 1 = segunda, etc.
+                    const mondayOffset = dayOfWeek === 0 ? -6 : 1 - dayOfWeek; // Se domingo, volta 6 dias; senão, vai para segunda
+                    const mondayDate = new Date(selectedDate);
+                    mondayDate.setDate(selectedDate.getDate() + mondayOffset);
+                    
+                    let weekMenuHtml = `
                     <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-8 border border-gray-100 dark:border-slate-700">
                         <div class="text-center mb-8">
-                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Menu de ${this.state.selectedDay.charAt(0).toUpperCase() + this.state.selectedDay.slice(1)}-feira</h3>
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Cardápio da Semana</h3>
                             <p class="text-slate-600 dark:text-slate-400">Cardápio Regional - ${locationName}</p>
-                            <p class="text-sm text-slate-500 dark:text-slate-500 mt-1">Refeições balanceadas e nutritivas</p>
+                            <p class="text-sm text-slate-500 dark:text-slate-500 mt-1">Semana de ${mondayDate.toLocaleDateString('pt-BR', { day: 'numeric', month: 'long' })} a ${new Date(mondayDate.getTime() + 6 * 24 * 60 * 60 * 1000).toLocaleDateString('pt-BR', { day: 'numeric', month: 'long' })}</p>
                         </div>
                         
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <div class="text-center">
-                                <div class="bg-primary/10 dark:bg-primary/20 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                                    <i class="ph ph-bowl-food text-2xl text-primary"></i>
-                                </div>
-                                <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Prato Principal</h4>
-                                <p class="text-slate-700 dark:text-slate-300">${dayMenu.principal}</p>
-                            </div>
+                        <div class="space-y-6">
+                    `;
+                    
+                    for (let i = 0; i < 7; i++) {
+                        const currentDay = new Date(mondayDate);
+                        currentDay.setDate(mondayDate.getDate() + i);
+                        const dayMenu = this.getCurrentUserMenu(currentDay);
+                        
+                        if (dayMenu) {
+                            const dayStr = currentDay.toLocaleDateString('pt-BR', { 
+                                weekday: 'long', 
+                                day: 'numeric', 
+                                month: 'long' 
+                            });
                             
-                            <div class="text-center">
-                                <div class="bg-primary/10 dark:bg-primary/20 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                                    <i class="ph ph-leaf text-2xl text-primary"></i>
+                            weekMenuHtml += `
+                            <div class="border border-gray-200 dark:border-slate-600 rounded-xl p-6">
+                                <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-4 text-center">${dayStr}</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div class="text-center">
+                                        <h5 class="font-semibold text-slate-900 dark:text-white mb-2">Prato Principal</h5>
+                                        <p class="text-slate-700 dark:text-slate-300 text-sm">${dayMenu.principal}</p>
+                                    </div>
+                                    <div class="text-center">
+                                        <h5 class="font-semibold text-slate-900 dark:text-white mb-2">Acompanhamentos</h5>
+                                        <p class="text-slate-700 dark:text-slate-300 text-sm">${dayMenu.acompanhamento}</p>
+                                    </div>
+                                    <div class="text-center">
+                                        <h5 class="font-semibold text-slate-900 dark:text-white mb-2">Sobremesa</h5>
+                                        <p class="text-slate-700 dark:text-slate-300 text-sm">${dayMenu.sobremesa}</p>
+                                    </div>
                                 </div>
-                                <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Acompanhamentos</h4>
-                                <p class="text-slate-700 dark:text-slate-300">${dayMenu.acompanhamento}</p>
                             </div>
-                            
-                            <div class="text-center">
-                                <div class="bg-primary/10 dark:bg-primary/20 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                                    <i class="ph ph-ice-cream text-2xl text-primary"></i>
-                                </div>
-                                <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Sobremesa</h4>
-                                <p class="text-slate-700 dark:text-slate-300">${dayMenu.sobremesa}</p>
-                            </div>
+                            `;
+                        }
+                    }
+                    
+                    weekMenuHtml += `
                         </div>
                     </div>
-                `;
+                    `;
+                    
+                    menuContent.innerHTML = weekMenuHtml;
                 }
             },
 
-
-
-
+            // --- FUNÇÕES DO CALENDÁRIO ---
+            renderCalendar() {
+                // Sempre usar o mês atual
+                this.state.currentDate = new Date();
+                
+                const monthNames = [
+                    'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+                    'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+                ];
+                
+                const monthYearElement = document.getElementById('calendar-month-year');
+                if (monthYearElement) {
+                    monthYearElement.textContent = `${monthNames[this.state.currentDate.getMonth()]} ${this.state.currentDate.getFullYear()}`;
+                }
+                
+                this.generateCalendarDays();
+            },
+            
+            generateCalendarDays() {
+                const calendarDays = document.getElementById('calendar-days');
+                if (!calendarDays) return;
+                
+                calendarDays.innerHTML = '';
+                
+                const year = this.state.currentDate.getFullYear();
+                const month = this.state.currentDate.getMonth();
+                
+                // Primeiro dia do mês e último dia do mês
+                const firstDay = new Date(year, month, 1);
+                const lastDay = new Date(year, month + 1, 0);
+                
+                // Dias vazios no início
+                const startingDayOfWeek = firstDay.getDay();
+                for (let i = 0; i < startingDayOfWeek; i++) {
+                    const emptyDay = document.createElement('div');
+                    emptyDay.className = 'h-10';
+                    calendarDays.appendChild(emptyDay);
+                }
+                
+                // Dias do mês
+                for (let day = 1; day <= lastDay.getDate(); day++) {
+                    const dayElement = document.createElement('button');
+                    dayElement.className = 'h-10 w-full rounded-lg text-sm font-medium transition-colors hover:bg-primary/10 dark:hover:bg-primary/20';
+                    dayElement.textContent = day;
+                    
+                    const currentDate = new Date(year, month, day);
+                    const today = new Date();
+                    
+                    // Destacar dia atual
+                    if (currentDate.toDateString() === today.toDateString()) {
+                        dayElement.classList.add('bg-primary/20', 'text-primary', 'font-bold');
+                    }
+                    
+                    // Destacar dia selecionado
+                    if (currentDate.toDateString() === this.state.selectedDate.toDateString()) {
+                        dayElement.classList.add('bg-primary', 'text-white');
+                    }
+                    
+                    dayElement.addEventListener('click', () => {
+                        this.state.selectedDate = new Date(year, month, day);
+                        this.updateSelectedDay();
+                        this.renderCalendar();
+                        this.renderWeeklyMenu();
+                    });
+                    
+                    calendarDays.appendChild(dayElement);
+                }
+            },
+            
+            updateSelectedDay() {
+                const dayNames = ['domingo', 'segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado'];
+                const dayOfWeek = this.state.selectedDate.getDay();
+                
+                // Mapear para os dias úteis (segunda a sexta)
+                const workDays = ['segunda', 'terca', 'quarta', 'quinta', 'sexta'];
+                if (dayOfWeek >= 1 && dayOfWeek <= 5) {
+                    this.state.selectedDay = workDays[dayOfWeek - 1];
+                } else {
+                    // Se for fim de semana, usar segunda-feira
+                    this.state.selectedDay = 'segunda';
+                }
+            },
+             
+             // Navegação de mês removida - calendário fixo no mês atual
+             
+             handleViewModeChange(mode) {
+                 this.state.viewMode = mode;
+                 
+                 // Atualizar botões de visualização
+                 document.querySelectorAll('.view-btn').forEach(btn => {
+                     if (btn.dataset.view === mode) {
+                         btn.className = 'view-btn px-6 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105 bg-primary text-white';
+                     } else {
+                         btn.className = 'view-btn px-6 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105 bg-white dark:bg-slate-700 text-slate-700 dark:text-white border border-gray-200 dark:border-slate-600';
+                     }
+                 });
+                 
+                 this.renderWeeklyMenu();
+             },
 
             // --- MANIPULADORES DE EVENTOS ---
             setupEventListeners() {
@@ -1653,6 +1880,12 @@
 
                     // UI
                     if (e.target.closest('#theme-toggle-btn')) this.toggleTheme();
+                    
+                    // Calendário - Navegação de mês removida (apenas mês atual)
+                    
+                    // Calendário - Modo de visualização
+                    const viewBtn = e.target.closest('.view-btn');
+                    if (viewBtn) this.handleViewModeChange(viewBtn.dataset.view);
                 });
 
                 // Formulário de contato
@@ -1724,7 +1957,21 @@
             },
 
             handleDayClick(day) {
-                this.state.selectedDay = day;
+                // Se day é uma string (dia da semana), usar como antes
+                if (typeof day === 'string') {
+                    this.state.selectedDay = day;
+                } else {
+                    // Se day é um número (dia do calendário), definir a data selecionada
+                    const selectedDate = new Date(this.state.currentDate.getFullYear(), this.state.currentDate.getMonth(), day);
+                    this.state.selectedDate = selectedDate;
+                    
+                    // Mapear dia da semana (0=domingo, 1=segunda, etc.)
+                    const dayOfWeek = selectedDate.getDay();
+                    const weekDays = ['domingo', 'segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado'];
+                    this.state.selectedDay = weekDays[dayOfWeek];
+                }
+                
+                this.renderCalendar();
                 this.renderWeeklyMenu();
             },
 
