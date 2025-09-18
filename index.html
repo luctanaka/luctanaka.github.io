@@ -971,24 +971,18 @@
                                     placeholder="Seu nome completo">
                             </div>
 
-                            <!-- Email -->
+                            <!-- Turno -->
                             <div>
-                                <label for="customer-email" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                                    Email *
+                                <label for="customer-shift" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                                    Turno *
                                 </label>
-                                <input type="email" id="customer-email" required 
-                                    class="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-slate-700 text-slate-900 dark:text-white" 
-                                    placeholder="seu@email.com">
-                            </div>
-
-                            <!-- Empresa -->
-                            <div>
-                                <label for="customer-company" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                                    Empresa
-                                </label>
-                                <input type="text" id="customer-company" 
-                                    class="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-slate-700 text-slate-900 dark:text-white" 
-                                    placeholder="Nome da sua empresa">
+                                <select id="customer-shift" required 
+                                    class="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-slate-700 text-slate-900 dark:text-white">
+                                    <option value="">Selecione o turno</option>
+                                    <option value="Manhã">Manhã</option>
+                                    <option value="Tarde">Tarde</option>
+                                    <option value="Noturno">Noturno</option>
+                                </select>
                             </div>
 
                             <!-- Avaliação por Estrelas -->
@@ -1009,14 +1003,14 @@
                                 <input type="hidden" id="rating-value" name="rating" required>
                             </div>
 
-                            <!-- Comentário -->
+                            <!-- Críticas/Sugestões/Elogios -->
                             <div>
                                 <label for="customer-comment" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                                    Comentário *
+                                    Críticas/Sugestões/Elogios *
                                 </label>
                                 <textarea id="customer-comment" required rows="4" 
                                     class="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-slate-700 text-slate-900 dark:text-white resize-none" 
-                                    placeholder="Conte-nos sobre sua experiência com nossos serviços..."></textarea>
+                                    placeholder="Compartilhe suas críticas, sugestões ou elogios sobre nossos serviços..."></textarea>
                             </div>
 
                             <!-- Botão de Envio -->
@@ -1031,218 +1025,7 @@
                     </div>
                 </section>
 
-                <!-- Estatísticas das Avaliações -->
-                <section class="mb-8">
-                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-6 border border-gray-100 dark:border-slate-700">
-                        <div class="text-center">
-                            <div class="flex items-center justify-center mb-4">
-                                <div class="flex text-yellow-400 text-3xl mr-4">
-                                    <i class="ph ph-star-fill"></i>
-                                    <i class="ph ph-star-fill"></i>
-                                    <i class="ph ph-star-fill"></i>
-                                    <i class="ph ph-star-fill"></i>
-                                    <i class="ph ph-star-half"></i>
-                                </div>
-                                <div>
-                                    <div class="text-3xl font-bold text-slate-900 dark:text-white">4.6</div>
-                                    <div class="text-sm text-slate-500 dark:text-slate-400">de 5 estrelas</div>
-                                </div>
-                            </div>
-                            <p class="text-slate-600 dark:text-slate-400">Baseado em 127 avaliações</p>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Avaliações Existentes -->
-                <section class="mb-12">
-                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-6 text-center">O que nossos clientes dizem</h3>
-                    
-                    <!-- Tabela de Avaliações -->
-                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-gray-100 dark:border-slate-700 overflow-hidden">
-                        <div class="overflow-x-auto">
-                            <table class="w-full">
-                                <thead class="bg-gray-50 dark:bg-slate-700">
-                                    <tr>
-                                        <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Cliente</th>
-                                        <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Cargo/Empresa</th>
-                                        <th class="px-6 py-4 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Avaliação</th>
-                                        <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Comentário</th>
-                                        <th class="px-6 py-4 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Data</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-gray-200 dark:divide-slate-600">
-                                    <!-- Avaliação 1 -->
-                                    <tr class="hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors">
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="font-medium text-slate-900 dark:text-white">Maria Silva</div>
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            <div class="text-sm text-slate-600 dark:text-slate-300">Gerente de RH</div>
-                                            <div class="text-xs text-slate-500 dark:text-slate-400">Empresa X</div>
-                                        </td>
-                                        <td class="px-6 py-4 text-center">
-                                            <div class="flex items-center justify-center text-yellow-400">
-                                                <i class="ph ph-star-fill"></i>
-                                                <i class="ph ph-star-fill"></i>
-                                                <i class="ph ph-star-fill"></i>
-                                                <i class="ph ph-star-fill"></i>
-                                                <i class="ph ph-star-fill"></i>
-                                            </div>
-                                            <div class="text-sm font-semibold text-slate-600 dark:text-slate-400 mt-1">5.0</div>
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            <div class="text-sm text-slate-700 dark:text-slate-300 max-w-xs">
-                                                "A comida é sempre fresca e deliciosa. A equipe é muito atenciosa e o serviço é impecável. Recomendo a todos!"
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-4 text-center">
-                                            <div class="text-sm text-slate-500 dark:text-slate-400">Há 2 dias</div>
-                                        </td>
-                                    </tr>
-                                    
-                                    <!-- Avaliação 2 -->
-                                    <tr class="hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors">
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="font-medium text-slate-900 dark:text-white">João Souza</div>
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            <div class="text-sm text-slate-600 dark:text-slate-300">Diretor de Operações</div>
-                                            <div class="text-xs text-slate-500 dark:text-slate-400">Empresa Y</div>
-                                        </td>
-                                        <td class="px-6 py-4 text-center">
-                                            <div class="flex items-center justify-center text-yellow-400">
-                                                <i class="ph ph-star-fill"></i>
-                                                <i class="ph ph-star-fill"></i>
-                                                <i class="ph ph-star-fill"></i>
-                                                <i class="ph ph-star-fill"></i>
-                                                <i class="ph ph-star text-gray-300"></i>
-                                            </div>
-                                            <div class="text-sm font-semibold text-slate-600 dark:text-slate-400 mt-1">4.0</div>
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            <div class="text-sm text-slate-700 dark:text-slate-300 max-w-xs">
-                                                "Excelente variedade no cardápio e a qualidade da comida é impressionante. O melhor refeitório que já tivemos na empresa."
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-4 text-center">
-                                            <div class="text-sm text-slate-500 dark:text-slate-400">Há 5 dias</div>
-                                        </td>
-                                    </tr>
-                                    
-                                    <!-- Avaliação 3 -->
-                                    <tr class="hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors">
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="font-medium text-slate-900 dark:text-white">Ana Costa</div>
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            <div class="text-sm text-slate-600 dark:text-slate-300">Coordenadora de Eventos</div>
-                                            <div class="text-xs text-slate-500 dark:text-slate-400">Empresa Z</div>
-                                        </td>
-                                        <td class="px-6 py-4 text-center">
-                                            <div class="flex items-center justify-center text-yellow-400">
-                                                <i class="ph ph-star-fill"></i>
-                                                <i class="ph ph-star-fill"></i>
-                                                <i class="ph ph-star-fill"></i>
-                                                <i class="ph ph-star-fill"></i>
-                                                <i class="ph ph-star-half"></i>
-                                            </div>
-                                            <div class="text-sm font-semibold text-slate-600 dark:text-slate-400 mt-1">4.5</div>
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            <div class="text-sm text-slate-700 dark:text-slate-300 max-w-xs">
-                                                "O atendimento é fantástico e a comida tem um sabor caseiro que nos faz sentir em casa. Parabéns a toda a equipe do Bondegusto!"
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-4 text-center">
-                                            <div class="text-sm text-slate-500 dark:text-slate-400">Há 1 semana</div>
-                                        </td>
-                                    </tr>
-                                    
-                                    <!-- Avaliação 4 -->
-                                    <tr class="hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors">
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="font-medium text-slate-900 dark:text-white">Carlos Mendes</div>
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            <div class="text-sm text-slate-600 dark:text-slate-300">Empresário</div>
-                                            <div class="text-xs text-slate-500 dark:text-slate-400">-</div>
-                                        </td>
-                                        <td class="px-6 py-4 text-center">
-                                            <div class="flex items-center justify-center text-yellow-400">
-                                                <i class="ph ph-star-fill"></i>
-                                                <i class="ph ph-star-fill"></i>
-                                                <i class="ph ph-star-fill"></i>
-                                                <i class="ph ph-star-fill"></i>
-                                                <i class="ph ph-star-fill"></i>
-                                            </div>
-                                            <div class="text-sm font-semibold text-slate-600 dark:text-slate-400 mt-1">5.0</div>
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            <div class="text-sm text-slate-700 dark:text-slate-300 max-w-xs">
-                                                "Ótima experiência gastronômica. O atendimento é rápido e eficiente. Recomendo especialmente o prato do dia!"
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-4 text-center">
-                                            <div class="text-sm text-slate-500 dark:text-slate-400">Há 2 semanas</div>
-                                        </td>
-                                    </tr>
-                                    
-                                    <!-- Avaliação 5 -->
-                                    <tr class="hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors">
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="font-medium text-slate-900 dark:text-white">Fernanda Lima</div>
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            <div class="text-sm text-slate-600 dark:text-slate-300">Consultora</div>
-                                            <div class="text-xs text-slate-500 dark:text-slate-400">-</div>
-                                        </td>
-                                        <td class="px-6 py-4 text-center">
-                                            <div class="flex items-center justify-center text-yellow-400">
-                                                <i class="ph ph-star-fill"></i>
-                                                <i class="ph ph-star-fill"></i>
-                                                <i class="ph ph-star-fill"></i>
-                                                <i class="ph ph-star text-gray-300"></i>
-                                                <i class="ph ph-star text-gray-300"></i>
-                                            </div>
-                                            <div class="text-sm font-semibold text-slate-600 dark:text-slate-400 mt-1">3.0</div>
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            <div class="text-sm text-slate-700 dark:text-slate-300 max-w-xs">
-                                                "Ambiente aconchegante e comida saborosa. Só achei que poderia ter mais opções vegetarianas no cardápio."
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-4 text-center">
-                                            <div class="text-sm text-slate-500 dark:text-slate-400">Há 3 semanas</div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        
-                        <!-- Resumo das Avaliações -->
-                        <div class="bg-gray-50 dark:bg-slate-700 px-6 py-4 border-t border-gray-200 dark:border-slate-600">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center space-x-4">
-                                    <div class="text-sm text-slate-600 dark:text-slate-300">
-                                        <span class="font-semibold">Avaliação Média:</span>
-                                        <span class="text-yellow-500 font-bold ml-1">4.3/5.0</span>
-                                    </div>
-                                    <div class="text-sm text-slate-600 dark:text-slate-300">
-                                        <span class="font-semibold">Total de Avaliações:</span>
-                                        <span class="font-bold ml-1">5</span>
-                                    </div>
-                                </div>
-                                <div class="flex items-center text-yellow-400">
-                                    <i class="ph ph-star-fill"></i>
-                                    <i class="ph ph-star-fill"></i>
-                                    <i class="ph ph-star-fill"></i>
-                                    <i class="ph ph-star-fill"></i>
-                                    <i class="ph ph-star-half"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                <!-- Seção removida: Avaliações agora são apenas para uso administrativo -->
             </div>
 
             <!-- Página: Contato -->
@@ -2705,10 +2488,6 @@
                     });
                 });
 
-
-
-
-
                 // Configurar envio do formulário
                 ratingForm.addEventListener('submit', (e) => {
                     e.preventDefault();
@@ -2716,10 +2495,17 @@
                     const submitBtn = document.getElementById('submit-rating');
                     const submitText = document.getElementById('submit-text');
                     const submitLoading = document.getElementById('submit-loading');
+                    const nomeText = document.getElementById('rating-name').value.trim();
+                    const turnoText = document.getElementById('rating-turno').value;
                     const commentText = document.getElementById('rating-comment').value.trim();
 
                     if (currentRating === 0) {
                         app.showSuccessMessage('Por favor, selecione uma avaliação com estrelas.');
+                        return;
+                    }
+
+                    if (!nomeText) {
+                        app.showSuccessMessage('Por favor, preencha seu nome.');
                         return;
                     }
 
@@ -2728,13 +2514,15 @@
                     submitLoading.classList.remove('hidden');
                     submitBtn.disabled = true;
 
-                    // Simular envio
+                    // Simular envio (dados são coletados apenas para uso administrativo)
                     setTimeout(() => {
-                        // Adicionar nova avaliação à lista
-                        addNewReview(currentRating, commentText);
-                        
-                        // Atualizar estatísticas
-                        updateRatingStats();
+                        console.log('Avaliação coletada para administração:', {
+                            nome: nomeText,
+                            turno: turnoText,
+                            rating: currentRating,
+                            comentario: commentText,
+                            data: new Date().toISOString()
+                        });
                         
                         // Resetar formulário
                         ratingForm.reset();
@@ -2757,57 +2545,7 @@
                     }, 2000);
                 });
                 
-                // Função para adicionar nova avaliação
-                function addNewReview(rating, comment) {
-                    const reviewsContainer = document.querySelector('.space-y-6');
-                    if (!reviewsContainer) return;
-                    
-                    const starsHtml = generateStarsHtml(rating);
-                    const newReviewHtml = `
-                        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-                            <div class="flex items-start justify-between mb-3">
-                                <div>
-                                    <h4 class="font-semibold text-gray-900">Você</h4>
-                                    <p class="text-sm text-gray-600">Agora mesmo</p>
-                                </div>
-                                <div class="flex items-center space-x-2">
-                                    <div class="flex text-lg">
-                                        ${starsHtml}
-                                    </div>
-                                    <span class="text-sm font-medium text-gray-700">${rating}.0</span>
-                                </div>
-                            </div>
-                            <p class="text-gray-700">${comment || 'Sem comentário adicional.'}</p>
-                        </div>
-                    `;
-                    
-                    reviewsContainer.insertAdjacentHTML('afterbegin', newReviewHtml);
-                }
-                
-                // Função para gerar HTML das estrelas
-                function generateStarsHtml(rating) {
-                    let starsHtml = '';
-                    for (let i = 1; i <= 5; i++) {
-                        if (i <= rating) {
-                            starsHtml += '<i class="ph ph-star-fill text-yellow-400"></i>';
-                        } else {
-                            starsHtml += '<i class="ph ph-star text-gray-300"></i>';
-                        }
-                    }
-                    return starsHtml;
-                }
-                
-                // Função para atualizar estatísticas
-                function updateRatingStats() {
-                    const avgElement = document.querySelector('.text-4xl.font-bold');
-                    const countElement = document.querySelector('.text-gray-600');
-                    
-                    if (avgElement && countElement) {
-                        const currentCount = parseInt(countElement.textContent.match(/\d+/)[0]);
-                        const newCount = currentCount + 1;
-                        countElement.textContent = `${newCount} avaliações`;
-                    }
-                }
+                // Funções removidas: avaliações agora são apenas para uso administrativo
             }
             
             // Expor loginSystem globalmente para acesso em outras funções
